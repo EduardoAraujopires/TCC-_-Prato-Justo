@@ -46,9 +46,22 @@
          
     <div>
         <center><h1>Login</h1></center>
-        <input type="text" placeholder="Nome"><br><br>
-        <input type="password" placeholder="Senha"><br><br>
+        <form method="post"action="envia.php">
+        <label for="nome">Nome</label>
+        <input type="text" id="nome" name="nome"><br><br>
+
+        <label for="email">Email</label>
+        <input type="text" id="email" name="email" required title="Digite seu email nesse formato ex: seuemail@gmail.com"><br><br>
+
+        <label for="idade">Idade</label>
+        <input type="text" id="idade" name="idade" pattern="dd/MM/yyyy" required title="Digite sua data nesse formato dd/MM/yyyy"><br><br>
+
+        <h1>Cadastre uma senha</h1>
+        <label for="senha">Senha</label>
+        <input type="password" id="senha" name="senha"><br><br>
+
         <button>Enviar</button>
+    </form>
     </div>
 </body>
 </html>
