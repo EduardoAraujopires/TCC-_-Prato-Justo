@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <style>
+        body{
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-image: linear-gradient(30deg,rgb(75,0,130), rgb(178,34,34));
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .login-box{
+            background-color: rgba(0,0,0,0.85);
+            padding: 60px;
+            border-radius: 20px;
+            color: white;
+            text-align: center;
+            width: 350px;
+            box-shadow: 0px 8px 20px rgba(0,0,0,0.4);
+            position: relative;
+        }
+
+        /* Ícone temático */
+        .login-box::before{
+            content: "🍎";
+            font-size: 45px;
+            position: absolute;
+            top: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            background:  #0b69d4;
+            border-radius: 50%;
+            padding: 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+        }
+
+        h1{
+            margin-bottom: 20px;
+            color: #0b69d4;
+        }
+
+        label{
+            display: block;
+            text-align: left;
+            margin-top: 15px;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        input{
+            padding: 12px;
+            border: none;
+            outline: none;
+            font-size: 14px;
+            border-radius: 8px;
+            width: 100%;
+            margin-bottom: 10px;
+            background: #ecf0f1;
+        }
+
+        button{
+            background-color: dodgerblue;
+            border: none;
+            padding: 15px;
+            width: 100%;
+            border-radius: 12px;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            margin-top: 15px;
+            transition: 0.3s;
+        }
+
+        button:hover{
+            background-color: deepskyblue;
+            cursor:pointer;
+            transform: scale(1.05);
+        }
+
+        .footer{
+            margin-top: 15px;
+            font-size: 12px;
+            color: #bdc3c7;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-box">
+        <h1>Login</h1>
+        <form action="login.php" method="POST">
+            <label for="email">Email:</label>
+            <input type="email" name="email" placeholder="Digite seu email" required>
+
+            <label for="senha">Senha:</label>
+            <input type="password" name="senha" placeholder="Digite sua senha" required>
+
+            <button type="submit">Entrar</button>
+        </form>
+        <div >
+            <p>Não tem conta? <a href="index.html" style="color:#2ecc71;">Cadastre-se</a></p>
+        </div>
+    </div>
+</body>
+</html>
