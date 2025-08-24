@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -46,7 +46,7 @@
          
     <div>
         <center><h1>Login</h1></center>
-        <form method="post"action="envia.php">
+        <form method="POST"action="envia.php">
         <label for="nome">Nome</label>
         <input type="text" id="nome" name="nome"><br><br>
 
@@ -54,13 +54,17 @@
         <input type="text" id="email" name="email" required title="Digite seu email nesse formato ex: seuemail@gmail.com"><br><br>
 
         <label for="idade">Idade</label>
-        <input type="text" id="idade" name="idade" pattern="dd/MM/yyyy" required title="Digite sua data nesse formato dd/MM/yyyy"><br><br>
+        <input type="number" id="idade" name="idade"><br><br>
+
+        <label for="cpf">CPF</label>
+        <input type="text" id="cpf" name="cpf" pattern="\d{3}\.\d{3}\.\d{3}-\d{2}" title="Digite seu CPF nesse formato ex: 999.999.999.99"><br><br>
 
         <h1>Cadastre uma senha</h1>
         <label for="senha">Senha</label>
         <input type="password" id="senha" name="senha"><br><br>
-
         <button>Enviar</button>
+
+
     </form>
     </div>
 </body>
