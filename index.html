@@ -5,67 +5,122 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pagina de Login</title>
     <style>
-        body{
-            font-family:Arial, Helvetica, sans-serif ;
-            background-image: linear-gradient(30deg,rgb(75,0,130) , rgb(178,34,34));
-        }
-        div{
-            background-color: rgba(0,0, 0, 0.9);
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            padding: 80px;
-            border-radius: 15px;
-            color: white;
-        }
-        input{
-           padding: 15px;
-            border:none;
-            outline: none;
-            font-size: 15px; ;
-        }
-        button{
-            background-color: dodgerblue;
-            border: none;
-            padding: 15px;
-            width: 100%;
-            border-radius: 10px;
-            color: white;
-            font-size: 15px;
-        }
-        button:hover{
-            background-color: deepskyblue;
-            cursor:pointer;
-        }
+    body{
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background-image: linear-gradient(30deg,rgb(75,0,130), rgb(178,34,34)); /* cor original */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+    }
 
-        
-    </style>
+    div{
+        background-color: rgba(0,0,0,0.85);
+        padding: 60px;
+        border-radius: 20px;
+        color: white;
+        text-align: center;
+        width: 350px;
+        box-shadow: 0px 8px 20px rgba(0,0,0,0.4);
+        position: relative;
+    }
+
+    /* Ícone temático no topo */
+    div::before{
+        content: "🍎";
+        font-size: 45px;
+        position: absolute;
+        top: -25px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: #0b69d4; /* verde, remete a natureza */
+        border-radius: 50%;
+        padding: 10px;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+    }
+
+    h1, h2{
+        margin-bottom: 20px;
+        color: #0b69d4; /* destaque em amarelo fruta */
+    }
+
+    label{
+        display: block;
+        text-align: left;
+        margin-top: 15px;
+        margin-bottom: 5px;
+        font-weight: bold;
+    }
+
+    input{
+        padding: 12px;
+        border: none;
+        outline: none;
+        font-size: 14px;
+        border-radius: 8px;
+        width: 100%;
+        margin-bottom: 10px;
+        background: #ecf0f1;
+    }
+
+    button{
+        background-color: rgb(185, 24, 24); /* cor original do botão */
+        border: none;
+        padding: 15px;
+        width: 100%;
+        border-radius: 12px;
+        color: white;
+        font-size: 16px;
+        font-weight: bold;
+        margin-top: 15px;
+        transition: 0.3s;
+    }
+
+    button:hover{
+        background-color: 0 4px 10px rgba(0,0,0,0.4); /* cor original */
+        cursor:pointer;
+        transform: scale(1.05);
+    }
+
+    form{
+        width: 100%;
+    }
+
+    /* Pequeno detalhe no rodapé */
+    .footer{
+        margin-top: 15px;
+        font-size: 12px;
+        color: #bdc3c7;
+    }
+</style>
+
 </head>
 <body>
          
     <div>
         <center><h1>Login</h1></center>
         <form method="POST"action="envia.php">
-        <label for="nome">Nome</label>
+        <label for="nome">NOME:</label>
         <input type="text" id="nome" name="nome"><br><br>
 
-        <label for="email">Email</label>
+        <label for="email">EMAIL:</label>
         <input type="text" id="email" name="email" required title="Digite seu email nesse formato ex: seuemail@gmail.com"><br><br>
 
-        <label for="idade">Idade</label>
+        <label for="idade">IDADE:</label>
         <input type="number" id="idade" name="idade"><br><br>
 
-        <label for="cpf">CPF</label>
-        <input type="text" id="cpf" name="cpf" pattern="\d{3}\.\d{3}\.\d{3}-\d{2}" title="Digite seu CPF nesse formato ex: 999.999.999.99"><br><br>
+        <label for="cpf">CPF:</label>
+        <center><input type="text" id="cpf" name="cpf" pattern="\d{3}\.\d{3}\.\d{3}-\d{2}" title="Digite seu CPF nesse formato ex: 999.999.999.99"><br><br></center>
 
         <h1>Cadastre uma senha</h1>
-        <label for="senha">Senha</label>
+        <center><label for="senha">SENHA: </label></center>
         <input type="password" id="senha" name="senha"><br><br>
         <button>Enviar</button>
 
 
     </form>
     </div>
+   
 </body>
 </html>

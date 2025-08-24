@@ -13,7 +13,7 @@
     if(!$conexao){
         echo "Não conectado";
     }
-    echo "Conectado ao banco>>>>>>>>>>>>>>>";
+    echo "Conectado ao banco >>>";
     
     //recuperar e verificar já existe
     
@@ -26,6 +26,7 @@
     if(mysqli_num_rows($retorno) > 0){   
     
         echo "CPF JÁ CADASTRADO!! <br>";
+        echo "<a href = 'index.html'>Voltar</a>";
     
     }else{
         $cpf   = $_POST['cpf'];   
@@ -37,7 +38,13 @@
     
         $resultado = mysqli_query($conexao, $sql);
         echo ">>USUARIO CADASTRADO COM SUCESSO! <BR>";
+        echo "<a href = 'index.html'>Voltar</a>";
+        
     }
     ?>
 </body>
 </html>
+
+
+
+
