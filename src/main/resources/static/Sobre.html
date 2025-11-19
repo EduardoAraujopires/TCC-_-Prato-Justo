@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sobre Nós - Prato Justo</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <link rel="stylesheet" href="./Sobre.css">
+</head>
+<body>
+<!-- HEADER -->
+<header class="header modern-header" id="main-header">
+    <div class="container header-container">
+        <a href="index.html" class="logo" aria-label="Ir para página inicial">
+            <span class="logo-text">Prato Justo</span>
+        </a>
+
+        <nav class="nav-menu" id="nav-menu" role="navigation" aria-label="Menu principal">
+            <ul class="nav-links">
+                <li><a href="index.html" class="nav-link">Início</a></li>
+                <li class="dropdown" role="menuitem">
+                    <a href="#" class="nav-link dropdown-toggle" aria-expanded="false" aria-haspopup="true">
+                        Minhas Doações <i class="fas fa-chevron-down" aria-hidden="true"></i>
+                        <span class="notification-badge" id="donations-badge">3</span>
+                    </a>
+                    <ul class="dropdown-menu enhanced" role="menu">
+                        <li role="none">
+                            <a href="./solicitacoes.html" class="dropdown-item" role="menuitem">
+                                <i class="fas fa-list-check"></i>
+                                <div class="item-content">
+                                    <span class="item-title">Solicitações</span>
+                                    <span class="item-desc">Gerencie pedidos recebidos</span>
+                                </div>
+                                <span class="item-status pending">3 pendentes</span>
+                            </a>
+                        </li>
+                        <li role="none">
+                            <a href="cadastro_alimento.html" class="dropdown-item" role="menuitem">
+                                <i class="fas fa-plus-circle"></i>
+                                <div class="item-content">
+                                    <span class="item-title">Cadastrar</span>
+                                    <span class="item-desc">Adicione alimentos para doação</span>
+                                </div>
+                            </a>
+                        </li>
+                        <li role="none">
+                            <a href="chat.html" class="dropdown-item" role="menuitem">
+                                <i class="fas fa-comments"></i>
+                                <div class="item-content">
+                                    <span class="item-title">Chat</span>
+                                    <span class="item-desc">Comunicação direta</span>
+                                </div>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li><a href="./Como_Doar.html" class="nav-link">Como doar</a></li>
+                <li><a href="./porqueDoar.html" class="nav-link">Por que doar</a></li>
+                <li><a href="./Sobre.html" class="nav-link active" aria-current="page">Sobre</a></li>
+            </ul>
+        </nav>
+
+        <div class="header-buttons" id="header-actions">
+            <a href="./login.html" class="btn btn-outline">Entrar</a>
+            <a href="./cadastro_perfil.html" class="btn btn-primary">Cadastrar</a>
+        </div>
+
+        <button class="mobile-menu-btn" id="mobile-menu-btn" aria-label="Abrir menu mobile" aria-expanded="false">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+        </button>
+    </div>
+
+    <div class="mobile-overlay" id="mobile-overlay"></div>
+</header>
+
+<!-- CONTEÚDO PRINCIPAL -->
+<main>
+    <!-- Hero Section - Design Premium -->
+    <section class="sobre-hero">
+        <div class="hero-background">
+            <div class="floating-food-icons">
+                <i class="fas fa-apple-alt"></i>
+                <i class="fas fa-bread-slice"></i>
+                <i class="fas fa-carrot"></i>
+                <i class="fas fa-seedling"></i>
+                <i class="fas fa-lemon"></i>
+                <i class="fas fa-cheese"></i>
+            </div>
+            <div class="hero-overlay"></div>
+        </div>
+
+        <div class="container">
+            <div class="hero-centralizado">
+                <!-- Badge opcional -->
+                <div class="sobre-badge animate__animated animate__fadeInDown">
+                    <i class="fas fa-heart"></i>
+                    CONHECER NOSSA HISTÓRIA
+                </div>
+
+                <h1 class="hero-titulo animate__animated animate__fadeInUp">
+                    Cada Doação Salva Vidas e Transforma Realidades
+                </h1>
+
+                <p class="hero-subtitulo animate__animated animate__fadeInUp">
+                    <strong>33 milhões de brasileiros precisam da sua ajuda AGORA.</strong><br>
+                    Enquanto isso, <strong>125 mil toneladas de alimentos são desperdiçadas diariamente.</strong>
+                </p>
+
+                <div class="divisor"></div>
+
+                <div class="stats-grid">
+                    <div class="stat-item" data-animate>
+                        <div class="stat-number">5.000</div>
+                        <div class="stat-title">Famílias Transformadas</div>
+                        <div class="stat-description">Cada número representa vidas transformadas através da solidariedade</div>
+                    </div>
+
+                    <div class="stat-item" data-animate>
+                        <div class="stat-number">20.000</div>
+                        <div class="stat-title">Kg de Alimentos Resgatados</div>
+                        <div class="stat-description">Do desperdício para pratos cheios de esperança e dignidade</div>
+                    </div>
+
+                    <div class="stat-item" data-animate>
+                        <div class="stat-number">150</div>
+                        <div class="stat-title">Histórias Escritas</div>
+                        <div class="stat-description">Pessoas comuns fazendo o extraordinário acontecer todos os dias</div>
+                    </div>
+                </div>
+
+                <div class="divisor"></div>
+
+                <!-- Mensagem final -->
+                <div class="hero-message-premium animate__animated animate__fadeInUp">
+                    <div class="urgent-alert">
+                        <i class="fas fa-heart"></i>
+                        <span>Sua doação pode ser a refeição que falta na mesa de uma família hoje.</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="scroll-indicator-premium">
+            <div class="scroll-text">Conheça Nossa Missão</div>
+            <div class="scroll-arrow"></div>
+        </div>
+    </section>
+
+    <!-- Missão Section -->
+    <section class="missao-section-premium">
+        <div class="container">
+            <div class="section-header" data-animate>
+                <h2>Nossa <span class="highlight">Missão</span></h2>
+                <p>Conectando corações através da alimentação</p>
+            </div>
+
+            <div class="missao-content-premium" data-animate>
+                <div class="missao-text-premium">
+                    <h3>Transformando Excesso em Esperança</h3>
+                    <p>O <strong>Prato Justo</strong> nasceu da urgência em transformar realidades. Enquanto toneladas de alimentos são desperdiçadas diariamente, milhares de famílias enfrentam a insegurança alimentar.</p>
+                    <p>Nossa missão é fechar esse ciclo através da tecnologia e solidariedade, criando pontes que unem quem pode doar e quem precisa receber.</p>
+
+                    <div class="missao-destaque-premium">
+                        <p><strong>Acreditamos que cada alimento resgatado é uma vida transformada, e cada conexão feita é um passo em direção a um mundo mais justo e sustentável.</strong></p>
+                    </div>
+                </div>
+
+                <div class="missao-visual-premium">
+                    <div class="visual-card-premium">
+                        <div class="card-icon-premium">
+                            <i class="fas fa-bullseye"></i>
+                        </div>
+                        <h4>Propósito</h4>
+                        <p>Erradicar a fome através do combate ao desperdício alimentar</p>
+                    </div>
+
+                    <div class="visual-card-premium">
+                        <div class="card-icon-premium">
+                            <i class="fas fa-eye"></i>
+                        </div>
+                        <h4>Visão</h4>
+                        <p>Ser referência nacional em tecnologia social para segurança alimentar</p>
+                    </div>
+
+                    <div class="visual-card-premium">
+                        <div class="card-icon-premium">
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <h4>Valores</h4>
+                        <p>Solidariedade, Sustentabilidade, Transparência e Inovação</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Como Funciona Section -->
+    <section class="funciona-section-premium">
+        <div class="container">
+            <div class="section-header" data-animate>
+                <h2>Como <span class="highlight">Funciona</span></h2>
+                <p>Do cadastro à transformação social em 4 passos simples</p>
+            </div>
+
+            <div class="passos-grid-premium">
+                <div class="passo-card-premium" data-animate>
+                    <div class="passo-numero-premium">1</div>
+                    <div class="passo-icon-premium">
+                        <i class="fas fa-edit"></i>
+                    </div>
+                    <h3>Cadastro</h3>
+                    <p>Doadores cadastram alimentos disponíveis para doação em nossa plataforma</p>
+                </div>
+
+                <div class="passo-card-premium" data-animate>
+                    <div class="passo-numero-premium">2</div>
+                    <div class="passo-icon-premium">
+                        <i class="fas fa-search"></i>
+                    </div>
+                    <h3>Busca</h3>
+                    <p>Famílias e instituições encontram doações disponíveis em sua região</p>
+                </div>
+
+                <div class="passo-card-premium" data-animate>
+                    <div class="passo-numero-premium">3</div>
+                    <div class="passo-icon-premium">
+                        <i class="fas fa-handshake"></i>
+                    </div>
+                    <h3>Conexão</h3>
+                    <p>Nossa plataforma conecta doadores e receptores de forma segura</p>
+                </div>
+
+                <div class="passo-card-premium" data-animate>
+                    <div class="passo-numero-premium">4</div>
+                    <div class="passo-icon-premium">
+                        <i class="fas fa-truck"></i>
+                    </div>
+                    <h3>Entrega</h3>
+                    <p>Alimentos são entregues diretamente às famílias necessitadas</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Nossos Pilares -->
+    <section class="pilares-section-premium">
+        <div class="container">
+            <div class="section-header" data-animate>
+                <h2>Nossos <span class="highlight">Pilares</span></h2>
+                <p>Os fundamentos que sustentam nosso trabalho</p>
+            </div>
+
+            <div class="pilares-grid-premium">
+                <div class="pilar-card-premium" data-animate>
+                    <div class="pilar-icon-premium">
+                        <i class="fas fa-truck"></i>
+                    </div>
+                    <h3>Logística Inteligente</h3>
+                    <p>Sistema otimizado de coleta e distribuição que garante agilidade e eficiência no resgate de alimentos.</p>
+                    <ul class="pilar-features-premium">
+                        <li><i class="fas fa-check"></i> Rotas otimizadas</li>
+                        <li><i class="fas fa-check"></i> Coleta programada</li>
+                        <li><i class="fas fa-check"></i> Distribuição estratégica</li>
+                    </ul>
+                </div>
+
+                <div class="pilar-card-premium" data-animate>
+                    <div class="pilar-icon-premium">
+                        <i class="fas fa-leaf"></i>
+                    </div>
+                    <h3>Impacto Sustentável</h3>
+                    <p>Combate ao desperdício alimentar com responsabilidade ambiental e promoção do consumo consciente.</p>
+                    <ul class="pilar-features-premium">
+                        <li><i class="fas fa-check"></i> Redução de desperdício</li>
+                        <li><i class="fas fa-check"></i> Embalagens ecológicas</li>
+                        <li><i class="fas fa-check"></i> Educação ambiental</li>
+                    </ul>
+                </div>
+
+                <div class="pilar-card-premium" data-animate>
+                    <div class="pilar-icon-premium">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3>Rede Solidária</h3>
+                    <p>Comunidade ativa de doadores, voluntários e parceiros unidos pelo propósito comum de erradicar a fome.</p>
+                    <ul class="pilar-features-premium">
+                        <li><i class="fas fa-check"></i> Voluntários dedicados</li>
+                        <li><i class="fas fa-check"></i> Parcerias estratégicas</li>
+                        <li><i class="fas fa-check"></i> Comunidade engajada</li>
+                    </ul>
+                </div>
+
+                <div class="pilar-card-premium" data-animate>
+                    <div class="pilar-icon-premium">
+                        <i class="fas fa-laptop-code"></i>
+                    </div>
+                    <h3>Tecnologia Social</h3>
+                    <p>Plataforma digital acessível e intuitiva que facilita conexões significativas e amplifica o impacto social.</p>
+                    <ul class="pilar-features-premium">
+                        <li><i class="fas fa-check"></i> Plataforma digital</li>
+                        <li><i class="fas fa-check"></i> App mobile</li>
+                        <li><i class="fas fa-check"></i> Analytics em tempo real</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Timeline Section -->
+    <section class="timeline-section-premium">
+        <div class="container">
+            <div class="section-header" data-animate>
+                <h2>Nossa <span class="highlight">Jornada</span></h2>
+                <p>Da ideia à transformação social</p>
+            </div>
+
+            <div class="timeline-premium">
+                <div class="timeline-progress-premium"></div>
+                <div class="timeline-items-premium">
+                    <div class="timeline-item-premium" data-animate>
+                        <div class="timeline-year-premium">2020</div>
+                        <div class="timeline-content-premium">
+                            <h3>O Início</h3>
+                            <p>Nasceu a ideia de conectar doadores e receptores através da tecnologia, observando o desperdício alimentar e a fome coexistirem.</p>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item-premium" data-animate>
+                        <div class="timeline-year-premium">2021</div>
+                        <div class="timeline-content-premium">
+                            <h3>Primeiras Conexões</h3>
+                            <p>Primeiras 100 doações realizadas, impactando 50 famílias e resgatando 500kg de alimentos.</p>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item-premium" data-animate>
+                        <div class="timeline-year-premium">2022</div>
+                        <div class="timeline-content-premium">
+                            <h3>Expansão</h3>
+                            <p>Crescimento para 20 parceiros comerciais e 500 famílias beneficiadas mensalmente.</p>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item-premium" data-animate>
+                        <div class="timeline-year-premium">2023</div>
+                        <div class="timeline-content-premium">
+                            <h3>Consolidação</h3>
+                            <p>Plataforma digital lançada, otimizando processos e ampliando nosso alcance nacionalmente.</p>
+                        </div>
+                    </div>
+
+                    <div class="timeline-item-premium" data-animate>
+                        <div class="timeline-year-premium">2024</div>
+                        <div class="timeline-content-premium">
+                            <h3>Reconhecimento</h3>
+                            <p>Premiada como uma das melhores iniciativas de tecnologia social do país.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Equipe Section -->
+    <section class="equipe-section-premium">
+        <div class="container">
+            <div class="section-header" data-animate>
+                <h2>Nossa <span class="highlight">Equipe</span></h2>
+                <p>Os rostos por trás da transformação</p>
+            </div>
+
+            <div class="equipe-grid-premium">
+                <div class="membro-card-premium" data-animate>
+                    <div class="membro-foto-premium">
+                        <div class="membro-avatar-premium">
+                            <img src="./img/foto Gustavo.jpg" alt="Gustavo Araújo" onerror="this.src='https://via.placeholder.com/120x120/dc2626/ffffff?text=GA'">
+                        </div>
+                        <div class="membro-social-premium">
+                            <a target="_blank" href="https://www.linkedin.com/in/gustavo-araujo-504376378"><i class="fab fa-linkedin"></i></a>
+                            <a target="_blank" href="https://github.com/GustavoAraujoPires"><i class="fab fa-github"></i></a>
+                        </div>
+                    </div>
+                    <div class="membro-info-premium">
+                        <h3>Gustavo Araújo</h3>
+                        <p class="membro-cargo-premium">Desenvolvedor Back-end</p>
+                        <p class="membro-desc-premium">Cria e otimiza serviços back-end com alta eficiência.</p>
+                    </div>
+                </div>
+
+                <div class="membro-card-premium" data-animate>
+                    <div class="membro-foto-premium">
+                        <div class="membro-avatar-premium">
+                            <img src="./img/Foto Eduardo.jpg" alt="Eduardo Araújo" onerror="this.src='https://via.placeholder.com/120x120/dc2626/ffffff?text=EA'">
+                        </div>
+                        <div class="membro-social-premium">
+                            <a target="_blank" href="https://www.linkedin.com/in/eduardoaraujopires"><i class="fab fa-linkedin"></i></a>
+                            <a target="_blank" href="https://github.com/EduardoAraujopires"><i class="fab fa-github"></i></a>
+                        </div>
+                    </div>
+                    <div class="membro-info-premium">
+                        <h3>Eduardo Araújo</h3>
+                        <p class="membro-cargo-premium">Desenvolvedor Back-end</p>
+                        <p class="membro-desc-premium">Cria e otimiza serviços back-end com alta eficiência.</p>
+                    </div>
+                </div>
+
+                <div class="membro-card-premium" data-animate>
+                    <div class="membro-foto-premium">
+                        <div class="membro-avatar-premium">
+                            <img src="./img/Foto Felipe.jpg" alt="Felipe Oliveira" onerror="this.src='https://via.placeholder.com/120x120/dc2626/ffffff?text=FO'">
+                        </div>
+                        <div class="membro-social-premium">
+                            <a target="_blank" href="https://www.linkedin.com/in/felipe-gabriel-77aa92265/"><i class="fab fa-linkedin"></i></a>
+                            <a target="_blank" href="https://github.com/felpsgabas"><i class="fab fa-github"></i></a>
+                        </div>
+                    </div>
+                    <div class="membro-info-premium">
+                        <h3>Felipe Oliveira</h3>
+                        <p class="membro-cargo-premium">Desenvolvedor Front-end</p>
+                        <p class="membro-desc-premium">Transforma ideias em experiências visuais intuitivas e dinâmicas.</p>
+                    </div>
+                </div>
+
+                <div class="membro-card-premium" data-animate>
+                    <div class="membro-foto-premium">
+                        <div class="membro-avatar-premium">
+                            <img src="./img/Foto Rafael.jpg" alt="Rafael Adryan" onerror="this.src='https://via.placeholder.com/120x120/dc2626/ffffff?text=RA'">
+                        </div>
+                        <div class="membro-social-premium">
+                            <a target="_blank" href="https://www.linkedin.com/in/rafael-adryan/"><i class="fab fa-linkedin"></i></a>
+                            <a target="_blank" href=" https://github.com/Leafarture"><i class="fab fa-github"></i></a>
+                        </div>
+                    </div>
+                    <div class="membro-info-premium">
+                        <h3>Rafael Adryan</h3>
+                        <p class="membro-cargo-premium">Desenvolvedor Front-end</p>
+                        <p class="membro-desc-premium">Transforma ideias em experiências visuais intuitivas e dinâmicas.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section-premium">
+        <div class="container">
+            <div class="cta-content-premium" data-animate>
+                <h2>Junte-se à Nossa <span class="highlight">Missão</span></h2>
+                <p>Seja parte dessa transformação. Juntos, podemos escrever uma nova história onde nenhum prato fica vazio e nenhum alimento é desperdiçado.</p>
+
+                <div class="cta-buttons-premium">
+                    <a href="cadastro_alimento.html" class="btn-cta-primary require-auth">
+                        <i class="fas fa-hands-helping"></i>
+                        Quero Ajudar
+                    </a>
+                    <button class="btn-cta-secondary" id="sejaParceiroBtn">
+                        <i class="fas fa-building"></i>
+                        Seja Parceiro
+                    </button>
+                </div>
+
+                <div class="cta-footer-premium">
+                    <p><strong>Prato Justo - Conectando solidariedade, alimentando esperanças.</strong></p>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+<!-- Scripts -->
+<script src="./Sobre.js"></script>
+</body>
+</html>

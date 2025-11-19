@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Minhas Doações | Prato Justo</title>
+    <link rel="stylesheet" href="doacoes.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="./index.css">
+    <link rel="stylesheet" href="./header-styles.css">
+    <style>
+        .my-donations-header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 0;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .my-donations-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .my-donations-content h1 {
+            color: #667eea;
+            font-size: 1.8rem;
+            font-weight: 600;
+        }
+
+        .my-donations-content h1 i {
+            margin-right: 0.5rem;
+            color: #e74c3c;
+        }
+
+        .my-donations-actions {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        .stats-container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #667eea;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: #7f8c8d;
+            font-size: 0.9rem;
+        }
+
+        .donation-actions {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .btn-edit, .btn-delete {
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .btn-edit {
+            background: #3498db;
+            color: white;
+        }
+
+        .btn-edit:hover {
+            background: #2980b9;
+            transform: translateY(-2px);
+        }
+
+        .btn-delete {
+            background: #e74c3c;
+            color: white;
+        }
+
+        .btn-delete:hover {
+            background: #c0392b;
+            transform: translateY(-2px);
+        }
+
+        .auth-required {
+            text-align: center;
+            padding: 4rem 2rem;
+            color: white;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 20px;
+            margin: 2rem auto;
+            max-width: 600px;
+            box-shadow: 0 20px 40px rgba(102, 126, 234, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .auth-required::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transform: rotate(45deg);
+            animation: shimmer 3s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+        }
+
+        .auth-required-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .auth-required i {
+            font-size: 5rem;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(45deg, #ff6b6b, #feca57);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .auth-required h3 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .auth-required p {
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+            line-height: 1.6;
+        }
+
+        .btn-login-beautiful {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 1.25rem 2.5rem;
+            background: linear-gradient(45deg, #ff6b6b, #feca57);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 8px 25px rgba(255, 107, 107, 0.4);
+            position: relative;
+            overflow: hidden;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .btn-login-beautiful::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.6s;
+        }
+
+        .btn-login-beautiful:hover::before {
+            left: 100%;
+        }
+
+        .btn-login-beautiful:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 15px 35px rgba(255, 107, 107, 0.6);
+            background: linear-gradient(45deg, #ff5252, #ffeb3b);
+        }
+
+        .btn-login-beautiful:active {
+            transform: translateY(-1px) scale(1.02);
+        }
+
+        .btn-login-beautiful i {
+            font-size: 1.2rem;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-5px); }
+            60% { transform: translateY(-3px); }
+        }
+
+        .auth-features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .auth-feature {
+            text-align: center;
+            opacity: 0.8;
+        }
+
+        .auth-feature i {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            color: #feca57;
+        }
+
+        .auth-feature p {
+            font-size: 0.9rem;
+            margin: 0;
+        }
+        
+        body {
+            padding-top: 80px;
+        }
+    </style>
+</head>
+<body>
+<!-- Header -->
+<header class="header">
+    <nav class="nav">
+        <div class="nav-container">
+            <div class="logo">
+                
+                    <div class="logo-icon">
+                        <i class="fas fa-utensils"></i>
+                    </div>
+                    <h1>Prato Justo</h1>
+                
+            </div>
+
+            <ul class="nav-menu">
+                <li><a href="index.html" class="nav-link">Início</a></li>
+                <li><a href="doacoes.html" class="nav-link">Alimentos</a></li>
+                <li><a href="cadastro_alimento.html" class="nav-link">Cadastrar</a></li>
+                <li><a href="minhas-doacoes.html" class="nav-link active">Minhas Doações</a></li>
+                <li><a href="solicitacoes.html" class="nav-link">Solicitações</a></li>
+                <li><a href="./Sobre.html" class="nav-link">Sobre</a></li>
+            </ul>
+
+            <div class="header-actions" id="header-actions">
+                <!-- Será preenchido pelo sistema de autenticação -->
+            </div>
+        </div>
+    </nav>
+</header>
+
+    <div class="my-donations-header">
+        <div class="my-donations-content">
+            <h1><i class="fas fa-user-heart"></i> Minhas Doações</h1>
+            <div class="my-donations-actions" id="user-actions" style="display: none;">
+                <span id="user-name"></span>
+                <button id="logout-btn" class="btn-logout">Sair</button>
+                <a href="doacoes.html" class="btn-my-donations">Ver Todas</a>
+                <a href="cadastro_alimento.html" class="btn-add-donation">
+                    <i class="fas fa-plus"></i>
+                    Nova Doação
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div id="auth-required" class="auth-required" style="display: none;">
+        <div class="auth-required-content">
+            <i class="fas fa-lock"></i>
+            <h3>Login Necessário</h3>
+            <p>Você precisa estar logado para acessar suas doações e gerenciar seu perfil.</p>
+            <a href="login.html" class="btn-login-beautiful">
+                <i class="fas fa-sign-in-alt"></i>
+                Fazer Login
+            </a>
+            
+            <div class="auth-features">
+                <div class="auth-feature">
+                    <i class="fas fa-heart"></i>
+                    <p>Gerencie suas doações</p>
+                </div>
+                <div class="auth-feature">
+                    <i class="fas fa-chart-line"></i>
+                    <p>Acompanhe estatísticas</p>
+                </div>
+                <div class="auth-feature">
+                    <i class="fas fa-users"></i>
+                    <p>Conecte-se com a comunidade</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="authenticated-content" style="display: none;">
+        <div class="stats-container" id="stats-container">
+            <div class="stat-card">
+                <div class="stat-number" id="total-donations">0</div>
+                <div class="stat-label">Total de Doações</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="active-donations">0</div>
+                <div class="stat-label">Doações Ativas</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-number" id="total-quantity">0</div>
+                <div class="stat-label">Total (kg)</div>
+            </div>
+        </div>
+
+        <main class="main-content">
+            <div id="loading" class="loading">
+                <i class="fas fa-spinner fa-spin"></i> Carregando suas doações...
+            </div>
+            <div id="doacoes-container" class="doacoes-grid">
+            </div>
+            <div id="no-donations" class="no-donations" style="display: none;">
+                <i class="fas fa-heart"></i>
+                <h3>Nenhuma doação encontrada</h3>
+                <p>Você ainda não fez nenhuma doação. Que tal começar agora?</p>
+                <a href="cadastro_alimento.html" class="btn-add-donation">
+                    <i class="fas fa-plus"></i>
+                    Fazer Primeira Doação
+                </a>
+            </div>
+        </main>
+    </div>
+
+    <script src="auth.js"></script>
+    <script src="headerUser.js"></script>
+    <script src="minhas-doacoes.js"></script>
+</body>
+</html>

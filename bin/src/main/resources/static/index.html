@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prato Justo - Conectando Solidariedade</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="./index.css">
+    <link rel="stylesheet" href="./header-styles.css">
+</head>
+<body>
+<!-- Loading Screen -->
+<div class="loading-screen">
+    <div class="loading-spinner"></div>
+</div>
+
+<!-- Header -->
+<header class="header">
+    <nav class="nav">
+        <div class="nav-container">
+            <div class="logo">
+                <div class="logo-icon">
+                    <i class="fas fa-utensils"></i>
+                </div>
+                <h1>Prato Justo</h1>
+            </div>
+
+            <ul class="nav-menu">
+                <li><a href="index.html" class="nav-link active">Início</a></li>
+                <li><a href="doacoes.html" class="nav-link">Alimentos</a></li>
+                <li><a href="cadastro_alimento.html" class="nav-link">Cadastrar</a></li>
+                <li><a href="minhas-doacoes.html" class="nav-link">Minhas Doações</a></li>
+                <li><a href="solicitacoes.html" class="nav-link">Solicitações</a></li>
+                <li><a href="./Sobre.html" class="nav-link">Sobre</a></li>
+            </ul>
+
+            <div class="header-actions" id="header-actions">
+                <!-- Será preenchido pelo sistema de autenticação -->
+            </div>
+        </div>
+    </nav>
+</header>
+
+<!-- Hero Section -->
+<section id="home" class="hero">
+    <div class="hero-content">
+        <div class="hero-text">
+            <div class="badge">
+                <span><i class="fas fa-star"></i></span>
+                Plataforma de Doação de Alimentos
+            </div>
+
+            <h2 class="hero-title">
+                Transforme <span class="highlight">Excesso</span> em
+                <span class="highlight">Esperança</span>
+            </h2>
+
+            <p class="hero-description">
+                Conectamos doadores com comunidades carentes. Cada alimento doado
+                é um passo contra a fome e desperdício.
+            </p>
+
+            <div class="hero-buttons">
+                <a href="cadastro_alimento.html" class="btn btn-primary require-auth">
+                    <span class="btn-icon"><i class="fas fa-box"></i></span>
+                    Quero Doar
+                </a>
+                <a href="doacoes.html" class="btn btn-secondary">
+                    <span class="btn-icon"><i class="fas fa-hands-helping"></i></span>
+                    Ver Doações
+                </a>
+            </div>
+
+            <div class="donation-search-card">
+                <div class="search-header">
+                    <h3>Encontrar Doações</h3>
+                    <p>Busque alimentos disponíveis para doação</p>
+                </div>
+
+                <div class="search-tabs">
+                    <button class="tab-btn active" data-tab="filtros">Filtros</button>
+                    <button class="tab-btn" data-tab="cep">Por CEP</button>
+                    <button class="tab-btn" data-tab="proximas">Próximas</button>
+                </div>
+
+                <div class="search-content">
+                    <div class="tab-content active" id="filtros">
+                        <div class="search-row">
+                            <input id="homeSearchTipo" placeholder="Tipo de alimento (ex: frutas, verduras)" class="search-input"/>
+                            <input id="homeSearchCidade" placeholder="Cidade" class="search-input"/>
+                            <button id="homeBtnBuscar" class="btn btn-primary">Buscar</button>
+                        </div>
+                    </div>
+
+                    <div class="tab-content" id="cep">
+                        <div class="search-row">
+                            <input id="homeSearchCep" placeholder="Digite seu CEP" class="search-input"/>
+                            <button id="homeBtnCep" class="btn btn-primary">Buscar por CEP</button>
+                        </div>
+                    </div>
+
+                    <div class="tab-content" id="proximas">
+                        <div class="search-row">
+                            <button id="homeBtnPerto" class="btn btn-primary"><i class="fas fa-map-marker-alt"></i> Usar Minha Localização</button>
+                            <a href="cadastro_alimento.html" class="btn btn-outline require-auth"><i class="fas fa-plus"></i> Cadastrar Doação</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="hero-stats">
+                <div class="stat">
+                    <div class="stat-number" data-count="5000">5.000</div>
+                    <div class="stat-label">Kg Doados</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number" data-count="2000">2.000</div>
+                    <div class="stat-label">Famílias</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-number" data-count="50">50</div>
+                    <div class="stat-label">Parceiros</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="hero-visual">
+            <div class="floating-cards">
+                <div class="card card-1">
+                    <div class="card-content">
+                        <div class="card-icon"><i class="fas fa-apple-alt"></i></div>
+                        <h3>Alimentos Frescos</h3>
+                        <p>Frutas, verduras e legumes de qualidade</p>
+                    </div>
+                </div>
+                <div class="card card-2">
+                    <div class="card-content">
+                        <div class="card-icon"><i class="fas fa-truck"></i></div>
+                        <h3>Logística Eficiente</h3>
+                        <p>Entrega rápida e segura</p>
+                    </div>
+                </div>
+                <div class="card card-3">
+                    <div class="card-content">
+                        <div class="card-icon"><i class="fas fa-users"></i></div>
+                        <h3>Comunidade Ativa</h3>
+                        <p>Milhares de pessoas conectadas</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+    <div class="container">
+        <div class="footer-content">
+            <div class="footer-section">
+                <div class="footer-logo">
+                    <div class="logo-icon"><i class="fas fa-utensils"></i></div>
+                    <h3>Prato Justo</h3>
+                </div>
+                <p>Conectando solidariedade através da alimentação</p>
+                <div class="social-links">
+                    <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+
+            <div class="footer-section">
+                <h4>Links Rápidos</h4>
+                <ul>
+                    <li><a href="./index.html">Início</a></li>
+                    <li><a href="./Sobre.html">Sobre Nós</a></li>
+                    <li><a href="#como-doar">Como Doar</a></li>
+                    <li><a href="#impacto">Nosso Impacto</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h4>Recursos</h4>
+                <ul>
+                    <li><a href="#">Blog</a></li>
+                    <li><a href="#">Histórias</a></li>
+                    <li><a href="#">Parceiros</a></li>
+                    <li><a href="#">FAQ</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h4>Contato</h4>
+                <div class="contact-info">
+                    <p><i class="fas fa-envelope"></i> contato@pratojusto.org</p>
+                    <p><i class="fas fa-phone"></i> (11) 9999-9999</p>
+                    <p><i class="fas fa-map-marker-alt"></i> São Paulo, Brasil</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>&copy; 2025 Prato Justo. Todos os direitos reservados.</p>
+            <div class="footer-links">
+                <a href="#">Privacidade</a>
+                <a href="#">Termos</a>
+                <a href="#">Cookies</a>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- Scripts -->
+<script src="auth.js"></script>
+<script src="headerUser.js"></script>
+<script src="index.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Meu Perfil - Prato Justo</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="paginaUsuario.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="./index.css">
+    <link rel="stylesheet" href="./header-styles.css">
+</head>
+<body>
+<!-- Header -->
+<header class="header">
+    <nav class="nav">
+        <div class="nav-container">
+            <div class="logo">
+                <div class="logo-icon">
+                    <i class="fas fa-utensils"></i>
+                </div>
+                <h1>Prato Justo</h1>
+            </div>
+
+            <ul class="nav-menu">
+                <li><a href="index.html" class="nav-link">Início</a></li>
+                <li><a href="doacoes.html" class="nav-link">Alimentos</a></li>
+                <li><a href="cadastro_alimento.html" class="nav-link">Cadastrar</a></li>
+                <li><a href="minhas-doacoes.html" class="nav-link">Minhas Doações</a></li>
+                <li><a href="solicitacoes.html" class="nav-link">Solicitações</a></li>
+                <li><a href="./Sobre.html" class="nav-link">Sobre</a></li>
+            </ul>
+
+            <div class="header-actions" id="header-actions">
+                <!-- Será preenchido pelo sistema de autenticação -->
+            </div>
+        </div>
+    </nav>
+</header>
+
+    <main class="profile-container">
+        <!-- Seção de Informações Básicas -->
+        <section class="profile-header" role="banner" aria-label="Informações básicas do usuário">
+            <div class="profile-avatar-section">
+                <div class="avatar-container">
+                    <img id="user-avatar" src="" alt="Avatar do usuário" class="profile-avatar" style="display: none;" />
+                    <div id="user-avatar-placeholder" class="profile-avatar-placeholder">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <div class="avatar-overlay">
+                        <button class="btn-edit-avatar" aria-label="Alterar foto do perfil">
+                            <i class="fas fa-camera"></i>
+                        </button>
+                    </div>
+                    <div class="verification-badge" id="verification-badge" style="display: none;">
+                        <i class="fas fa-check-circle"></i>
+                        <span>Verificado</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="profile-info">
+                <div class="profile-name-section">
+                    <h1 id="profile-user-name" class="profile-name"></h1>
+                    <div class="user-type-badge" id="user-type-badge">
+                        <i class="fas fa-user"></i>
+                        <span id="user-type-text">Usuário</span>
+                    </div>
+                </div>
+                
+                <p id="user-description" class="profile-description">
+                    <i class="fas fa-quote-left"></i>
+                    <span id="description-text">Não informado</span>
+                </p>
+                
+                <div class="profile-stats">
+                    <div class="stat-item">
+                        <i class="fas fa-hand-holding-heart"></i>
+                        <span class="stat-number" id="total-donations">0</span>
+                        <span class="stat-label">Doações</span>
+                    </div>
+                    <div class="stat-item">
+                        <i class="fas fa-star"></i>
+                        <span class="stat-number" id="average-rating">0.0</span>
+                        <span class="stat-label">Avaliação Média</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="profile-actions">
+                <button class="btn-edit-profile" id="edit-profile-btn" aria-label="Editar perfil">
+                    <i class="fas fa-edit"></i>
+                    Editar Perfil
+                </button>
+            </div>
+        </section>
+
+        <!-- Grid de Cards de Informações -->
+        <div class="profile-cards-grid">
+            <!-- Card de Contatos -->
+            <article class="profile-card contact-card" tabindex="0" aria-label="Informações de contato">
+                <div class="card-header">
+                    <h3 class="card-title">
+                        <i class="fas fa-address-book"></i>
+                        Contatos
+                    </h3>
+                    <button class="btn-edit-card" data-card="contact" aria-label="Editar contatos">
+                        <i class="fas fa-edit"></i>
+                    </button>
+                </div>
+                <div class="card-content">
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <div class="contact-info">
+                            <span class="contact-label">Email</span>
+                            <span class="contact-value" id="contact-email">Não informado</span>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-phone"></i>
+                        <div class="contact-info">
+                            <span class="contact-label">Telefone</span>
+                            <span class="contact-value" id="contact-phone">Não informado</span>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-calendar-plus"></i>
+                        <div class="contact-info">
+                            <span class="contact-label">Membro desde</span>
+                            <span class="contact-value" id="member-since">Não informado</span>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Card de Endereço -->
+            <article class="profile-card address-card" tabindex="0" aria-label="Informações de endereço">
+                <div class="card-header">
+                    <h3 class="card-title">
+                        <i class="fas fa-map-marker-alt"></i>
+                        Endereço
+                    </h3>
+                    <button class="btn-edit-card" data-card="address" aria-label="Editar endereço">
+                        <i class="fas fa-edit"></i>
+                    </button>
+                </div>
+                <div class="card-content">
+                    <div class="address-item">
+                        <i class="fas fa-map"></i>
+                        <div class="address-info">
+                            <span class="address-label">Endereço</span>
+                            <span class="address-value" id="address-text">Não informado</span>
+                        </div>
+                    </div>
+                    <div class="address-item">
+                        <i class="fas fa-city"></i>
+                        <div class="address-info">
+                            <span class="address-label">Cidade</span>
+                            <span class="address-value" id="city-text">Não informado</span>
+                        </div>
+                    </div>
+                    <div class="address-item">
+                        <i class="fas fa-map-pin"></i>
+                        <div class="address-info">
+                            <span class="address-label">Localização</span>
+                            <span class="address-value" id="location-text">Não informado</span>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Card de Preferências -->
+            <article class="profile-card preferences-card" tabindex="0" aria-label="Preferências do usuário">
+                <div class="card-header">
+                    <h3 class="card-title">
+                        <i class="fas fa-cog"></i>
+                        Preferências
+                    </h3>
+                    <button class="btn-edit-card" data-card="preferences" aria-label="Editar preferências">
+                        <i class="fas fa-edit"></i>
+                    </button>
+                </div>
+                <div class="card-content">
+                    <div class="preference-item">
+                        <i class="fas fa-bell"></i>
+                        <div class="preference-info">
+                            <span class="preference-label">Notificações</span>
+                            <span class="preference-value" id="notifications-pref">Ativadas</span>
+                        </div>
+                    </div>
+                    <div class="preference-item">
+                        <i class="fas fa-language"></i>
+                        <div class="preference-info">
+                            <span class="preference-label">Idioma</span>
+                            <span class="preference-value" id="language-pref">Português</span>
+                        </div>
+                    </div>
+                    <div class="preference-item">
+                        <i class="fas fa-palette"></i>
+                        <div class="preference-info">
+                            <span class="preference-label">Tema</span>
+                            <span class="preference-value" id="theme-pref">Claro</span>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Card de Histórico de Doações -->
+            <article class="profile-card donations-card" tabindex="0" aria-label="Histórico de doações">
+                <div class="card-header">
+                    <h3 class="card-title">
+                        <i class="fas fa-history"></i>
+                        Histórico de Doações
+                    </h3>
+                    <button class="btn-view-all" data-section="donations" aria-label="Ver todas as doações">
+                        <i class="fas fa-external-link-alt"></i>
+                        Ver Todas
+                    </button>
+                </div>
+                <div class="card-content">
+                    <div class="donations-list" id="donations-list">
+                        <div class="loading-state">
+                            <i class="fas fa-spinner fa-spin"></i>
+                            <span>Carregando doações...</span>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Card de Avaliações -->
+            <article class="profile-card ratings-card" tabindex="0" aria-label="Avaliações recebidas">
+                <div class="card-header">
+                    <h3 class="card-title">
+                        <i class="fas fa-star"></i>
+                        Avaliações
+                    </h3>
+                    <button class="btn-view-all" data-section="ratings" aria-label="Ver todas as avaliações">
+                        <i class="fas fa-external-link-alt"></i>
+                        Ver Todas
+                    </button>
+                </div>
+                <div class="card-content">
+                    <div class="ratings-summary">
+                        <div class="rating-overview">
+                            <div class="rating-stars">
+                                <span class="rating-number" id="rating-average">0.0</span>
+                                <div class="stars-display" id="stars-display">
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                    <i class="fas fa-star"></i>
+                                </div>
+                            </div>
+                            <div class="rating-count">
+                                <span id="rating-count">0</span> avaliações
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ratings-list" id="ratings-list">
+                        <div class="loading-state">
+                            <i class="fas fa-spinner fa-spin"></i>
+                            <span>Carregando avaliações...</span>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Card de Estatísticas -->
+            <article class="profile-card stats-card" tabindex="0" aria-label="Estatísticas do usuário">
+                <div class="card-header">
+                    <h3 class="card-title">
+                        <i class="fas fa-chart-bar"></i>
+                        Estatísticas
+                    </h3>
+                </div>
+                <div class="card-content">
+                    <div class="stats-grid">
+                        <div class="stat-box">
+                            <div class="stat-icon">
+                                <i class="fas fa-heart"></i>
+                            </div>
+                            <div class="stat-info">
+                                <span class="stat-value" id="total-donations-stat">0</span>
+                                <span class="stat-label">Doações Realizadas</span>
+                            </div>
+                        </div>
+                        <div class="stat-box">
+                            <div class="stat-icon">
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <div class="stat-info">
+                                <span class="stat-value" id="average-rating-stat">0.0</span>
+                                <span class="stat-label">Avaliação Média</span>
+                            </div>
+                        </div>
+                        <div class="stat-box">
+                            <div class="stat-icon">
+                                <i class="fas fa-calendar-check"></i>
+                            </div>
+                            <div class="stat-info">
+                                <span class="stat-value" id="days-active">0</span>
+                                <span class="stat-label">Dias Ativo</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </article>
+        </div>
+    </main>
+
+    <!-- Modal de Edição de Perfil -->
+    <div id="edit-profile-modal" class="modal" role="dialog" aria-labelledby="modal-title" aria-hidden="true">
+        <div class="modal-overlay" id="modal-overlay"></div>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modal-title" class="modal-title">
+                    <i class="fas fa-user-edit"></i>
+                    Editar Perfil
+                </h2>
+                <button class="btn-close-modal" aria-label="Fechar modal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="edit-profile-form" class="edit-form">
+                    <!-- Seção de Foto de Perfil -->
+                    <div class="form-group-avatar">
+                        <label class="avatar-label">Foto de Perfil</label>
+                        <div class="avatar-upload-section">
+                            <div class="avatar-preview-container">
+                                <img id="edit-avatar-preview" src="" alt="Preview do avatar" class="avatar-preview" style="display: none;" />
+                                <div id="edit-avatar-placeholder" class="avatar-preview-placeholder">
+                                    <i class="fas fa-user"></i>
+                                </div>
+                                <div class="avatar-upload-overlay">
+                                    <i class="fas fa-camera"></i>
+                                    <span>Alterar Foto</span>
+                                </div>
+                            </div>
+                            <input type="file" id="avatar-upload" name="avatar" accept="image/*" style="display: none;">
+                            <button type="button" class="btn-upload-avatar">
+                                <i class="fas fa-upload"></i>
+                                Escolher Foto
+                            </button>
+                            <p class="avatar-hint">JPG, PNG ou GIF (máx. 5MB)</p>
+                        </div>
+                    </div>
+
+                    <div class="form-divider"></div>
+
+                    <!-- Informações Pessoais -->
+                    <div class="form-group">
+                        <label for="edit-name">
+                            <i class="fas fa-user"></i>
+                            Nome Completo
+                        </label>
+                        <input type="text" id="edit-name" name="name" required placeholder="Digite seu nome completo">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="edit-email">
+                            <i class="fas fa-envelope"></i>
+                            Email
+                        </label>
+                        <input type="email" id="edit-email" name="email" required placeholder="seu@email.com">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="edit-phone">
+                            <i class="fas fa-phone"></i>
+                            Telefone
+                        </label>
+                        <input type="tel" id="edit-phone" name="phone" placeholder="(00) 00000-0000">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="edit-description">
+                            <i class="fas fa-align-left"></i>
+                            Descrição
+                        </label>
+                        <textarea id="edit-description" name="description" rows="3" placeholder="Conte um pouco sobre você..."></textarea>
+                    </div>
+
+                    <div class="form-divider"></div>
+
+                    <!-- Endereço -->
+                    <div class="form-section-title">
+                        <i class="fas fa-map-marker-alt"></i>
+                        Endereço
+                    </div>
+
+                    <div class="form-group">
+                        <label for="edit-address">
+                            <i class="fas fa-road"></i>
+                            Rua
+                        </label>
+                        <input type="text" id="edit-address" name="address" placeholder="Rua, Número, Complemento">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="edit-city">
+                            <i class="fas fa-city"></i>
+                            Cidade
+                        </label>
+                        <input type="text" id="edit-city" name="city" placeholder="Sua cidade">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn-cancel">
+                    <i class="fas fa-times"></i>
+                    Cancelar
+                </button>
+                <button type="submit" form="edit-profile-form" class="btn-save">
+                    <i class="fas fa-check"></i>
+                    Salvar Alterações
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="auth.js"></script>
+    <script src="headerUser.js"></script>
+    <script src="paginaUsuario.js"></script>
+</body>
+</html>

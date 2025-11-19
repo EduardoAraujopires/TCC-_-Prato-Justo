@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alimentos Disponíveis | Prato Justo</title>
+    <link rel="stylesheet" href="doacoes.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="./index.css">
+    <link rel="stylesheet" href="./header-styles.css">
+</head>
+<body>
+<!-- Header -->
+<header class="header">
+    <nav class="nav">
+        <div class="nav-container">
+            <div class="logo">
+                <div class="logo-icon">
+                    <i class="fas fa-utensils"></i>
+                </div>
+                <h1>Prato Justo</h1>
+            </div>
+
+            <ul class="nav-menu">
+                <li><a href="index.html" class="nav-link">Início</a></li>
+                <li><a href="doacoes.html" class="nav-link active">Alimentos</a></li>
+                <li><a href="cadastro_alimento.html" class="nav-link">Cadastrar</a></li>
+                <li><a href="minhas-doacoes.html" class="nav-link">Minhas Doações</a></li>
+                <li><a href="solicitacoes.html" class="nav-link">Solicitações</a></li>
+                <li><a href="./Sobre.html" class="nav-link">Sobre</a></li>
+            </ul>
+
+            <div class="header-actions" id="header-actions">
+                <!-- Será preenchido pelo sistema de autenticação -->
+            </div>
+        </div>
+    </nav>
+</header>
+    
+    <!-- Hero Section com Filtros -->
+    <section class="hero-filters">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <h1 class="hero-title">Alimentos <span class="highlight">Disponíveis</span></h1>
+                    <p class="hero-description">Encontre doações de alimentos frescos na sua região</p>
+                </div>
+                
+                <div class="filters-card">
+                    <div class="filters-header">
+                        <h3><i class="fas fa-filter"></i> Filtros de Busca</h3>
+                        <p>Encontre exatamente o que você precisa</p>
+                    </div>
+                    
+                    <div class="filter-group">
+                        <div class="filter-field">
+                            <label for="filter-city">
+                                <i class="fas fa-map-marker-alt"></i>
+                                Cidade
+                            </label>
+                            <input type="text" id="filter-city" placeholder="Digite sua cidade...">
+                        </div>
+                        
+                        <div class="filter-field">
+                            <label for="filter-type">
+                                <i class="fas fa-apple-alt"></i>
+                                Tipo de Alimento
+                            </label>
+                            <input type="text" id="filter-type" placeholder="Ex: frutas, verduras...">
+                        </div>
+                        
+                        <div class="filter-actions">
+                            <button id="filter-btn" class="btn btn-primary">
+                                <i class="fas fa-search"></i>
+                                Filtrar
+                            </button>
+                            <button id="clear-filters" class="btn btn-secondary">
+                                <i class="fas fa-times"></i>
+                                Limpar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <main class="main-content">
+        <div id="loading" class="loading">
+            <i class="fas fa-spinner fa-spin"></i> Carregando doações...
+        </div>
+        <div id="doacoes-container" class="doacoes-grid">
+        </div>
+        <div id="no-donations" class="no-donations" style="display: none;">
+            <i class="fas fa-search"></i>
+            <h3>Nenhuma doação encontrada</h3>
+            <p>Tente ajustar os filtros ou volte mais tarde.</p>
+        </div>
+    </main>
+
+    <div class="floating-btn">
+        <a href="cadastro_alimento.html" class="btn-add-donation">
+            <i class="fas fa-plus"></i>
+            <span>Fazer Doação</span>
+        </a>
+    </div>
+
+    <script src="notification.js"></script>
+    <script src="realtime-manager.js"></script>
+    <script src="auth.js"></script>
+    <script src="headerUser.js"></script>
+    <script src="doacoes.js"></script>
+</body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Login - Prato Justo">
+    <title>Login | Prato Justo</title>
+    <link rel="stylesheet" href="./login.css">
+    <link rel="stylesheet" href="./header-styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+<main class="page">
+    <header class="brand">
+        <div class="brand__logo" aria-hidden="true">🍽️</div>
+        <h1 class="brand__title">Prato Justo</h1>
+    </header>
+
+    <section class="card" aria-labelledby="login-title">
+        <h2 id="login-title" class="card__title">Login</h2>
+        
+        <form id="loginForm">
+            <div class="field">
+                <label for="email">E-mail</label>
+                <input type="email" id="email" placeholder="voce@exemplo.com" required>
+            </div>
+            
+            <div class="field">
+                <label for="password">Senha</label>
+                <div class="password-wrapper">
+                    <input type="password" id="password" placeholder="Sua senha" required>
+                    <button type="button" class="password-toggle" id="togglePassword" aria-label="Mostrar senha">
+                        <i class="fas fa-eye"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <button type="submit" class="btn btn--primary">Entrar</button>
+        </form>
+        
+        <p class="hint">Não tem conta? <a href="./cadastro_perfil.html" class="link">Cadastre-se</a></p>
+    </section>
+
+    <footer class="footer">
+        <small>© <span id="ano"></span> Prato Justo. Todos os direitos reservados.</small>
+    </footer>
+</main>
+
+<script src="auth.js"></script>
+<script src="./login.js"></script>
+</body>
+</html>

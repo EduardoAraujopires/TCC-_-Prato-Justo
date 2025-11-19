@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastrar Doação | Prato Justo</title>
+    <link rel="stylesheet" href="./index.css">
+    <link rel="stylesheet" href="cadastro_alimento.css">
+    <link rel="stylesheet" href="notification.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="./header-styles.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin=""/>
+</head>
+<body>
+<header class="header">
+    <nav class="nav">
+        <div class="nav-container">
+            <div class="logo">
+                <div class="logo-icon"><i class="fas fa-utensils"></i></div>
+                <h1>Prato Justo</h1>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="index.html" class="nav-link">Início</a></li>
+                <li><a href="doacoes.html" class="nav-link">Alimentos</a></li>
+                <li><a href="cadastro_alimento.html" class="nav-link active">Cadastrar</a></li>
+                <li><a href="minhas-doacoes.html" class="nav-link">Minhas Doações</a></li>
+                <li><a href="solicitacoes.html" class="nav-link">Solicitações</a></li>
+                <li><a href="./Sobre.html" class="nav-link">Sobre</a></li>
+            </ul>
+            <div class="header-actions" id="header-actions">
+                </div>
+        </div>
+    </nav>
+</header>
+
+<main class="main-content">
+    <div class="container">
+        <header class="section-header">
+            <h2 class="section-title">
+                <i class="fas fa-plus-circle"></i> Cadastrar Alimento para Doação
+            </h2>
+            <p class="section-subtitle">Preencha os campos abaixo para disponibilizar seu alimento de forma segura e rápida.</p>
+        </header>
+
+        <form class="donation-form" id="donationForm" novalidate>
+            <div class="form-grid">
+                <div class="form-card basic-info-card">
+                    <h3>1. Detalhes Essenciais <span class="required-badge">Obrigatório</span></h3>
+                    
+                    <div class="form-group">
+                        <label for="foodName">Nome do Alimento *</label>
+                        <input type="text" id="foodName" name="foodName" placeholder="Ex: Arroz, Pães do dia, Cesta de Frutas" list="food-suggestions" required>
+                        <datalist id="food-suggestions">
+                            <option value="Arroz e Feijão">
+                            <option value="Pães e Laticínios">
+                            <option value="Frutas e Verduras Frescas">
+                            <option value="Enlatados">
+                        </datalist>
+                        <p class="help-text"><i class="fas fa-info-circle"></i> Título visível para quem busca.</p>
+                        <p class="error-message" id="error-foodName"></p>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="foodType">Tipo / Categoria *</label>
+                        <select id="foodType" name="foodType" required>
+                            <option value="">Selecione a categoria</option>
+                            <option value="INDUSTRIALIZADO">Industrializado / Não Perecível</option>
+                            <option value="COZIDO">Refeição Pronta / Cozido</option>
+                            <option value="CRU">Grão / Cru / Matéria-prima</option>
+                            <option value="FRUTAS_VERDURAS">Frutas, Verduras e Legumes</option>
+                            <option value="LATICINIOS">Laticínios e Derivados</option>
+                            <option value="BEBIDAS">Bebidas (Não alcoólicas)</option>
+                        </select>
+                        <p class="error-message" id="error-foodType"></p>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="description">Descrição Detalhada *</label>
+                        <textarea id="description" name="description" rows="3" placeholder="Ex: Fresco, embalagem fechada, validade até o final da semana."></textarea>
+                        <p class="error-message" id="error-description"></p>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group half-width">
+                            <label for="quantity">Quantidade *</label>
+                            <input type="number" id="quantity" name="quantity" min="0.1" step="0.1" placeholder="Ex: 5" required>
+                            <p class="error-message" id="error-quantity"></p>
+                        </div>
+                        <div class="form-group half-width">
+                            <label for="unit">Unidade *</label>
+                            <select id="unit" name="unit" required>
+                                <option value="KG">Quilogramas (KG)</option>
+                                <option value="UN">Unidades (UN)</option>
+                                <option value="L">Litros (L)</option>
+                            </select>
+                            <p class="error-message" id="error-unit"></p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-card time-conservation-card">
+                    <h3>2. Prazos e Condições <span class="required-badge">Obrigatório</span></h3>
+
+                    <div class="form-group">
+                        <label for="conservation">Condições de Conservação *</label>
+                        <select id="conservation" name="conservation" required>
+                            <option value="">Selecione</option>
+                            <option value="AMBIENTE">Temperatura Ambiente (Não Perecível)</option>
+                            <option value="REFRIGERADO">Refrigerado (Geladeira)</option>
+                            <option value="CONGELADO">Congelado (Freezer)</option>
+                        </select>
+                        <p class="error-message" id="error-conservation"></p>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="expiryDate">Data de Validade (Melhor Consumo) *</label>
+                        <input type="date" id="expiryDate" name="expiryDate" required>
+                        <p class="help-text"><i class="fas fa-calendar-alt"></i> Data final para consumo seguro (deve ser posterior a hoje).</p>
+                        <p class="error-message" id="error-expiryDate"></p>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="collectionDate">Data de Coleta/Disponibilidade *</label>
+                        <input type="date" id="collectionDate" name="collectionDate" required>
+                        <p class="help-text"><i class="fas fa-clock"></i> Dia que o alimento estará pronto para retirada (hoje ou depois).</p>
+                        <p class="error-message" id="error-collectionDate"></p>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="cep">CEP *</label>
+                        <div class="cep-input-group">
+                            <input type="text" id="cep" name="cep" placeholder="00000-000" maxlength="9" required>
+                            <button type="button" id="searchCepBtn" class="btn-search-cep" title="Buscar endereço pelo CEP">
+                                <i class="fas fa-search"></i>
+                            </button>
+                        </div>
+                        <p class="error-message" id="error-cep"></p>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group half-width">
+                            <label for="street">Rua *</label>
+                            <input type="text" id="street" name="street" placeholder="Nome da rua" required>
+                            <p class="error-message" id="error-street"></p>
+                        </div>
+                        <div class="form-group half-width">
+                            <label for="number">Número *</label>
+                            <input type="text" id="number" name="number" placeholder="123" required>
+                            <p class="error-message" id="error-number"></p>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group half-width">
+                            <label for="city">Cidade *</label>
+                            <input type="text" id="city" name="city" placeholder="Nome da cidade" required>
+                            <p class="error-message" id="error-city"></p>
+                        </div>
+                        <div class="form-group half-width">
+                            <label for="state">Estado *</label>
+                            <input type="text" id="state" name="state" placeholder="UF" maxlength="2" required>
+                            <p class="error-message" id="error-state"></p>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="complement">Complemento</label>
+                        <input type="text" id="complement" name="complement" placeholder="Apartamento, bloco, etc. (opcional)">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="address">Endereço Completo (Gerado automaticamente)</label>
+                        <div class="address-input-group">
+                            <input type="text" id="address" name="address" placeholder="Endereço será preenchido automaticamente" readonly>
+                            <button type="button" id="getLocationBtn" class="btn-location" title="Usar Geolocalização">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </button>
+                        </div>
+                        <p class="location-status-text" id="locationStatus">Localização não detectada.</p>
+                        <input type="hidden" id="lat" name="lat">
+                        <input type="hidden" id="lng" name="lng">
+                        <p class="error-message" id="error-address"></p>
+                    </div>
+                </div>
+
+                <div class="form-card multimedia-optional-card">
+                    <h3>3. Mídia e Detalhes Adicionais</h3>
+
+                    <div class="form-group">
+                        <label for="foodPhoto">Foto do Alimento *</label>
+                        <input type="file" id="foodPhoto" name="foodPhoto" accept="image/*" required>
+                        <div class="photo-preview-container">
+                            <i class="fas fa-image"></i>
+                            <img id="photoPreview" src="#" alt="Pré-visualização da foto" style="display: none;">
+                        </div>
+                        <p class="help-text"><i class="fas fa-camera"></i> Ajuda a validar o estado do produto.</p>
+                        <p class="error-message" id="error-foodPhoto"></p>
+                    </div>
+
+                    <div class="optional-details">
+                        <button type="button" id="toggleOptional" class="btn-toggle">
+                            <i class="fas fa-chevron-down"></i> Mostrar Mais Detalhes (Opcional)
+                        </button>
+                        <div id="optionalContent" class="optional-content hidden">
+                            <div class="form-group">
+                                <label for="restrictions">Restrições Alimentares / Alergias</label>
+                                <textarea id="restrictions" name="restrictions" rows="2" placeholder="Ex: Contém glúten, isento de lactose."></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="donationTarget">Destino Preferencial da Doação (Opcional)</label>
+                                <select id="donationTarget" name="donationTarget">
+                                    <option value="QUALQUER">Qualquer Receptor/ONG</option>
+                                    <option value="ONG_A">ONG Amor e Vida</option>
+                                    <option value="ONG_B">Projeto Esperança</option>
+                                    <option value="PESSOA_X">Pessoa X (Beneficiário Cadastrado)</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="homeMeasure">Medida Caseira de Referência</label>
+                                <input type="text" id="homeMeasure" name="homeMeasure" placeholder="Ex: 5 sacos de 1kg, 10 embalagens fechadas.">
+                                <p class="help-text">Informação extra para facilitar a logística.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-footer">
+                <div class="terms-group">
+                    <input type="checkbox" id="terms" name="terms" required>
+                    <label for="terms">
+                        Li e aceito as **Boas Práticas de Segurança Alimentar** e a Lei nº 14.016/2020. *
+                    </label>
+                </div>
+                <p class="error-message" id="error-terms"></p>
+                
+                <button type="submit" class="btn-submit" id="btnSubmit">
+                    <i class="fas fa-heart"></i>
+                    Cadastrar Alimento para Doação
+                </button>
+            </div>
+        </form>
+    </div>
+</main>
+
+<script src="notification.js"></script> 
+<script src="realtime-manager.js"></script>
+<script src="auth.js"></script> 
+<script src="headerUser.js"></script> 
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+<script src="cadastro_alimento.js"></script>
+</body>
+</html>

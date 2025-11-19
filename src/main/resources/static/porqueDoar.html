@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Por Que Doar - Prato Justo</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+    <link rel="stylesheet" href="./index.css">
+    <link rel="stylesheet" href="./porqueDoar.css">
+    <link rel="stylesheet" href="./header-styles.css">
+    <style>
+        body {
+            padding-top: 80px;
+        }
+    </style>
+</head>
+<body>
+<!-- HEADER -->
+<header class="header old-style" id="main-header">
+    <div class="container header-container">
+        <a href="index.html" class="logo" aria-label="Ir para página inicial">
+            <span class="logo-text">Prato Justo</span>
+        </a>
+
+        <nav class="nav-menu" id="nav-menu" role="navigation" aria-label="Menu principal">
+            <ul class="nav-links">
+                <li><a href="index.html" class="nav-link">Início</a></li>
+                <li class="dropdown" role="menuitem">
+                    <a href="#" class="nav-link dropdown-toggle" aria-expanded="false" aria-haspopup="true">
+                        Minhas Doações <i class="fas fa-chevron-down" aria-hidden="true"></i>
+                        <span class="notification-badge" id="donations-badge" style="display: none;">3</span>
+                    </a>
+                    <ul class="dropdown-menu enhanced" role="menu">
+                        <li role="none">
+                            <a href="./solicitacoes.html" class="dropdown-item" role="menuitem">
+                                <i class="fas fa-list-check"></i>
+                                <div class="item-content">
+                                    <span class="item-title">Solicitações</span>
+                                    <span class="item-desc">Gerencie pedidos recebidos</span>
+                                </div>
+                                <span class="item-status pending">3 pendentes</span>
+                            </a>
+                        </li>
+                        <li role="none">
+                            <a href="cadastro_alimento.html" class="dropdown-item" role="menuitem">
+                                <i class="fas fa-plus-circle"></i>
+                                <div class="item-content">
+                                    <span class="item-title">Cadastrar</span>
+                                    <span class="item-desc">Adicione alimentos para doação</span>
+                                </div>
+                            </a>
+                        </li>
+                        <li role="none">
+                            <a href="chat.html" class="dropdown-item" role="menuitem">
+                                <i class="fas fa-comments"></i>
+                                <div class="item-content">
+                                    <span class="item-title">Chat</span>
+                                    <span class="item-desc">Comunicação direta</span>
+                                </div>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li><a href="Como_Doar.html" class="nav-link">Como doar</a></li>
+                <li><a href="porqueDoar.html" class="nav-link active" aria-current="page">Por que doar</a></li>
+                <li><a href="Sobre.html" class="nav-link">Sobre</a></li>
+            </ul>
+        </nav>
+
+        <div class="header-buttons" id="header-actions">
+            <a href="login.html" class="btn btn-outline">Entrar</a>
+            <a href="./cadastro_perfil.html" class="btn btn-primary">Cadastrar</a>
+        </div>
+
+        <button class="mobile-menu-btn" id="mobile-menu-btn" aria-label="Abrir menu mobile" aria-expanded="false">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+        </button>
+    </div>
+
+    <div class="mobile-overlay" id="mobile-overlay"></div>
+</header>
+
+<!-- CONTEÚDO PRINCIPAL -->
+<main>
+    <!-- Seção Hero - COMPLETAMENTE REPROJETADA -->
+    <section class="porque-doar-hero">
+        <div class="hero-background">
+            <!-- Efeito de frutas/flores caindo igual à seção de urgência -->
+            <div class="floating-food-icons">
+                <i class="fas fa-apple-alt"></i>
+                <i class="fas fa-bread-slice"></i>
+                <i class="fas fa-carrot"></i>
+                <i class="fas fa-seedling"></i>
+                <i class="fas fa-lemon"></i>
+                <i class="fas fa-cheese"></i>
+                <i class="fas fa-egg"></i>
+                <i class="fas fa-fish"></i>
+                <i class="fas fa-pepper-hot"></i>
+                <i class="fas fa-wine-bottle"></i>
+            </div>
+            <div class="hero-overlay"></div>
+        </div>
+
+        <div class="container">
+            <div class="hero-content-wrapper">
+                <!-- Badge de impacto imediato -->
+                <div class="impact-badge animate__animated animate__fadeInDown">
+                    <span><i class="fas fa-bolt"></i></span>
+                    IMPACTO IMEDIATO
+                </div>
+
+                <!-- Título principal mais impactante -->
+                <h1 class="hero-title animate__animated animate__fadeInUp">
+                    Cada Doação <span class="highlight">Salva Vidas</span> e<br>
+                    <span class="highlight">Transforma</span> Realidades
+                </h1>
+
+                <!-- Subtítulo emocional -->
+                <p class="hero-subtitle animate__animated animate__fadeInUp">
+                    <strong>33 milhões de brasileiros</strong> precisam da sua ajuda AGORA.<br>
+                    Enquanto isso, <strong>125 mil toneladas de alimentos</strong> são desperdiçadas diariamente.
+                </p>
+
+                <!-- Mensagem de urgência -->
+                <div class="hero-urgent-message animate__animated animate__fadeInUp">
+                    <div class="urgent-alert">
+                        <i class="fas fa-exclamation-triangle"></i>
+                        <span>Sua doação pode ser a refeição que falta na mesa de uma família hoje</span>
+                    </div>
+                </div>
+
+                <!-- Estatísticas com design igual à seção de urgência -->
+                <div class="hero-stats-premium">
+                    <div class="hero-stat-card" data-animate>
+                        <div class="stat-icon">
+                            <i class="fas fa-home"></i>
+                        </div>
+                        <div class="stat-number" data-count="5000">0</div>
+                        <div class="stat-label">Famílias Resgatadas da Fome</div>
+                        <div class="stat-description">Cada número representa vidas transformadas</div>
+                    </div>
+
+                    <div class="hero-stat-card" data-animate>
+                        <div class="stat-icon">
+                            <i class="fas fa-utensils"></i>
+                        </div>
+                        <div class="stat-number" data-count="20000">0</div>
+                        <div class="stat-label">Kg de Alimentos que Viraram Esperança</div>
+                        <div class="stat-description">Do desperdício para pratos cheios</div>
+                    </div>
+
+                    <div class="hero-stat-card" data-animate>
+                        <div class="stat-icon">
+                            <i class="fas fa-hands-helping"></i>
+                        </div>
+                        <div class="stat-number" data-count="150">0</div>
+                        <div class="stat-label">Heróis Anônimos</div>
+                        <div class="stat-description">Pessoas comuns fazendo o extraordinário</div>
+                    </div>
+                </div>
+
+                <!-- Call to Action emocional -->
+                <div class="hero-cta-premium animate__animated animate__fadeInUp">
+                    <div class="cta-message">
+                        <i class="fas fa-heart"></i>
+                        <span><strong>5 minutos do seu tempo</strong> podem significar <strong>7 dias de comida</strong> para uma família</span>
+                    </div>
+                    <div class="cta-buttons-hero">
+                        <a href="cadastro_alimento.html" class="btn btn-hero-primary require-auth">
+                            <i class="fas fa-hand-holding-heart"></i>
+                            Quero Salvar Vidas Agora
+                        </a>
+                        <a href="#urgencia" class="btn btn-hero-secondary">
+                            <i class="fas fa-chart-bar"></i>
+                            Ver a Crise Detalhada
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Scroll Indicator melhorado -->
+        <div class="scroll-indicator-premium">
+            <div class="scroll-text">Descubra o Impacto Real</div>
+            <div class="scroll-arrow"></div>
+        </div>
+    </section>
+
+    <!-- Seção Urgência da Fome - SUPER MELHORADA -->
+    <section class="urgency-section" id="urgencia">
+        <div class="urgency-background">
+            <div class="floating-food-icons">
+                <i class="fas fa-apple-alt"></i>
+                <i class="fas fa-bread-slice"></i>
+                <i class="fas fa-carrot"></i>
+                <i class="fas fa-cheese"></i>
+                <i class="fas fa-drumstick-bite"></i>
+                <i class="fas fa-fish"></i>
+                <i class="fas fa-egg"></i>
+                <i class="fas fa-wine-bottle"></i>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="section-header" data-reveal>
+                <div class="urgency-badge">⚠️ ALERTA NACIONAL</div>
+                <h2><span class="highlight">A Crise</span> da Fome no Brasil</h2>
+                <p>Números que mostram por que sua ajuda é <strong>urgente e necessária</strong></p>
+            </div>
+
+            <!-- Timeline Interativa -->
+            <div class="urgency-timeline" data-reveal>
+                <div class="timeline-progress"></div>
+                <div class="timeline-items">
+                    <div class="timeline-item active" data-step="1">
+                        <div class="timeline-marker">
+                            <i class="fas fa-exclamation-triangle"></i>
+                        </div>
+                        <div class="timeline-content">
+                            <h3>33 MILHÕES</h3>
+                            <p>de brasileiros passam fome todos os dias</p>
+                            <div class="timeline-stats">
+                                <span>Equivale à população do Chile</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="timeline-item" data-step="2">
+                        <div class="timeline-marker">
+                            <i class="fas fa-trash"></i>
+                        </div>
+                        <div class="timeline-content">
+                            <h3>125 MIL TONELADAS</h3>
+                            <p>de comida desperdiçadas por dia</p>
+                            <div class="timeline-stats">
+                                <span>Encheria 50 caminhões de lixo</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="timeline-item" data-step="3">
+                        <div class="timeline-marker">
+                            <i class="fas fa-home"></i>
+                        </div>
+                        <div class="timeline-content">
+                            <h3>60% DOS LARES</h3>
+                            <p>com insegurança alimentar</p>
+                            <div class="timeline-stats">
+                                <span>6 em cada 10 famílias afetadas</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Comparação Visual Impactante -->
+            <div class="comparison-grid" data-reveal>
+                <div class="comparison-card waste-card">
+                    <div class="comparison-header">
+                        <i class="fas fa-trash"></i>
+                        <h3>Desperdício</h3>
+                    </div>
+                    <div class="comparison-content">
+                        <div class="waste-animation">
+                            <div class="food-item" style="--delay: 0s">🍎</div>
+                            <div class="food-item" style="--delay: 0.5s">🥖</div>
+                            <div class="food-item" style="--delay: 1s">🥦</div>
+                            <div class="trash-bin">🗑️</div>
+                        </div>
+                        <p><strong>125 mil toneladas</strong> de alimentos vão para o lixo DIARIAMENTE</p>
+                    </div>
+                </div>
+
+                <div class="comparison-vs">
+                    <div class="vs-circle">VS</div>
+                </div>
+
+                <div class="comparison-card hunger-card">
+                    <div class="comparison-header">
+                        <i class="fas fa-utensils"></i>
+                        <h3>Fome</h3>
+                    </div>
+                    <div class="comparison-content">
+                        <div class="hunger-animation">
+                            <div class="person" style="--delay: 0s">👨‍👩‍👧‍👦</div>
+                            <div class="person" style="--delay: 0.3s">👵</div>
+                            <div class="person" style="--delay: 0.6s">👶</div>
+                            <div class="empty-plate">🍽️</div>
+                        </div>
+                        <p><strong>33 milhões</strong> de pessoas sem comida suficiente</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Cards de Impacto Imediato -->
+            <div class="immediate-impact" data-reveal>
+                <h3 class="impact-title">Seu Impacto Imediato</h3>
+                <div class="impact-cards">
+                    <div class="impact-immediate-card">
+                        <div class="impact-icon">
+                            <i class="fas fa-people-carry"></i>
+                        </div>
+                        <div class="impact-content">
+                            <h4>1 Cesta Básica</h4>
+                            <p>Alimenta uma família de 4 pessoas por 1 semana</p>
+                            <div class="impact-meter">
+                                <div class="meter-fill" style="width: 100%"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="impact-immediate-card">
+                        <div class="impact-icon">
+                            <i class="fas fa-recycle"></i>
+                        </div>
+                        <div class="impact-content">
+                            <h4>Redução de Desperdício</h4>
+                            <p>Cada kg doado é 1 kg a menos no lixo</p>
+                            <div class="impact-meter">
+                                <div class="meter-fill" style="width: 100%"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="impact-immediate-card">
+                        <div class="impact-icon">
+                            <i class="fas fa-heart"></i>
+                        </div>
+                        <div class="impact-content">
+                            <h4>Vidas Transformadas</h4>
+                            <p>Crianças podem se desenvolver com dignidade</p>
+                            <div class="impact-meter">
+                                <div class="meter-fill" style="width: 100%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Call to Action Urgente -->
+            <div class="urgency-cta" data-reveal>
+                <div class="urgency-message">
+                    <div class="message-icon">
+                        <i class="fas fa-hand-holding-heart"></i>
+                    </div>
+                    <div class="message-content">
+                        <h3>"Enquanto toneladas de alimentos são desperdiçadas, milhões de brasileiros não têm certeza se terão sua próxima refeição."</h3>
+                        <p class="urgency-highlight"><strong>Sua doação pode equilibrar esta equação AGORA</strong></p>
+                    </div>
+                </div>
+                <button class="urgency-btn pulse-urgent" id="urgencyDonateBtn">
+                    <i class="fas fa-bolt"></i>
+                    Doar Agora - Emergência
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Seção de Benefícios - SUPER PREMIUM -->
+    <section class="benefits-section-premium">
+        <div class="benefits-background">
+            <div class="floating-food-icons">
+                <i class="fas fa-apple-alt"></i>
+                <i class="fas fa-bread-slice"></i>
+                <i class="fas fa-carrot"></i>
+                <i class="fas fa-seedling"></i>
+                <i class="fas fa-lemon"></i>
+                <i class="fas fa-cheese"></i>
+                <i class="fas fa-egg"></i>
+                <i class="fas fa-fish"></i>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="section-header" data-animate>
+                <div class="benefits-badge">
+                    <i class="fas fa-star"></i>
+                    IMPACTO MULTIPLO
+                </div>
+                <h2>Benefícios de <span class="highlight">Doar</span></h2>
+                <p>Descubra como sua doação cria uma <strong>cadeia positiva</strong> de transformação</p>
+            </div>
+
+            <!-- Timeline Interativa de Benefícios -->
+            <div class="benefits-timeline" data-reveal>
+                <div class="timeline-progress-benefits"></div>
+                <div class="timeline-steps">
+                    <div class="timeline-step active" data-step="1">
+                        <div class="step-marker">
+                            <i class="fas fa-hand-holding-heart"></i>
+                        </div>
+                        <div class="step-content">
+                            <h3>Sua Doação</h3>
+                            <p>Alimentos que seriam desperdiçados</p>
+                        </div>
+                    </div>
+                    <div class="timeline-step" data-step="2">
+                        <div class="step-marker">
+                            <i class="fas fa-truck"></i>
+                        </div>
+                        <div class="step-content">
+                            <h3>Distribuição</h3>
+                            <p>Coleta e entrega eficiente</p>
+                        </div>
+                    </div>
+                    <div class="timeline-step" data-step="3">
+                        <div class="step-marker">
+                            <i class="fas fa-home"></i>
+                        </div>
+                        <div class="step-content">
+                            <h3>Famílias</h3>
+                            <p>Pratos cheios de esperança</p>
+                        </div>
+                    </div>
+                    <div class="timeline-step" data-step="4">
+                        <div class="step-marker">
+                            <i class="fas fa-globe-americas"></i>
+                        </div>
+                        <div class="step-content">
+                            <h3>Impacto Global</h3>
+                            <p>Comunidade mais sustentável</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Grid de Benefícios Interativo -->
+            <div class="benefits-grid-premium">
+                <!-- Card 1 - Impacto Social -->
+                <div class="benefit-card-premium" data-category="social">
+                    <div class="benefit-card-inner">
+                        <div class="benefit-card-front">
+                            <div class="benefit-icon-premium">
+                                <i class="fas fa-heart"></i>
+                                <div class="icon-pulse"></div>
+                            </div>
+                            <h3>Impacto Social</h3>
+                            <p>Transforme vidas e construa comunidades mais fortes</p>
+                            <div class="benefit-badge">Clique para explorar</div>
+                        </div>
+                        <div class="benefit-card-back">
+                            <h4>🎯 Impacto Imediato</h4>
+                            <ul>
+                                <li><i class="fas fa-check"></i> Combate direto à fome</li>
+                                <li><i class="fas fa-check"></i> Ajuda comunitária</li>
+                                <li><i class="fas fa-check"></i> Redução da desigualdade</li>
+                                <li><i class="fas fa-check"></i> Fortalecimento de laços</li>
+                            </ul>
+                            <div class="impact-stats">
+                                <div class="impact-stat">
+                                    <span class="stat-number" data-count="5000">0</span>
+                                    <span class="stat-label">Famílias Impactadas</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 2 - Benefícios Ambientais -->
+                <div class="benefit-card-premium" data-category="environmental">
+                    <div class="benefit-card-inner">
+                        <div class="benefit-card-front">
+                            <div class="benefit-icon-premium">
+                                <i class="fas fa-leaf"></i>
+                                <div class="icon-pulse"></div>
+                            </div>
+                            <h3>Impacto Ambiental</h3>
+                            <p>Reduza o desperdício e preserve nosso planeta</p>
+                            <div class="benefit-badge">Clique para explorar</div>
+                        </div>
+                        <div class="benefit-card-back">
+                            <h4>🌱 Sustentabilidade</h4>
+                            <ul>
+                                <li><i class="fas fa-check"></i> Redução de lixo orgânico</li>
+                                <li><i class="fas fa-check"></i> Menos emissão de metano</li>
+                                <li><i class="fas fa-check"></i> Conservação de recursos</li>
+                                <li><i class="fas fa-check"></i> Economia circular</li>
+                            </ul>
+                            <div class="impact-stats">
+                                <div class="impact-stat">
+                                    <span class="stat-number" data-count="125000">0</span>
+                                    <span class="stat-label">Toneladas Salvas</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 3 - Benefícios Econômicos -->
+                <div class="benefit-card-premium" data-category="economic">
+                    <div class="benefit-card-inner">
+                        <div class="benefit-card-front">
+                            <div class="benefit-icon-premium">
+                                <i class="fas fa-chart-line"></i>
+                                <div class="icon-pulse"></div>
+                            </div>
+                            <h3>Impacto Econômico</h3>
+                            <p>Gere economia e eficiência no sistema alimentar</p>
+                            <div class="benefit-badge">Clique para explorar</div>
+                        </div>
+                        <div class="benefit-card-back">
+                            <h4>💸 Economia Inteligente</h4>
+                            <ul>
+                                <li><i class="fas fa-check"></i> Redução de custos com lixo</li>
+                                <li><i class="fas fa-check"></i> Otimização de recursos</li>
+                                <li><i class="fas fa-check"></i> Geração de empregos verdes</li>
+                                <li><i class="fas fa-check"></i> Economia para famílias</li>
+                            </ul>
+                            <div class="impact-stats">
+                                <div class="impact-stat">
+                                    <span class="stat-number" data-count="100">0</span>
+                                    <span class="stat-label">Milhões Economizados</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 4 - Benefícios Pessoais -->
+                <div class="benefit-card-premium" data-category="personal">
+                    <div class="benefit-card-inner">
+                        <div class="benefit-card-front">
+                            <div class="benefit-icon-premium">
+                                <i class="fas fa-user-plus"></i>
+                                <div class="icon-pulse"></div>
+                            </div>
+                            <h3>Impacto Pessoal</h3>
+                            <p>Experimente a satisfação de fazer a diferença</p>
+                            <div class="benefit-badge">Clique para explorar</div>
+                        </div>
+                        <div class="benefit-card-back">
+                            <h4>😊 Bem-Estar e Realização</h4>
+                            <ul>
+                                <li><i class="fas fa-check"></i> Sensação de propósito</li>
+                                <li><i class="fas fa-check"></i> Conexão com a comunidade</li>
+                                <li><i class="fas fa-check"></i> Exemplo para outros</li>
+                                <li><i class="fas fa-check"></i> Legado positivo</li>
+                            </ul>
+                            <div class="impact-stats">
+                                <div class="impact-stat">
+                                    <span class="stat-number" data-count="98">0</span>
+                                    <span class="stat-label">% Satisfação</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Calculadora de Impacto Interativa -->
+            <div class="impact-calculator" data-reveal>
+                <div class="calculator-header">
+                    <h3>📊 Calculadora de Impacto</h3>
+                    <p>Veja o poder transformador da sua doação</p>
+                </div>
+                <div class="calculator-controls">
+                    <div class="input-group">
+                        <label for="donationAmount">Quantidade de Alimentos (kg):</label>
+                        <input type="range" id="donationAmount" min="1" max="100" value="10">
+                        <span id="amountValue">10 kg</span>
+                    </div>
+                </div>
+                <div class="calculator-results">
+                    <div class="result-card">
+                        <div class="result-icon">👨‍👩‍👧‍👦</div>
+                        <div class="result-info">
+                            <span class="result-number" id="familiesFed">3</span>
+                            <span class="result-label">Famílias Alimentadas</span>
+                        </div>
+                    </div>
+                    <div class="result-card">
+                        <div class="result-icon">🌍</div>
+                        <div class="result-info">
+                            <span class="result-number" id="co2Saved">15</span>
+                            <span class="result-label">kg CO₂ Economizados</span>
+                        </div>
+                    </div>
+                    <div class="result-card">
+                        <div class="result-icon">💧</div>
+                        <div class="result-info">
+                            <span class="result-number" id="waterSaved">1000</span>
+                            <span class="result-label">Litros de Água Preservados</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Estatísticas em Tempo Real -->
+            <div class="live-stats" data-reveal>
+                <h3>📈 Impacto em Tempo Real</h3>
+                <div class="stats-grid">
+                    <div class="live-stat-card">
+                        <div class="live-stat-icon">
+                            <i class="fas fa-utensils"></i>
+                        </div>
+                        <div class="live-stat-content">
+                            <div class="live-stat-number" data-live-count="25478">0</div>
+                            <div class="live-stat-label">Refeições Distribuídas Hoje</div>
+                            <div class="live-stat-trend">
+                                <i class="fas fa-arrow-up"></i>
+                                <span>+12% desde ontem</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="live-stat-card">
+                        <div class="live-stat-icon">
+                            <i class="fas fa-recycle"></i>
+                        </div>
+                        <div class="live-stat-content">
+                            <div class="live-stat-number" data-live-count="15632">0</div>
+                            <div class="live-stat-label">kg de Alimentos Resgatados</div>
+                            <div class="live-stat-trend">
+                                <i class="fas fa-arrow-up"></i>
+                                <span>+8% esta semana</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="live-stat-card">
+                        <div class="live-stat-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <div class="live-stat-content">
+                            <div class="live-stat-number" data-live-count="892">0</div>
+                            <div class="live-stat-label">Doadores Ativos Agora</div>
+                            <div class="live-stat-trend">
+                                <i class="fas fa-arrow-up"></i>
+                                <span>+23 novos hoje</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Call to Action Final -->
+            <div class="benefits-cta" data-reveal>
+                <div class="cta-content">
+                    <h3>Pronto para Multiplicar seu Impacto?</h3>
+                    <p>Cada doação cria um <strong>efeito dominó</strong> de transformação positiva</p>
+                    <div class="cta-buttons-benefits">
+                        <button class="btn-benefit-primary" id="startDonatingBtn">
+                            <i class="fas fa-rocket"></i>
+                            Começar a Doar Agora
+                        </button>
+                        <button class="btn-benefit-secondary" id="learnMoreBtn">
+                            <i class="fas fa-play-circle"></i>
+                            Ver Histórias de Impacto
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Restante das seções mantidas do código anterior -->
+    <!-- ... -->
+
+</main>
+
+<!-- FOOTER -->
+<footer class="footer">
+    <!-- Footer mantido do código anterior -->
+</footer>
+
+<!-- Modal de Doação Rápida -->
+<div id="donationModal" class="modal">
+    <div class="modal-content">
+        <span class="close-modal">&times;</span>
+        <div class="modal-header">
+            <h3><i class="fas fa-bolt"></i> Doação de Emergência</h3>
+            <p>Sua ajuda é urgente para famílias necessitadas</p>
+        </div>
+        <div class="modal-body">
+            <div class="donation-options">
+                <div class="donation-option active" data-value="basic">
+                    <div class="option-icon">🛒</div>
+                    <h4>Cesta Básica</h4>
+                    <p>Alimenta 1 família por 1 semana</p>
+                    <div class="option-badge">Mais Popular</div>
+                </div>
+                <div class="donation-option" data-value="medium">
+                    <div class="option-icon">🏠</div>
+                    <h4>Kit Família</h4>
+                    <p>Alimenta 2 famílias por 1 semana</p>
+                </div>
+                <div class="donation-option" data-value="large">
+                    <div class="option-icon">👨‍👩‍👧‍👦</div>
+                    <h4>Super Doação</h4>
+                    <p>Alimenta 5 famílias por 1 semana</p>
+                </div>
+            </div>
+            <div class="donation-action">
+                <button class="btn-confirm-donation">
+                    <i class="fas fa-hand-holding-heart"></i>
+                    Confirmar Doação
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Scripts -->
+<script src="auth.js"></script>
+<script src="headerUser.js"></script>
+<script src="index.js"></script>
+<script src="porqueDoar.js"></script>
+</body>
+</html>

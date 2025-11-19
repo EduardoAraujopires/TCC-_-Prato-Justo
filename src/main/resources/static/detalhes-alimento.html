@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalhes do Alimento | Prato Justo</title>
+    <link rel="stylesheet" href="detalhes-alimento.css">
+    <link rel="stylesheet" href="header-styles.css">
+    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav">
+            <div class="nav-container">
+                <div class="logo">
+                    <div class="logo-icon">
+                        <i class="fas fa-utensils"></i>
+                    </div>
+                    <h1>Prato Justo</h1>
+                </div>
+
+                <ul class="nav-menu">
+                    <li><a href="index.html" class="nav-link">Início</a></li>
+                    <li><a href="doacoes.html" class="nav-link">Alimentos</a></li>
+                    <li><a href="cadastro_alimento.html" class="nav-link">Cadastrar</a></li>
+                    <li><a href="minhas-doacoes.html" class="nav-link">Minhas Doações</a></li>
+                    <li><a href="solicitacoes.html" class="nav-link">Solicitações</a></li>
+                    <li><a href="./Sobre.html" class="nav-link">Sobre</a></li>
+                </ul>
+
+                <div class="header-actions" id="header-actions">
+                    <!-- Será preenchido pelo sistema de autenticação -->
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Loading State -->
+    <div id="loading" class="loading-container">
+        <div class="loading-spinner">
+            <i class="fas fa-spinner fa-spin"></i>
+            <p>Carregando detalhes...</p>
+        </div>
+    </div>
+
+    <!-- Error State -->
+    <div id="error-container" class="error-container" style="display: none;">
+        <div class="error-content">
+            <i class="fas fa-exclamation-circle"></i>
+            <h2>Erro ao carregar detalhes</h2>
+            <p id="error-message"></p>
+            <a href="doacoes.html" class="btn-back">
+                <i class="fas fa-arrow-left"></i> Voltar para Alimentos
+            </a>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main id="main-content" class="main-container" style="display: none;">
+        <!-- Back Button -->
+        <div class="back-button-container">
+            <a href="doacoes.html" class="back-button">
+                <i class="fas fa-arrow-left"></i>
+                <span>Voltar para Alimentos</span>
+            </a>
+        </div>
+
+        <!-- Product Details Container -->
+        <div class="details-container">
+            <!-- Left Column: Image and Gallery -->
+            <div class="image-section">
+                <div class="main-image-container">
+                    <img id="main-image" src="" alt="Imagem do alimento" class="main-image">
+                    <div id="status-badge" class="status-badge"></div>
+                </div>
+                
+                <!-- Placeholder para galeria futura -->
+                <div class="image-gallery" id="image-gallery" style="display: none;">
+                    <!-- Galeria de imagens será adicionada aqui -->
+                </div>
+            </div>
+
+            <!-- Right Column: Information -->
+            <div class="info-section">
+                <!-- Título e Tipo -->
+                <div class="product-header">
+                    <div class="product-type" id="product-type"></div>
+                    <h1 class="product-title" id="product-title"></h1>
+                </div>
+
+                <!-- Descrição -->
+                <div class="product-description">
+                    <h3><i class="fas fa-align-left"></i> Descrição</h3>
+                    <p id="product-description"></p>
+                </div>
+
+                <!-- Detalhes do Alimento -->
+                <div class="product-details-grid">
+                    <div class="detail-card">
+                        <i class="fas fa-balance-scale"></i>
+                        <div class="detail-content">
+                            <label>Quantidade</label>
+                            <span id="product-quantity"></span>
+                        </div>
+                    </div>
+
+                    <div class="detail-card">
+                        <i class="fas fa-calendar-alt"></i>
+                        <div class="detail-content">
+                            <label>Validade</label>
+                            <span id="product-validade"></span>
+                        </div>
+                    </div>
+
+                    <div class="detail-card">
+                        <i class="fas fa-clock"></i>
+                        <div class="detail-content">
+                            <label>Tempo Restante</label>
+                            <span id="product-tempo"></span>
+                        </div>
+                    </div>
+
+                    <div class="detail-card" id="coleta-card" style="display: none;">
+                        <i class="fas fa-calendar-check"></i>
+                        <div class="detail-content">
+                            <label>Data de Coleta</label>
+                            <span id="product-coleta"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Localização -->
+                <div class="location-section">
+                    <h3><i class="fas fa-map-marker-alt"></i> Localização</h3>
+                    <div class="location-details">
+                        <div class="location-info">
+                            <p class="location-address" id="location-address"></p>
+                            <p class="location-city" id="location-city"></p>
+                        </div>
+                        <div id="map-container" class="map-container" style="display: none;">
+                            <!-- Mapa será inserido aqui -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Informações do Doador -->
+                <div class="donor-section">
+                    <h3><i class="fas fa-user-circle"></i> Informações do Doador</h3>
+                    <div class="donor-card">
+                        <div class="donor-avatar" id="donor-avatar">
+                            <img id="donor-avatar-img" src="" alt="Avatar do doador" class="donor-avatar-img" style="display: none;">
+                            <div id="donor-avatar-placeholder" class="donor-avatar-placeholder">
+                                <i class="fas fa-user"></i>
+                            </div>
+                        </div>
+                        <div class="donor-info">
+                            <p class="donor-name" id="donor-name"></p>
+                            <p class="donor-type" id="donor-type"></p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Botões de Ação -->
+                <div class="action-buttons">
+                    <button id="btn-solicitar" class="btn btn-primary">
+                        <i class="fas fa-hand-holding-heart"></i>
+                        Solicitar Doação
+                    </button>
+                    <button id="btn-contato" class="btn btn-secondary" style="display: none;">
+                        <i class="fas fa-comments"></i>
+                        Entrar em Contato
+                    </button>
+                    <button id="btn-compartilhar" class="btn btn-outline">
+                        <i class="fas fa-share-alt"></i>
+                        Compartilhar
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Informações Adicionais -->
+        <div class="additional-info">
+            <!-- Condições de Conservação -->
+            <div class="info-card" id="conservation-card" style="display: none;">
+                <div class="info-header">
+                    <i class="fas fa-snowflake"></i>
+                    <h3>Condições de Conservação</h3>
+                </div>
+                <div class="info-content" id="conservation-content">
+                    <!-- Será preenchido dinamicamente -->
+                </div>
+            </div>
+
+            <!-- Restrições e Alergênicos -->
+            <div class="info-card" id="restrictions-card" style="display: none;">
+                <div class="info-header">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <h3>Restrições e Alergênicos</h3>
+                </div>
+                <div class="info-content" id="restrictions-content">
+                    <!-- Será preenchido dinamicamente -->
+                </div>
+            </div>
+
+            <!-- Regras e Recomendações -->
+            <div class="info-card rules-card">
+                <div class="info-header">
+                    <i class="fas fa-info-circle"></i>
+                    <h3>Regras e Boas Práticas</h3>
+                </div>
+                <div class="info-content">
+                    <ul class="rules-list">
+                        <li><i class="fas fa-check-circle"></i> Verifique sempre a validade do alimento antes de consumir</li>
+                        <li><i class="fas fa-check-circle"></i> Respeite as condições de conservação indicadas</li>
+                        <li><i class="fas fa-check-circle"></i> Entre em contato com o doador para combinar a retirada</li>
+                        <li><i class="fas fa-check-circle"></i> Confirme o recebimento após a coleta</li>
+                        <li><i class="fas fa-check-circle"></i> Em caso de alimentos perecíveis, retire o mais rápido possível</li>
+                        <li><i class="fas fa-check-circle"></i> Relate qualquer problema com a doação</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Avaliações e Comentários -->
+        <div class="reviews-section" id="reviews-section">
+            <div class="reviews-header">
+                <h3><i class="fas fa-star"></i> Avaliações</h3>
+                <div class="reviews-summary" id="reviews-summary">
+                    <!-- Resumo das avaliações -->
+                </div>
+            </div>
+            <div class="reviews-list" id="reviews-list">
+                <!-- Lista de avaliações -->
+            </div>
+        </div>
+    </main>
+
+    <!-- Modal de Confirmação de Solicitação -->
+    <div id="modal-solicitar" class="modal">
+        <div class="modal-content">
+            <span class="modal-close" id="modal-close">&times;</span>
+            <h2><i class="fas fa-hand-holding-heart"></i> Confirmar Solicitação</h2>
+            <p>Você tem certeza que deseja solicitar esta doação?</p>
+            <div class="modal-product-info">
+                <img id="modal-image" src="" alt="">
+                <div>
+                    <h4 id="modal-title"></h4>
+                    <p id="modal-donor"></p>
+                </div>
+            </div>
+            <div class="modal-actions">
+                <button id="btn-confirmar" class="btn btn-primary">
+                    <i class="fas fa-check"></i> Confirmar Solicitação
+                </button>
+                <button id="btn-cancelar" class="btn btn-secondary">
+                    <i class="fas fa-times"></i> Cancelar
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="notification.js"></script>
+    <script src="auth.js"></script>
+    <script src="headerUser.js"></script>
+    <script src="realtime-manager.js"></script>
+    <script src="detalhes-alimento.js"></script>
+</body>
+</html>
+

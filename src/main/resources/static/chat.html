@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Prato Justo - Chat</title>
+	<link rel="stylesheet" href="./chat.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+	<div class="app-container">
+		<!-- Sidebar com lista de conversas -->
+		<div class="sidebar" id="sidebar">
+			<div class="sidebar-header">
+				<h1>Prato Justo</h1>
+				<button class="theme-toggle" id="themeToggle" aria-label="Alternar tema">
+					<i class="fas fa-moon"></i>
+				</button>
+			</div>
+			<div class="search-container">
+				<div class="search-box">
+					<i class="fas fa-search"></i>
+					<input type="text" placeholder="Buscar conversas..." aria-label="Buscar conversas">
+				</div>
+			</div>
+			<div class="chats-list" id="chatsList">
+				<!-- Lista de conversas será preenchida via JavaScript -->
+			</div>
+		</div>
+
+		<!-- Área principal do chat -->
+		<div class="chat-area">
+			<div class="chat-header" id="chatHeader">
+				<div class="chat-contact">
+					<button class="menu-toggle" id="menuToggle" aria-label="Abrir menu">
+						<i class="fas fa-bars"></i>
+					</button>
+					<div class="contact-avatar" id="contactAvatar"></div>
+					<div class="contact-info">
+						<h2 id="contactName">Selecione uma conversa</h2>
+						<div class="contact-status" id="contactStatus">
+							<span class="status-offline" style="display: none;"></span>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="messages-container" id="messagesContainer">
+				<!-- Mensagens serão preenchidas via JavaScript -->
+				<div class="empty-chat-state" id="emptyChatState">
+					<i class="fas fa-comments" style="font-size: 4rem; color: var(--text-light); margin-bottom: 1rem; opacity: 0.5;"></i>
+					<p style="color: var(--text-light); text-align: center; font-size: 1.1rem;">Selecione uma conversa para começar</p>
+				</div>
+				<div class="typing-indicator" id="typingIndicator" style="display: none;">
+					<div class="typing-dots">
+						<span></span>
+						<span></span>
+						<span></span>
+					</div>
+				</div>
+			</div>
+
+			<div class="chat-input-container">
+				<div class="emoji-picker-container">
+					<button class="emoji-btn" id="emojiBtn" aria-label="Abrir emojis">
+						<i class="far fa-smile"></i>
+					</button>
+					<div class="emoji-picker" id="emojiPicker" style="display: none;">
+						<div class="emoji-grid" id="emojiGrid"></div>
+					</div>
+				</div>
+				<textarea class="message-input" id="messageInput" placeholder="Digite sua mensagem..." rows="1"
+					aria-label="Campo de mensagem"></textarea>
+				<button class="send-btn" id="sendBtn" aria-label="Enviar mensagem" disabled>
+					<i class="fas fa-paper-plane"></i>
+				</button>
+			</div>
+		</div>
+	</div>
+
+	<div class="connection-status online" id="connectionStatus">
+		<i class="fas fa-wifi"></i>
+		<span>Conectado</span>
+	</div>
+
+	<!-- Bibliotecas SockJS e STOMP para WebSocket -->
+	<script src="https://cdn.jsdelivr.net/npm/sockjs-client@1.6.1/dist/sockjs.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/stompjs@2.3.3/lib/stomp.min.js"></script>
+	<script src="./chat.js"></script>
+</body>
+
+</html>
