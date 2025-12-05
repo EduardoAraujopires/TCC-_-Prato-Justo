@@ -1,0 +1,19 @@
+INDEX VERSION 1.134+C:\TEMP\ws-eclipse gustavo\execicio_Vetores\.metadata\.plugins\org.eclipse.jdt.core
+3967007365.index
+1775003623.index
+1181437162.index
+84942768.index
+1865797976.index
+3747749200.index
+3521043271.index
+228123580.index
+2174045683.index
+2277639883.index
+1974220156.index
+1530579113.index
+563138297.index
+1280432381.index
+1872369861.index
+256998483.index
+1883021416.index
+209528067.index

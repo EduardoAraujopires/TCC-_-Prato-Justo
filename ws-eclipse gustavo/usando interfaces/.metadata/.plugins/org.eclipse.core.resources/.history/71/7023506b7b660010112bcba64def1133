@@ -1,0 +1,18 @@
+package entities;
+
+public class ContractService {
+	
+		
+		private OnlinePaymentService onlinePaymentService;
+
+		public ContractService(OnlinePaymentService onlinePaymentService) {
+			this.onlinePaymentService = onlinePaymentService;
+		}
+		
+		public void processContract(Contract contract,Integer months) {
+			double basicquota = contract.getTotalValue() / months;
+			for(int i = 1; i<=months;i++) {
+			localDate dueDate = contract.getData();
+			}
+		}
+}

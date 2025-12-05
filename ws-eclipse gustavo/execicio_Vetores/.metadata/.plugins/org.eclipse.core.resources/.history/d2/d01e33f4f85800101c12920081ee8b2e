@@ -1,0 +1,23 @@
+package application;
+
+
+import java.util.Scanner;
+public class Progam {
+
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+
+		int soma = 0;
+		int[] vect = {10,11,12,16,14};
+		
+		for (int i : vect) {
+			soma =+ i;
+			System.out.println("A soma dos numeros é: "+ soma);
+		}
+		
+		
+		
+		sc.close();
+	}
+
+}

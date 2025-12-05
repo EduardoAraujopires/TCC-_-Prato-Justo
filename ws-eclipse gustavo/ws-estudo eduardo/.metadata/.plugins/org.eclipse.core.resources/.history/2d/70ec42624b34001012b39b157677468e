@@ -1,0 +1,21 @@
+package menu;
+
+public class Main {
+
+	public static void main(String[] args) {
+		System.out.println("******************************");
+		System.out.println("*                             *");
+		System.out.println("*          MENU               *");
+		System.out.println("*                             *");
+		System.out.println("*******************************");
+	    System.out.println("        1 - calculo de nota   *");
+	    System.out.println("*       2 - reajuste salario  *");
+	    System.out.println("*       3 - NUMERO ANTECESSOR *");
+	    System.out.println("*       4 - NUMERO SUCESSOR   *");
+	    System.out.println("*       5 - CALCULO DE IDADE  *");
+	    System.out.println("*       6 - SAIR              *");
+	    System.out.println("*******************************");
+
+	}
+
+}

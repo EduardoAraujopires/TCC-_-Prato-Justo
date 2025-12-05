@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastrar Doação | Prato Justo</title>
+    <link rel="stylesheet" href="./index.css">
+    <link rel="stylesheet" href="cadastro_alimento.css">
+    <link rel="stylesheet" href="notification.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="./header-styles.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin=""/>
+</head>
+<body>
+    <!-- Background com efeito de alimentos caindo -->
+    <div class="floating-food-background">
+        <i class="fas fa-apple-alt"></i>
+        <i class="fas fa-bread-slice"></i>
+        <i class="fas fa-carrot"></i>
+        <i class="fas fa-cheese"></i>
+        <i class="fas fa-lemon"></i>
+        <i class="fas fa-pepper-hot"></i>
+        <i class="fas fa-seedling"></i>
+        <i class="fas fa-fish"></i>
+        <i class="fas fa-egg"></i>
+        <i class="fas fa-wine-bottle"></i>
+        <i class="fas fa-ice-cream"></i>
+        <i class="fas fa-cookie"></i>
+        <i class="fas fa-stroopwafel"></i>
+        <i class="fas fa-mortar-pestle"></i>
+        <i class="fas fa-wine-bottle"></i>
+    </div>
+
+<header class="header modern-header">
+    <div class="header-container">
+        <a href="index.html" class="logo">
+            <i class="fas fa-utensils"></i>
+            Prato Justo
+        </a>
+        
+        <nav class="nav-menu">
+            <ul class="nav-links">
+                <li><a href="index.html" class="nav-link"><i class="fas fa-home"></i> Início</a></li>
+                <li><a href="doacoes.html" class="nav-link"><i class="fas fa-apple-alt"></i> Alimentos</a></li>
+                <li><a href="cadastro_alimento.html" class="nav-link active"><i class="fas fa-plus-circle"></i> Cadastrar</a></li>
+                <li><a href="minhas-doacoes.html" class="nav-link"><i class="fas fa-heart"></i> Minhas Doações</a></li>
+                <li><a href="solicitacoes.html" class="nav-link"><i class="fas fa-hands-helping"></i> Solicitações</a></li>
+                <li><a href="./Sobre.html" class="nav-link"><i class="fas fa-info-circle"></i> Sobre</a></li>
+            </ul>
+        </nav>
+
+        <div class="header-buttons" id="header-actions">
+            <!-- Será preenchido pelo headerUser.js -->
+        </div>
+
+        <button class="mobile-menu-btn">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </div>
+</header>
+
+<main class="main-content">
+    <div class="container">
+        <!-- Header Premium -->
+        <div class="form-hero">
+            <div class="hero-badge">
+                <i class="fas fa-seedling"></i>
+                Cadastro Rápido e Seguro
+            </div>
+            <h1 class="hero-title">
+                <span class="highlight">Cadastrar Alimento</span> para Doação
+            </h1>
+            <p class="hero-subtitle">
+                Preencha os campos abaixo para disponibilizar seu alimento de forma <strong>segura</strong> e <strong>rápida</strong>. 
+                Juntos contra o desperdício!
+            </p>
+        </div>
+
+        <!-- Progress Steps -->
+        <div class="progress-steps">
+            <div class="step active" data-step="1">
+                <div class="step-number">1</div>
+                <span class="step-label">Detalhes</span>
+            </div>
+            <div class="step" data-step="2">
+                <div class="step-number">2</div>
+                <span class="step-label">Localização</span>
+            </div>
+            <div class="step" data-step="3">
+                <div class="step-number">3</div>
+                <span class="step-label">Finalizar</span>
+            </div>
+            <div class="progress-bar">
+                <div class="progress-fill"></div>
+            </div>
+        </div>
+
+        <form class="donation-form premium-form" id="donationForm" novalidate>
+            <div class="form-grid">
+                <!-- Card 1: Detalhes Essenciais -->
+                <div class="form-card basic-info-card premium-card">
+                    <div class="card-header">
+                        <div class="card-icon">
+                            <i class="fas fa-info-circle"></i>
+                        </div>
+                        <h3>Detalhes do Alimento <span class="required-badge">Obrigatório</span></h3>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="foodName" class="form-label">
+                            <i class="fas fa-tag"></i> Nome do Alimento *
+                        </label>
+                        <input type="text" id="foodName" name="foodName" class="form-input premium-input" 
+                               placeholder="Ex: Arroz, Pães do dia, Cesta de Frutas" list="food-suggestions" required>
+                        <datalist id="food-suggestions">
+                            <option value="Arroz e Feijão">
+                            <option value="Pães e Laticínios">
+                            <option value="Frutas e Verduras Frescas">
+                            <option value="Enlatados">
+                        </datalist>
+                        <p class="help-text"><i class="fas fa-info-circle"></i> Título visível para quem busca.</p>
+                        <p class="error-message" id="error-foodName"></p>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="foodType" class="form-label">
+                            <i class="fas fa-list"></i> Tipo / Categoria *
+                        </label>
+                        <select id="foodType" name="foodType" class="form-select premium-select" required>
+                            <option value="">Selecione a categoria</option>
+                            <option value="INDUSTRIALIZADO">Industrializado / Não Perecível</option>
+                            <option value="COZIDO">Refeição Pronta / Cozido</option>
+                            <option value="CRU">Grão / Cru / Matéria-prima</option>
+                            <option value="FRUTAS_VERDURAS">Frutas, Verduras e Legumes</option>
+                            <option value="LATICINIOS">Laticínios e Derivados</option>
+                            <option value="BEBIDAS">Bebidas (Não alcoólicas)</option>
+                        </select>
+                        <p class="error-message" id="error-foodType"></p>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="description" class="form-label">
+                            <i class="fas fa-align-left"></i> Descrição Detalhada *
+                        </label>
+                        <textarea id="description" name="description" class="form-textarea premium-textarea" 
+                                  rows="3" placeholder="Ex: Fresco, embalagem fechada, validade até o final da semana."></textarea>
+                        <p class="error-message" id="error-description"></p>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group half-width">
+                            <label for="quantity" class="form-label">
+                                <i class="fas fa-balance-scale"></i> Quantidade *
+                            </label>
+                            <input type="number" id="quantity" name="quantity" class="form-input premium-input" 
+                                   min="0.1" step="0.1" placeholder="Ex: 5" required>
+                            <p class="error-message" id="error-quantity"></p>
+                        </div>
+                        <div class="form-group half-width">
+                            <label for="unit" class="form-label">
+                                <i class="fas fa-ruler"></i> Unidade *
+                            </label>
+                            <select id="unit" name="unit" class="form-select premium-select" required>
+                                <option value="KG">Quilogramas (KG)</option>
+                                <option value="UN">Unidades (UN)</option>
+                                <option value="L">Litros (L)</option>
+                            </select>
+                            <p class="error-message" id="error-unit"></p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 2: Localização e Prazos -->
+                <div class="form-card time-conservation-card premium-card">
+                    <div class="card-header">
+                        <div class="card-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <h3>Localização e Prazos <span class="required-badge">Obrigatório</span></h3>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="conservation" class="form-label">
+                            <i class="fas fa-snowflake"></i> Condições de Conservação *
+                        </label>
+                        <select id="conservation" name="conservation" class="form-select premium-select" required>
+                            <option value="">Selecione</option>
+                            <option value="AMBIENTE">Temperatura Ambiente (Não Perecível)</option>
+                            <option value="REFRIGERADO">Refrigerado (Geladeira)</option>
+                            <option value="CONGELADO">Congelado (Freezer)</option>
+                        </select>
+                        <p class="error-message" id="error-conservation"></p>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="expiryDate" class="form-label">
+                            <i class="fas fa-calendar-alt"></i> Data de Validade *
+                        </label>
+                        <input type="date" id="expiryDate" name="expiryDate" class="form-input premium-input" required>
+                        <p class="help-text"><i class="fas fa-clock"></i> Data final para consumo seguro (deve ser posterior a hoje).</p>
+                        <p class="error-message" id="error-expiryDate"></p>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="collectionDate" class="form-label">
+                            <i class="fas fa-clock"></i> Data de Coleta *
+                        </label>
+                        <input type="date" id="collectionDate" name="collectionDate" class="form-input premium-input" required>
+                        <p class="help-text"><i class="fas fa-calendar"></i> Dia que o alimento estará pronto para retirada.</p>
+                        <p class="error-message" id="error-collectionDate"></p>
+                    </div>
+
+                    <!-- Seção de Endereço -->
+                    <div class="address-section">
+                        <div class="section-title">
+                            <i class="fas fa-map"></i> Endereço de Retirada
+                        </div>
+
+                        <div class="form-group">
+                            <label for="cep" class="form-label">
+                                <i class="fas fa-search-location"></i> CEP *
+                            </label>
+                            <div class="cep-input-group">
+                                <input type="text" id="cep" name="cep" class="form-input premium-input" 
+                                       placeholder="00000-000" maxlength="9" required>
+                                <button type="button" id="searchCepBtn" class="btn-search-cep premium-btn" title="Buscar endereço pelo CEP">
+                                    <i class="fas fa-search"></i> Buscar
+                                </button>
+                            </div>
+                            <p class="error-message" id="error-cep"></p>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group half-width">
+                                <label for="street" class="form-label">Rua *</label>
+                                <input type="text" id="street" name="street" class="form-input premium-input" 
+                                       placeholder="Nome da rua" required>
+                                <p class="error-message" id="error-street"></p>
+                            </div>
+                            <div class="form-group half-width">
+                                <label for="number" class="form-label">Número *</label>
+                                <input type="text" id="number" name="number" class="form-input premium-input" 
+                                       placeholder="123" required>
+                                <p class="error-message" id="error-number"></p>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group half-width">
+                                <label for="city" class="form-label">Cidade *</label>
+                                <input type="text" id="city" name="city" class="form-input premium-input" 
+                                       placeholder="Nome da cidade" required>
+                                <p class="error-message" id="error-city"></p>
+                            </div>
+                            <div class="form-group half-width">
+                                <label for="state" class="form-label">Estado *</label>
+                                <input type="text" id="state" name="state" class="form-input premium-input" 
+                                       placeholder="UF" maxlength="2" required>
+                                <p class="error-message" id="error-state"></p>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="complement" class="form-label">Complemento</label>
+                            <input type="text" id="complement" name="complement" class="form-input premium-input" 
+                                   placeholder="Apartamento, bloco, etc. (opcional)">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="address" class="form-label">
+                                <i class="fas fa-road"></i> Endereço Completo
+                            </label>
+                            <div class="address-input-group">
+                                <input type="text" id="address" name="address" class="form-input premium-input" 
+                                       placeholder="Endereço será preenchido automaticamente" readonly>
+                                <button type="button" id="getLocationBtn" class="btn-location premium-btn" title="Usar Geolocalização">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                </button>
+                            </div>
+                            <p class="location-status-text" id="locationStatus">Localização não detectada.</p>
+                            <input type="hidden" id="lat" name="lat">
+                            <input type="hidden" id="lng" name="lng">
+                            <p class="error-message" id="error-address"></p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Card 3: Mídia e Detalhes Adicionais -->
+                <div class="form-card multimedia-optional-card premium-card">
+                    <div class="card-header">
+                        <div class="card-icon">
+                            <i class="fas fa-camera"></i>
+                        </div>
+                        <h3>Mídia e Detalhes Extras</h3>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="foodPhoto" class="form-label">
+                            <i class="fas fa-image"></i> Foto do Alimento *
+                        </label>
+                        <div class="file-upload-area" id="fileUploadArea">
+                            <input type="file" id="foodPhoto" name="foodPhoto" accept="image/*" required>
+                            <div class="upload-content">
+                                <i class="fas fa-cloud-upload-alt"></i>
+                                <p>Clique para adicionar uma foto</p>
+                                <span>Formatos: JPG, PNG (Máx. 5MB)</span>
+                            </div>
+                        </div>
+                        <div class="photo-preview-container" id="photoPreviewContainer">
+                            <i class="fas fa-image"></i>
+                            <img id="photoPreview" src="#" alt="Pré-visualização da foto">
+                        </div>
+                        <p class="help-text"><i class="fas fa-camera"></i> Ajuda a validar o estado do produto.</p>
+                        <p class="error-message" id="error-foodPhoto"></p>
+                    </div>
+
+                    <div class="optional-details">
+                        <button type="button" id="toggleOptional" class="btn-toggle premium-btn">
+                            <i class="fas fa-chevron-down"></i> 
+                            <span>Mostrar Mais Detalhes (Opcional)</span>
+                        </button>
+                        <div id="optionalContent" class="optional-content hidden">
+                            <div class="form-group">
+                                <label for="restrictions" class="form-label">
+                                    <i class="fas fa-exclamation-triangle"></i> Restrições Alimentares
+                                </label>
+                                <textarea id="restrictions" name="restrictions" class="form-textarea premium-textarea" 
+                                          rows="2" placeholder="Ex: Contém glúten, isento de lactose."></textarea>
+                            </div>
+                            <div class="form-group">
+                                <label for="donationTarget" class="form-label">
+                                    <i class="fas fa-bullseye"></i> Destino Preferencial
+                                </label>
+                                <select id="donationTarget" name="donationTarget" class="form-select premium-select">
+                                    <option value="QUALQUER">Qualquer Receptor/ONG</option>
+                                    <option value="ONG_A">ONG Amor e Vida</option>
+                                    <option value="ONG_B">Projeto Esperança</option>
+                                    <option value="PESSOA_X">Pessoa X (Beneficiário Cadastrado)</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="homeMeasure" class="form-label">
+                                    <i class="fas fa-utensils"></i> Medida Caseira
+                                </label>
+                                <input type="text" id="homeMeasure" name="homeMeasure" class="form-input premium-input" 
+                                       placeholder="Ex: 5 sacos de 1kg, 10 embalagens fechadas.">
+                                <p class="help-text">Informação extra para facilitar a logística.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Rodapé do Formulário -->
+            <div class="form-footer premium-footer">
+                <div class="impact-message">
+                    <i class="fas fa-heart"></i>
+                    <div>
+                        <strong>Sua doação faz a diferença!</strong>
+                        <span>Cada alimento cadastrado ajuda a combater o desperdício e a fome.</span>
+                    </div>
+                </div>
+
+                <div class="terms-group">
+                    <label class="checkbox-container">
+                        <input type="checkbox" id="terms" name="terms" required>
+                        <span class="checkmark"></span>
+                        <span class="terms-text">
+                            Li e aceito as <strong>Boas Práticas de Segurança Alimentar</strong> e a Lei nº 14.016/2020. *
+                        </span>
+                    </label>
+                    <p class="error-message" id="error-terms"></p>
+                </div>
+                
+                <button type="submit" class="btn-submit premium-submit-btn" id="btnSubmit">
+                    <i class="fas fa-heart"></i>
+                    <span class="btn-text">Cadastrar Alimento para Doação</span>
+                    <div class="btn-loading">
+                        <i class="fas fa-spinner fa-spin"></i>
+                    </div>
+                </button>
+            </div>
+        </form>
+    </div>
+</main>
+
+<script src="notification.js"></script> 
+<script src="realtime-manager.js"></script>
+<script src="auth.js"></script> 
+<script src="headerUser.js"></script> 
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+<script src="cadastro_alimento.js"></script>
+</body>
+</html>

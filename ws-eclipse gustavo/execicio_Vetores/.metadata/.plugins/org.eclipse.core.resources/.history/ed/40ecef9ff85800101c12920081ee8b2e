@@ -1,0 +1,25 @@
+package application;
+
+
+import java.util.Scanner;
+public class Progam {
+
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		
+		System.out.println("Digite um numero 6 numeros");
+		int n = sc.nextInt();
+		int soma = 0;
+		int[] vect = new int[n];
+		
+		for (int i : vect) {
+			soma = soma + i;
+			System.out.println(i);
+		}
+		
+		
+		
+		sc.close();
+	}
+
+}

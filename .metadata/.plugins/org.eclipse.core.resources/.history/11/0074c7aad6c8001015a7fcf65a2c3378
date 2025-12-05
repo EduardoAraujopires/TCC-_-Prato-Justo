@@ -1,0 +1,1499 @@
+/* ========================================= */
+/* CSS IDÊNTICO À PÁGINA "POR QUE DOAR" */
+/* ========================================= */
+
+:root {
+    /* Cores principais aprimoradas - MESMAS CORES */
+    --primary-blue: #2563eb;
+    --primary-blue-dark: #1e40af;
+    --primary-red: #dc2626;
+    --primary-red-dark: #b91c1c;
+    --primary-red-light: #fee2e2;
+    --urgent-orange: #f59e0b;
+    --urgent-orange-dark: #d97706;
+
+    /* Novas cores para urgência - MESMAS CORES */
+    --crisis-red: #ef4444;
+    --crisis-dark: #991b1b;
+    --hope-green: #10b981;
+    --warning-yellow: #fbbf24;
+    
+    /* Cores de texto e fundo */
+    --text-dark: #1f2937;
+    --text-light: #6b7280;
+    --text-white: #ffffff;
+    --background-dark: #0f172a;
+    --background-darker: #020617;
+}
+
+/* ========================================= */
+/* HEADER (MANTIDO IGUAL) */
+/* ========================================= */
+
+.header-premium {
+    background: rgba(255, 255, 255, 0.98) !important;
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    transition: all 0.3s ease;
+}
+
+.header-container-premium {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 2rem;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.logo-premium {
+    text-decoration: none;
+    font-weight: 800;
+    font-size: 1.5rem;
+    color: #dc2626;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.logo-premium:hover {
+    transform: scale(1.05);
+    color: #b91c1c;
+}
+
+/* ... (restante do header mantido igual) ... */
+
+/* ========================================= */
+/* HERO SECTION - IDÊNTICO AO "POR QUE DOAR" */
+/* ========================================= */
+
+.porque-doar-hero {
+    min-height: 100vh;
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding: 6rem 0 4rem;
+    background: linear-gradient(135deg, #1e293b 0%, #0f172a 50%, #991b1b 100%) !important;
+    overflow: hidden;
+    margin-top: 80px;
+}
+
+.hero-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+.hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4);
+}
+
+/* Efeito de frutas/flores igual à seção de urgência */
+.floating-food-icons {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+.floating-food-icons i {
+    position: absolute;
+    font-size: 2rem;
+    opacity: 0.2;
+    animation: floatFood 15s infinite linear;
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.floating-food-icons i:nth-child(1) { top: 10%; left: 5%; animation-delay: 0s; }
+.floating-food-icons i:nth-child(2) { top: 20%; right: 10%; animation-delay: 2s; }
+.floating-food-icons i:nth-child(3) { top: 60%; left: 15%; animation-delay: 4s; }
+.floating-food-icons i:nth-child(4) { top: 40%; right: 20%; animation-delay: 6s; }
+.floating-food-icons i:nth-child(5) { bottom: 20%; left: 10%; animation-delay: 8s; }
+.floating-food-icons i:nth-child(6) { bottom: 30%; right: 15%; animation-delay: 10s; }
+.floating-food-icons i:nth-child(7) { top: 80%; right: 5%; animation-delay: 12s; }
+.floating-food-icons i:nth-child(8) { bottom: 10%; left: 20%; animation-delay: 14s; }
+.floating-food-icons i:nth-child(9) { top: 30%; left: 25%; animation-delay: 16s; }
+.floating-food-icons i:nth-child(10) { bottom: 40%; right: 25%; animation-delay: 18s; }
+
+@keyframes floatFood {
+    0% {
+        transform: translateY(100vh) rotate(0deg);
+        opacity: 0;
+    }
+    10% {
+        opacity: 0.3;
+    }
+    90% {
+        opacity: 0.3;
+    }
+    100% {
+        transform: translateY(-100px) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+.hero-content-wrapper {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    color: white;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+}
+
+/* Badge de impacto */
+.impact-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    background: linear-gradient(135deg, var(--crisis-red), var(--urgent-orange));
+    padding: 0.75rem 2rem;
+    border-radius: 2rem;
+    font-weight: 700;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-bottom: 2rem;
+    box-shadow: 0 10px 30px rgba(239, 68, 68, 0.4);
+    animation: pulse-badge 2s infinite;
+}
+
+@keyframes pulse-badge {
+    0%, 100% {
+        box-shadow: 0 10px 30px rgba(239, 68, 68, 0.4);
+    }
+    50% {
+        box-shadow: 0 10px 40px rgba(239, 68, 68, 0.8);
+    }
+}
+
+/* Título principal */
+.hero-title {
+    font-size: 3.5rem;
+    font-weight: 900;
+    line-height: 1.1;
+    margin-bottom: 1.5rem;
+    text-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+}
+
+.hero-title .highlight {
+    background: linear-gradient(135deg, #fbbf24, #ef4444);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+/* Subtítulo */
+.hero-subtitle {
+    font-size: 1.4rem;
+    line-height: 1.6;
+    margin-bottom: 2rem;
+    opacity: 0.95;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.hero-subtitle strong {
+    color: #fbbf24;
+    font-weight: 700;
+}
+
+/* Estatísticas premium */
+.hero-stats-premium {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    margin: 4rem auto;
+    max-width: 1000px;
+}
+
+.hero-stat-card {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 2.5rem 2rem;
+    border-radius: 1.5rem;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.hero-stat-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+    transition: left 0.6s ease;
+}
+
+.hero-stat-card:hover::before {
+    left: 100%;
+}
+
+.hero-stat-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    border-color: rgba(251, 191, 36, 0.5);
+}
+
+.stat-icon {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(135deg, var(--urgent-orange), var(--crisis-red));
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.5rem;
+    font-size: 2rem;
+    color: white;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+}
+
+.stat-number {
+    font-size: 3.5rem;
+    font-weight: 900;
+    background: linear-gradient(135deg, #fff, #fbbf24);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 0.5rem;
+    line-height: 1;
+}
+
+.stat-label {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    color: #fbbf24;
+}
+
+.stat-description {
+    font-size: 0.9rem;
+    opacity: 0.8;
+    line-height: 1.4;
+}
+
+/* CTA Premium */
+.hero-cta-premium {
+    max-width: 800px;
+    margin: 3rem auto 0;
+}
+
+.cta-message {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    background: rgba(16, 185, 129, 0.2);
+    padding: 1.5rem 2rem;
+    border-radius: 1rem;
+    border-left: 4px solid #10b981;
+    margin-bottom: 2rem;
+    backdrop-filter: blur(10px);
+}
+
+.cta-message i {
+    color: #10b981;
+    font-size: 1.5rem;
+}
+
+.cta-message strong {
+    color: #10b981;
+}
+
+.cta-buttons-hero {
+    display: flex;
+    gap: 1.5rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.btn-hero-primary {
+    background: linear-gradient(135deg, var(--crisis-red), var(--urgent-orange));
+    color: white;
+    padding: 1.25rem 2.5rem;
+    border-radius: 0.75rem;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 1.1rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 10px 30px rgba(239, 68, 68, 0.4);
+    border: none;
+    cursor: pointer;
+}
+
+.btn-hero-primary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 40px rgba(239, 68, 68, 0.6);
+}
+
+.btn-hero-secondary {
+    background: transparent;
+    color: white;
+    padding: 1.25rem 2.5rem;
+    border-radius: 0.75rem;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 1.1rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    transition: all 0.3s ease;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(10px);
+}
+
+.btn-hero-secondary:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.5);
+    transform: translateY(-3px);
+}
+
+/* Scroll Indicator Premium */
+.scroll-indicator-premium {
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+    text-align: center;
+}
+
+.scroll-text {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+}
+
+.scroll-arrow {
+    width: 30px;
+    height: 30px;
+    border-right: 3px solid rgba(255, 255, 255, 0.7);
+    border-bottom: 3px solid rgba(255, 255, 255, 0.7);
+    transform: rotate(45deg);
+    animation: bounce 2s infinite;
+    margin: 0 auto;
+}
+
+@keyframes bounce {
+    0%, 20%, 50%, 80%, 100% {
+        transform: rotate(45deg) translateY(0);
+    }
+    40% {
+        transform: rotate(45deg) translateY(-10px);
+    }
+    60% {
+        transform: rotate(45deg) translateY(-5px);
+    }
+}
+
+/* ========================================= */
+/* SEÇÃO URGÊNCIA - IDÊNTICO AO "POR QUE DOAR" */
+/* ========================================= */
+
+.urgency-section {
+  padding: 6rem 0;
+  background: linear-gradient(135deg, #1e293b 0%, #0f172a 50%, #991b1b 100%);
+  position: relative;
+  overflow: hidden;
+  color: white;
+}
+
+.urgency-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.1;
+}
+
+.urgency-badge {
+  display: inline-block;
+  background: linear-gradient(135deg, var(--crisis-red), var(--urgent-orange));
+  padding: 0.5rem 1.5rem;
+  border-radius: 2rem;
+  font-weight: 700;
+  font-size: 0.875rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 1rem;
+  animation: pulse-urgent 2s infinite;
+}
+
+.urgency-title {
+    font-size: 2.5rem;
+    font-weight: 900;
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+.urgency-description {
+    font-size: 1.2rem;
+    text-align: center;
+    margin-bottom: 3rem;
+    opacity: 0.9;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* TIMELINE INTERATIVA */
+.urgency-timeline {
+  position: relative;
+  max-width: 800px;
+  margin: 4rem auto;
+  padding: 2rem 0;
+}
+
+.timeline-progress {
+  position: absolute;
+  top: 50%;
+  left: 50px;
+  right: 50px;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateY(-50%);
+  z-index: 1;
+}
+
+.timeline-progress::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 33.33%;
+  background: linear-gradient(90deg, var(--crisis-red), var(--urgent-orange));
+  transition: width 0.5s ease;
+}
+
+.timeline-items {
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+  z-index: 2;
+}
+
+.timeline-item {
+  text-align: center;
+  flex: 1;
+  position: relative;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.timeline-item.active .timeline-marker {
+  transform: scale(1.2);
+  background: linear-gradient(135deg, var(--crisis-red), var(--urgent-orange));
+  box-shadow: 0 0 30px rgba(239, 68, 68, 0.5);
+}
+
+.timeline-marker {
+  width: 80px;
+  height: 80px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1rem;
+  font-size: 1.5rem;
+  border: 3px solid rgba(255, 255, 255, 0.3);
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+}
+
+.timeline-content h3 {
+  font-size: 1.5rem;
+  font-weight: 900;
+  margin-bottom: 0.5rem;
+  background: linear-gradient(135deg, #fff, #fbbf24);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.timeline-stats {
+  margin-top: 0.5rem;
+  padding: 0.5rem;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 0.5rem;
+  font-size: 0.875rem;
+  opacity: 0.8;
+}
+
+/* COMPARAÇÃO VISUAL IMPACTANTE */
+.comparison-grid {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: 2rem;
+  max-width: 900px;
+  margin: 4rem auto;
+  align-items: center;
+}
+
+.comparison-card {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 2rem;
+  border-radius: 1rem;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  transition: all 0.3s ease;
+}
+
+.comparison-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+}
+
+.waste-card {
+  border-left: 4px solid var(--urgent-orange);
+}
+
+.hunger-card {
+  border-left: 4px solid var(--crisis-red);
+}
+
+.comparison-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.comparison-header i {
+  font-size: 2rem;
+}
+
+.waste-card .comparison-header i {
+  color: var(--urgent-orange);
+}
+
+.hunger-card .comparison-header i {
+  color: var(--crisis-red);
+}
+
+.comparison-vs {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.vs-circle {
+  width: 60px;
+  height: 60px;
+  background: linear-gradient(135deg, var(--urgent-orange), var(--crisis-red));
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 900;
+  font-size: 0.875rem;
+  animation: rotate 4s linear infinite;
+}
+
+/* ANIMAÇÕES DE COMPARAÇÃO */
+.waste-animation,
+.hunger-animation {
+  position: relative;
+  height: 120px;
+  margin-bottom: 1rem;
+}
+
+.food-item,
+.person {
+  position: absolute;
+  font-size: 2rem;
+  animation: fallDown 3s infinite;
+  animation-delay: var(--delay);
+}
+
+.trash-bin,
+.empty-plate {
+  position: absolute;
+  bottom: 0;
+  font-size: 3rem;
+}
+
+.trash-bin {
+  right: 20%;
+}
+
+.empty-plate {
+  left: 20%;
+}
+
+@keyframes fallDown {
+  0% {
+    transform: translateY(-50px) rotate(0deg);
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(80px) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+@keyframes rotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* IMPACTO IMEDIATO */
+.immediate-impact {
+  max-width: 900px;
+  margin: 4rem auto;
+  text-align: center;
+}
+
+.impact-title {
+  font-size: 2rem;
+  margin-bottom: 2rem;
+  background: linear-gradient(135deg, #10b981, #3b82f6);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.impact-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+}
+
+.impact-immediate-card {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 2rem;
+  border-radius: 1rem;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.impact-immediate-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+  transition: left 0.6s ease;
+}
+
+.impact-immediate-card:hover::before {
+  left: 100%;
+}
+
+.impact-immediate-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+}
+
+.impact-icon {
+  width: 70px;
+  height: 70px;
+  background: linear-gradient(135deg, var(--hope-green), var(--primary-blue));
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1rem;
+  font-size: 1.5rem;
+  color: white;
+}
+
+.impact-meter {
+  width: 100%;
+  height: 6px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 3px;
+  margin-top: 1rem;
+  overflow: hidden;
+}
+
+.meter-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--hope-green), #3b82f6);
+  border-radius: 3px;
+  transition: width 1s ease;
+}
+
+/* URGENCY CTA */
+.urgency-cta {
+  max-width: 800px;
+  margin: 4rem auto 0;
+  text-align: center;
+}
+
+.urgency-message {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  background: rgba(239, 68, 68, 0.1);
+  padding: 2rem;
+  border-radius: 1rem;
+  border-left: 4px solid var(--crisis-red);
+  margin-bottom: 2rem;
+  backdrop-filter: blur(10px);
+}
+
+.message-icon {
+  font-size: 3rem;
+  color: var(--crisis-red);
+}
+
+.message-content h3 {
+  font-style: italic;
+  margin-bottom: 1rem;
+  line-height: 1.6;
+}
+
+.urgency-highlight {
+  font-size: 1.25rem;
+  color: var(--warning-yellow);
+}
+
+.urgency-btn {
+  background: linear-gradient(135deg, var(--crisis-red), var(--urgent-orange));
+  color: white;
+  border: none;
+  padding: 1.5rem 3rem;
+  font-size: 1.25rem;
+  font-weight: 700;
+  border-radius: 0.75rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 1rem;
+  box-shadow: 0 10px 30px rgba(239, 68, 68, 0.4);
+}
+
+.urgency-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 15px 40px rgba(239, 68, 68, 0.6);
+}
+
+.pulse-urgent {
+  animation: pulse-urgent 2s infinite;
+}
+
+@keyframes pulse-urgent {
+  0%, 100% {
+    box-shadow: 0 10px 30px rgba(239, 68, 68, 0.4);
+  }
+  50% {
+    box-shadow: 0 10px 40px rgba(239, 68, 68, 0.8);
+  }
+}
+
+/* ========================================= */
+/* BENEFÍCIOS PREMIUM - IDÊNTICO AO "POR QUE DOAR" */
+/* ========================================= */
+
+.benefits-section-premium {
+    padding: 6rem 0;
+    background: linear-gradient(135deg, #1e293b 0%, #0f172a 50%, #991b1b 100%);
+    position: relative;
+    overflow: hidden;
+    color: white;
+}
+
+.benefits-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0.1;
+}
+
+.benefits-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    background: linear-gradient(135deg, #10b981, #3b82f6);
+    padding: 0.75rem 2rem;
+    border-radius: 2rem;
+    font-weight: 700;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-bottom: 1rem;
+    box-shadow: 0 10px 30px rgba(16, 185, 129, 0.4);
+}
+
+.section-header-premium {
+    text-align: center;
+    margin-bottom: 4rem;
+}
+
+.section-header-premium h2 {
+    font-size: 2.5rem;
+    font-weight: 900;
+    margin-bottom: 1rem;
+    background: linear-gradient(135deg, var(--primary-blue), var(--primary-red));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.highlight-text {
+    background: linear-gradient(135deg, var(--primary-red), var(--urgent-orange));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.section-header-premium p {
+    font-size: 1.125rem;
+    color: rgba(255, 255, 255, 0.8);
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+/* Timeline de Benefícios */
+.benefits-timeline {
+    max-width: 900px;
+    margin: 4rem auto;
+    position: relative;
+}
+
+.timeline-progress-benefits {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateY(-50%);
+    z-index: 1;
+}
+
+.timeline-progress-benefits::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 25%;
+    background: linear-gradient(90deg, #10b981, #3b82f6);
+    transition: width 0.5s ease;
+}
+
+.timeline-steps {
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+    z-index: 2;
+}
+
+.timeline-step {
+    text-align: center;
+    flex: 1;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.timeline-step.active .step-marker {
+    transform: scale(1.2);
+    background: linear-gradient(135deg, #10b981, #3b82f6);
+    box-shadow: 0 0 30px rgba(16, 185, 129, 0.5);
+}
+
+.step-marker {
+    width: 70px;
+    height: 70px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1rem;
+    font-size: 1.5rem;
+    border: 3px solid rgba(255, 255, 255, 0.3);
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+}
+
+.step-content h3 {
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+
+.step-content p {
+    font-size: 0.9rem;
+    opacity: 0.8;
+}
+
+/* Grid de Benefícios Premium */
+.benefits-grid-premium {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    max-width: 1300px;
+    margin: 4rem auto;
+}
+
+.benefit-card-premium {
+    height: 350px;
+    perspective: 1000px;
+    cursor: pointer;
+}
+
+.benefit-card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    transform-style: preserve-3d;
+}
+
+.benefit-card-premium:hover .benefit-card-inner {
+    transform: rotateY(180deg);
+}
+
+.benefit-card-front,
+.benefit-card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    border-radius: 1.5rem;
+    padding: 2.5rem 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.benefit-card-front {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.benefit-card-back {
+    background: rgba(16, 185, 129, 0.15);
+    transform: rotateY(180deg);
+    border-color: rgba(16, 185, 129, 0.4);
+}
+
+.benefit-icon-premium {
+    position: relative;
+    width: 100px;
+    height: 100px;
+    background: linear-gradient(135deg, var(--primary-blue), var(--primary-red));
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+    font-size: 2.5rem;
+    color: white;
+}
+
+.icon-pulse {
+    position: absolute;
+    top: -5px;
+    left: -5px;
+    right: -5px;
+    bottom: -5px;
+    border: 2px solid var(--primary-blue);
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+}
+
+.benefit-card-premium h3 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    background: linear-gradient(135deg, #fff, #fbbf24);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.benefit-card-front p {
+    color: rgba(255, 255, 255, 0.8);
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+}
+
+.benefit-badge {
+    background: rgba(255, 255, 255, 0.2);
+    padding: 0.5rem 1rem;
+    border-radius: 1rem;
+    font-size: 0.8rem;
+    font-weight: 600;
+    backdrop-filter: blur(10px);
+}
+
+.benefit-card-back h4 {
+    font-size: 1.3rem;
+    margin-bottom: 1.5rem;
+    color: #10b981;
+}
+
+.benefit-card-back ul {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 2rem;
+    text-align: left;
+}
+
+.benefit-card-back li {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 0.75rem;
+    font-size: 0.9rem;
+}
+
+.benefit-card-back i {
+    color: #10b981;
+    font-size: 0.8rem;
+}
+
+.impact-stats {
+    display: flex;
+    justify-content: center;
+    margin-top: auto;
+}
+
+.impact-stat {
+    text-align: center;
+}
+
+.stat-number {
+    font-size: 2rem;
+    font-weight: 900;
+    background: linear-gradient(135deg, #10b981, #3b82f6);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    display: block;
+}
+
+.stat-label {
+    font-size: 0.8rem;
+    opacity: 0.8;
+}
+
+/* Calculadora de Impacto */
+.impact-calculator {
+    max-width: 800px;
+    margin: 4rem auto;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 3rem;
+    border-radius: 1.5rem;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.calculator-header {
+    text-align: center;
+    margin-bottom: 2.5rem;
+}
+
+.calculator-header h3 {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+    background: linear-gradient(135deg, #fbbf24, #ef4444);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.calculator-controls {
+    margin-bottom: 2.5rem;
+}
+
+.input-group {
+    text-align: center;
+}
+
+.input-group label {
+    display: block;
+    margin-bottom: 1rem;
+    font-weight: 600;
+}
+
+.input-group input[type="range"] {
+    width: 100%;
+    max-width: 400px;
+    margin-bottom: 1rem;
+    background: linear-gradient(90deg, #10b981, #3b82f6);
+    border-radius: 10px;
+    height: 8px;
+}
+
+#amountValue {
+    font-weight: 700;
+    font-size: 1.2rem;
+    color: #fbbf24;
+}
+
+.calculator-results {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+}
+
+.result-card {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 1.5rem;
+    border-radius: 1rem;
+    text-align: center;
+    transition: transform 0.3s ease;
+}
+
+.result-card:hover {
+    transform: translateY(-5px);
+}
+
+.result-icon {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+.result-number {
+    font-size: 2rem;
+    font-weight: 900;
+    display: block;
+    background: linear-gradient(135deg, #10b981, #3b82f6);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.result-label {
+    font-size: 0.9rem;
+    opacity: 0.8;
+}
+
+/* Estatísticas em Tempo Real */
+.live-stats {
+    max-width: 1000px;
+    margin: 4rem auto;
+    text-align: center;
+}
+
+.live-stats h3 {
+    font-size: 2rem;
+    margin-bottom: 2rem;
+    background: linear-gradient(135deg, #fbbf24, #ef4444);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+}
+
+.live-stat-card {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 2rem;
+    border-radius: 1rem;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    transition: all 0.3s ease;
+}
+
+.live-stat-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+}
+
+.live-stat-icon {
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, var(--primary-blue), var(--primary-red));
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1rem;
+    font-size: 1.5rem;
+    color: white;
+}
+
+.live-stat-number {
+    font-size: 2.5rem;
+    font-weight: 900;
+    margin-bottom: 0.5rem;
+    background: linear-gradient(135deg, #fff, #fbbf24);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.live-stat-label {
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+    opacity: 0.8;
+}
+
+.live-stat-trend {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    font-size: 0.8rem;
+    color: #10b981;
+}
+
+/* CTA Final */
+.benefits-cta {
+    max-width: 800px;
+    margin: 4rem auto 0;
+    text-align: center;
+}
+
+.cta-content h3 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    background: linear-gradient(135deg, #fff, #fbbf24);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.cta-content p {
+    font-size: 1.2rem;
+    margin-bottom: 2.5rem;
+    opacity: 0.9;
+}
+
+.cta-buttons-benefits {
+    display: flex;
+    gap: 1.5rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.btn-benefit-primary {
+    background: linear-gradient(135deg, #10b981, #3b82f6);
+    color: white;
+    border: none;
+    padding: 1.25rem 2.5rem;
+    border-radius: 0.75rem;
+    font-weight: 700;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    box-shadow: 0 10px 30px rgba(16, 185, 129, 0.4);
+}
+
+.btn-benefit-primary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 40px rgba(16, 185, 129, 0.6);
+}
+
+.btn-benefit-secondary {
+    background: transparent;
+    color: white;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    padding: 1.25rem 2.5rem;
+    border-radius: 0.75rem;
+    font-weight: 700;
+    font-size: 1.1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    backdrop-filter: blur(10px);
+}
+
+.btn-benefit-secondary:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: rgba(255, 255, 255, 0.5);
+    transform: translateY(-3px);
+}
+
+/* Animações específicas */
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+        opacity: 1;
+    }
+    50% {
+        transform: scale(1.1);
+        opacity: 0.7;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+/* ========================================= */
+/* FOOTER (MANTIDO IGUAL) */
+/* ========================================= */
+
+.footer-premium {
+    background: var(--background-darker);
+    color: var(--text-white);
+    padding: 4rem 0 2rem;
+}
+
+/* ... (restante do footer mantido igual) ... */
+
+/* ========================================= */
+/* RESPONSIVIDADE */
+/* ========================================= */
+
+@media (max-width: 768px) {
+    .hero-title {
+        font-size: 2.5rem;
+    }
+
+    .hero-subtitle {
+        font-size: 1.2rem;
+    }
+
+    .hero-stats-premium {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+
+    .benefits-grid-premium {
+        grid-template-columns: 1fr;
+    }
+
+    .benefit-card-premium {
+        height: 300px;
+    }
+
+    .timeline-steps {
+        flex-direction: column;
+        gap: 2rem;
+    }
+
+    .timeline-progress-benefits {
+        left: 50%;
+        top: 0;
+        bottom: 0;
+        width: 4px;
+        height: auto;
+        transform: translateX(-50%);
+    }
+
+    .timeline-progress-benefits::after {
+        width: 100%;
+        height: 25%;
+    }
+
+    .calculator-results {
+        grid-template-columns: 1fr;
+    }
+
+    .cta-buttons-benefits {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .impact-calculator {
+        padding: 2rem 1.5rem;
+    }
+
+    .benefit-card-back ul {
+        text-align: center;
+    }
+
+    .benefit-card-back li {
+        justify-content: center;
+    }
+
+    .comparison-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+
+    .comparison-vs {
+        order: -1;
+        margin: 1rem 0;
+    }
+
+    .timeline-items {
+        flex-direction: column;
+        gap: 2rem;
+    }
+
+    .timeline-progress {
+        left: 50%;
+        top: 0;
+        bottom: 0;
+        width: 4px;
+        height: auto;
+        transform: translateX(-50%);
+    }
+
+    .timeline-progress::after {
+        width: 100%;
+        height: 33.33%;
+    }
+}
+
+@media (max-width: 480px) {
+    .porque-doar-hero {
+        min-height: 90vh;
+        padding: 5rem 0 3rem;
+    }
+
+    .hero-title {
+        font-size: 2rem;
+    }
+
+    .benefit-card-premium {
+        height: 280px;
+    }
+
+    .benefit-card-front,
+    .benefit-card-back {
+        padding: 2rem 1.5rem;
+    }
+
+    .benefit-icon-premium {
+        width: 80px;
+        height: 80px;
+        font-size: 2rem;
+    }
+
+    .calculator-header h3 {
+        font-size: 1.5rem;
+    }
+
+    .cta-content h3 {
+        font-size: 2rem;
+    }
+}

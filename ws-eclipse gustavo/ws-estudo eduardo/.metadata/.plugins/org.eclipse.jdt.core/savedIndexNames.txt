@@ -1,0 +1,16 @@
+INDEX VERSION 1.134+C:\TEMP\ws-eclipse gustavo\ws-estudo eduardo\.metadata\.plugins\org.eclipse.jdt.core
+3535004708.index
+3110059969.index
+3669164554.index
+2867803571.index
+446506233.index
+2733468128.index
+3872137337.index
+1719680830.index
+3722970405.index
+979888944.index
+1865797976.index
+320326032.index
+829193340.index
+2432268502.index
+1736454232.index

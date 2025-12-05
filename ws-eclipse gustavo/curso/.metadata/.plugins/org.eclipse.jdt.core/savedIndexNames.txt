@@ -1,0 +1,13 @@
+INDEX VERSION 1.134+C:\temp\ws-eclipse gustavo\curso\.metadata\.plugins\org.eclipse.jdt.core
+242287082.index
+361870183.index
+1343705445.index
+4001080771.index
+1841537387.index
+93951668.index
+2132317189.index
+209528067.index
+1045589251.index
+641873856.index
+2746199487.index
+1865797976.index

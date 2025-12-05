@@ -1,0 +1,10 @@
+content_assist_lru_history=<?xml version\="1.0" encoding\="UTF-8" standalone\="no"?><history maxLHS\="100" maxRHS\="10"><lhs name\="entities.Installment"><rhs name\="entities.Installment"/></lhs><lhs name\="entities.Contract"><rhs name\="entities.Contract"/></lhs><lhs name\="entities.OnlinePaymentService"><rhs name\="entities.PaypalService"/></lhs></history>
+content_assist_number_of_computers=14
+content_assist_proposals_background=52,57,61
+content_assist_proposals_foreground=238,238,238
+eclipse.preferences.version=1
+org.eclipse.jdt.ui.formatterprofiles.version=23
+spelling_locale_initialized=true
+typefilter_migrated_2=true
+useAnnotationsPrefPage=true
+useQuickDiffPrefPage=true

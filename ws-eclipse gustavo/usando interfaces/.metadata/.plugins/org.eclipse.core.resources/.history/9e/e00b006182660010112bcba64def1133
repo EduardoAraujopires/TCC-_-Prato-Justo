@@ -1,0 +1,11 @@
+package entities;
+
+public class PaypalService implements OnlinePaymentService {
+	public Double paymentFee(Double amount) {
+		
+	}
+	public Double interest(Double amount,Int months) {
+	
+}
+
+}

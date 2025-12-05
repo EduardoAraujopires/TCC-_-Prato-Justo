@@ -1,0 +1,57 @@
+package application;
+
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Scanner;
+
+public class Progam {
+
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+	
+		Map<String,Integer> votos = new HashMap<>();
+		
+		System.out.print("Digite o caminho do arquivo: ");
+		String path = sc.nextLine();
+		
+		try(BufferedReader br = new BufferedReader(new FileReader(path))){
+			String linhas = br.readLine();
+			
+			while(linhas != null) {
+				String[] vetor = linhas.split(",");
+				String nome = vetor[0];
+				int voto = Integer.parseInt(vetor[1]);
+				
+				votos.put(nome, voto);
+				
+				if(votos.containsKey(nome)) {
+					int receberVotos = votos.get(nome);
+					votos.put(nome, voto + receberVotos);
+				}
+				else {
+					votos.put(nome, voto);
+				}
+				
+				linhas = br.readLine();
+			}
+			
+			for (String key : votos.keySet()) {
+				System.out.print(key + ": " + votos.get(key));
+			}
+			
+		}catch(IOException e) {
+			System.out.println(e.getMessage());
+		}
+		
+		
+		
+		
+		
+		sc.close();
+	}
+
+}
+ 

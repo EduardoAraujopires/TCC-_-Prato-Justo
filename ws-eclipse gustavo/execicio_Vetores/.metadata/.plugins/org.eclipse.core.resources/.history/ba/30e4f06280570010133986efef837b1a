@@ -1,0 +1,50 @@
+package application;
+
+import java.util.Locale;
+import java.util.Scanner;
+
+import entities.Aluno;
+
+public class Progam {
+
+	public static void main(String[] args) {
+		Locale.setDefault(Locale.US);
+		Scanner sc = new Scanner(System.in);
+		
+		
+		Aluno[] vect = new Aluno[5];
+		
+		
+		System.out.println("--- Alunos Cadastrados ---");
+		for (int i = 0; i < vect.length; i++) {
+			System.out.print("Nome: ");
+			String nome = sc.next();
+			System.out.print("Idade: ");
+			int idade = sc.nextInt();
+			System.out.print("Nota Final: ");
+			double notaFinal = sc.nextDouble();
+			System.out.println("---------------------------");
+		
+		vect[i] = new Aluno(nome, idade, notaFinal);
+		
+		}
+		
+		double maior_nota = 0;
+		String nomeMelhorAluno = "" ;
+		int idade = 0;
+		for (int i = 0; i < vect.length;i++) {
+			if(vect[i].getNotaFinal() >  maior_nota) {
+			maior_nota = vect[i].getNotaFinal();
+			nomeMelhorAluno = vect[i].getNome();
+			idade = vect[i].getIdade();
+		}
+			}
+		
+		System.out.println("Aluno com a melhor nota: ");
+		System.out.println("Nome: " + nomeMelhorAluno);
+		System.out.println("Idade: "+ idade + "Anos");
+		System.out.println("Nota: " + maior_nota);
+		sc.close();
+	}
+
+}

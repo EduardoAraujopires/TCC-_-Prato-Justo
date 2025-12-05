@@ -1,0 +1,20 @@
+package laco_para;
+
+import java.util.Locale;
+import java.util.Scanner;
+
+public class Main {
+
+	public static void main(String[] args) {
+		Locale.setDefault(Locale.US);
+		Scanner sc = new Scanner(System.in);
+		int n = sc.nextInt();
+		for (int i = 1; i <=n; i++) {
+		      int p = i;
+		      int s= i * i;
+		      int t = i * i *i;
+		      System.out.printf("%d + %d + %d%n",p,s,t);
+		    }
+		   sc.close();
+		}
+	}			

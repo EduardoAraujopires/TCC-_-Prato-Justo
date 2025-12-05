@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename package &apos;estrutura_condicional_exercicio4&apos; to &apos;estrutura_condicional_exercicio6&apos;&#x0D;&#x0A;- Original project: &apos;estrutura_condicional_exercicio4&apos;&#x0D;&#x0A;- Original element: &apos;estrutura_condicional_exercicio4/src/estrutura_condicional_exercicio4&apos;&#x0D;&#x0A;- Renamed element: &apos;estrutura_condicional_exercicio4/src/estrutura_condicional_exercicio6&apos;&#x0D;&#x0A;- Update references to refactored element&#x0D;&#x0A;- Update textual occurrences in comments and strings" description="Rename package &apos;estrutura_condicional_exercicio4&apos;" flags="589830" hierarchical="false" id="org.eclipse.jdt.ui.rename.package" input="/src&lt;estrutura_condicional_exercicio4" name="estrutura_condicional_exercicio6" qualified="false" references="true" stamp="1745089703655" textual="false" version="1.0"/>
+</session>

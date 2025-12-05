@@ -1,0 +1,13 @@
+package bitwise;
+
+public class Main {
+
+	public static void main(String[] args) {
+    String original = "ABCDEF";
+     String s01 = original.toLowerCase();
+     System.out.println("original: "+ original);
+      System.out.println("toLowerCase: "+s01);
+
+	}
+
+}

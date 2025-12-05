@@ -1,0 +1,22 @@
+package application;
+
+import java.util.ArrayList;
+
+public class Progam {
+
+	public static void main(String[] args) {
+		
+		ArrayList<String> frutas = new ArrayList<String>();
+		frutas.add("banana");
+		frutas.add("uva");
+		frutas.add("maça");
+		frutas.add("Laranja");
+		
+	for (String obj : frutas) {
+		System.out.println(obj);
+		
+	}
+	
+	}
+
+}

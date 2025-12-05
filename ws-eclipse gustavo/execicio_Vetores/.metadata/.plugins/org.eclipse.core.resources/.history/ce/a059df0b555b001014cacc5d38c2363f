@@ -1,0 +1,49 @@
+package application;
+
+import java.util.Scanner;
+
+import entities.Pensinato;
+
+public class Progam {
+
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		
+		
+		
+		System.out.print("Qunatos quartos será reservado? ");
+		int n = sc.nextInt();
+		Pensinato[] Rent = new Pensinato[10];
+		
+		
+		for (int i = 0; i < Rent.length; i++) {
+			System.out.println("Rent #" + (i+1) + ":");
+			System.out.print("Name: ");
+			sc.nextLine();
+			String Name = sc.nextLine();
+			System.out.print("Email: ");
+			String email = sc.next();
+			System.out.print("Quarto: ");
+			int quarto = sc.nextInt();
+						
+			Rent[quarto] = new Pensinato(Name, email);
+			
+		}
+		System.out.println();
+		System.out.println("Salas Ocupadas:");
+		for (int i = 0; i < 10; i++) {
+			if(Rent[i] != null) {
+				System.out.print(i + ": "+Rent[i]);
+			}
+		}
+		
+		
+		
+		
+		
+		
+		
+		sc.close();
+	}
+
+}

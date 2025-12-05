@@ -1,0 +1,41 @@
+package application;
+
+import java.util.ArrayList;
+import java.util.Scanner;
+
+public class Progam {
+
+	public static void main(String[] args) {
+	Scanner sc = new Scanner(System.in);
+
+	ArrayList<Double> notas = new ArrayList<>();
+	
+	System.out.println("Digite o nome do aluno: ");
+	String nome = sc.next();
+	
+	for (int i = 0; i < 4; i++) {
+		System.out.println("Digite as 4 notas do aluno (de 0 a 10): ");
+		System.out.print("Nota: "+ (i+1) + ": ");
+		double NotasAluno = sc.nextDouble();
+		notas.add(NotasAluno);
+			
+	}
+	double Soma = 0;
+	
+	for (Double Nota : notas) {
+		Soma += Nota;
+	}
+	
+	double media = Soma / notas.size();
+			
+	
+	System.out.print("Aluno: "+ nome);
+	System.out.print("Notas: "+"["+notas+"]");
+	System.out.print("");
+	
+	
+	
+	sc.close();
+	}
+
+}

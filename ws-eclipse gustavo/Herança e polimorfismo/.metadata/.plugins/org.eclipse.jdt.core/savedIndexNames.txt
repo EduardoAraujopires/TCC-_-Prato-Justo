@@ -1,0 +1,5 @@
+INDEX VERSION 1.134+C:\TEMP\ws-eclipse gustavo\Herança e polimorfismo\.metadata\.plugins\org.eclipse.jdt.core
+3544813332.index
+1865797976.index
+135461392.index
+480876222.index

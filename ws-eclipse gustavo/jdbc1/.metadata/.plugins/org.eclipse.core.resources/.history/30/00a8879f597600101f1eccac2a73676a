@@ -1,0 +1,53 @@
+package application;
+
+import java.util.List;
+import java.util.Scanner;
+
+import model.dao.DaoFactory;
+import model.dao.DepartmentDao;
+import model.entities.Department;
+
+public class Progam2 {
+
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		
+		DepartmentDao departmentdao = DaoFactory.createDepartmentDao();
+		
+		
+		System.out.println("=== Teste 1 findById ====");
+		Department dep = departmentdao.findById(1);		
+		System.out.println(dep);
+		
+		System.out.println();
+		System.out.println("=== Teste 2 findAll ====");
+		List<Department> list = departmentdao.findAll();		
+		for (Department d : list) {
+			System.out.println(d);
+		}
+		
+		System.out.println();
+		System.out.println("=== Teste 3 insert ====");
+		Department newDepartment = new Department(null, "Video Game");		
+		departmentdao.insert(newDepartment);		
+		System.out.println("Inserted! new Id: " + newDepartment.getId());
+		
+		
+		System.out.println();
+		System.out.println("=== Teste 4 Update ====");
+		Department dep2 = departmentdao.findById(1);
+		dep.setName("Food");
+		departmentdao.update(dep2);
+		System.out.println("Update completed");
+		
+		System.out.println();
+		System.out.println("=== Teste 5 Delete ====");
+		System.out.print("DIGITE O ID PARA SER DELETADO!!: ");
+		int id = sc.nextInt();
+		departmentdao.deleteById(id);
+		System.out.println("DELETE COMPLETO!!!");
+		
+		sc.close();
+	}
+
+}

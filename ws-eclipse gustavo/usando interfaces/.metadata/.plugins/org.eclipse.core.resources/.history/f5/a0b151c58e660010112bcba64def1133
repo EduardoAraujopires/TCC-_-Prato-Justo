@@ -1,0 +1,38 @@
+package application;
+
+import java.time.LocalDate;
+import java.util.Locale;
+import java.util.Scanner;
+
+import entities.Contract;
+import entities.ContractService;
+import entities.PaypalService;
+
+public class Progam {
+
+	public static void main(String[] args) {
+		Locale.setDefault(Locale.US);
+		Scanner sc = new Scanner (System.in);
+		
+		System.out.println("Entre os dados do comtrato: ");
+		System.out.print("Numero: ");
+		int number = sc.nextInt();
+		System.out.print("Data (dd/MM/yyyy): ");
+		LocalDate data = LocalDate.parse(sc.next());
+		System.out.print("Valor do contrato: ");
+		double totalValue = sc.nextDouble();
+		
+		
+		Contract obj = new Contract(number, data, totalValue);
+		
+		System.out.print("Entre com o numero de parcelas: ");
+		int n = sc.nextInt();
+		
+		ContractService contractService = new ContractService(new PaypalService());
+		contractService.processContract(obj, n);
+		
+		
+		sc.close();
+	}
+
+}

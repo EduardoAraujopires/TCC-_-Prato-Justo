@@ -1,0 +1,65 @@
+package application;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
+import java.util.Scanner;
+import java.util.stream.Collectors;
+
+import entities.Employee;
+
+public class Progam {
+
+	public static void main(String[] args) {
+		Locale.setDefault(Locale.US);
+		Scanner sc = new Scanner(System.in);
+		
+		System.out.print("Digite o caminho do arquivo: ");
+		String path = sc.nextLine();
+		
+		try(BufferedReader br = new BufferedReader(new FileReader(path))){
+			
+			List<Employee> list = new ArrayList<>();
+			
+			String linha = br.readLine();
+			while(linha != null) {
+				String[] vetor = linha.split(",");
+				String name = vetor[0];
+				String email = vetor[1];
+				Double salary = Double.parseDouble(vetor[2]);
+				
+				Employee  emp = new Employee(name, email, salary);
+				list.add(emp);
+				
+				linha = br.readLine();
+				
+			}
+			
+			System.out.print("Digite o sálario: ");
+			double salario = sc.nextDouble();
+			
+			List<String> email = list.stream()
+					.filter(x -> x. getSalary() > salario)
+					.map(x -> x.getEmail())
+					.sorted()
+					.collect(Collectors.toList());
+			System.out.println("Email de passoas que o salario é maior que " +String.format("%.2f", salario ) +":");
+			email.forEach(System.out::println);
+			
+			Double sum = list.stream()
+					.filter(x -> x.getName().charAt(0) == 'M')
+					.map(x -> x.getSalary())
+					.reduce(0.0, (x, y) ->  x + y);
+			
+			System.out.print("soma dos salarios que os nome começam com 'M': "+ String.format("%.2f", sum));		
+			
+		}catch(IOException e ) {
+			System.out.println(e.getMessage());
+		}
+	
+		sc.close();
+	}
+
+}

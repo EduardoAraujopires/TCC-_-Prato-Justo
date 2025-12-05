@@ -1,0 +1,4 @@
+INDEX VERSION 1.134+C:\TEMP\ws-eclipse gustavo\exercicio para fixação\.metadata\.plugins\org.eclipse.jdt.core
+1865797976.index
+209528067.index
+470263504.index

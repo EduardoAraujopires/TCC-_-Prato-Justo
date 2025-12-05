@@ -1,0 +1,41 @@
+package application;
+
+import java.time.LocalDate;
+import java.time.Period;
+import java.time.format.DateTimeFormatter;
+import java.util.Scanner;
+
+public class Progam {
+
+	public static void main(String[] args) {
+		//DateTimeFormatter dataAtual = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+		//DateTimeFormatter HoraAtual = DateTimeFormatter.ofPattern("HH:mm:ss");
+		//DateTimeFormatter DataCompleta = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+		
+		
+		//LocalDate d1 = LocalDate.now();
+		//LocalDateTime d2 = LocalDateTime.now();
+		//LocalDateTime d3 = LocalDateTime.now();
+		//System.out.println("Data atual = "+ d1.format(dataAtual));
+		//System.out.println("Hora atual = "+ d2.format(HoraAtual));
+		//System.out.println("Data e Hora Completa = "+ d3.format(DataCompleta));
+		Scanner sc = new Scanner(System.in);
+	
+		DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+		
+		System.out.println("Digite o seu ano de nacismento: ");
+		String ano = sc.nextLine();
+		
+		LocalDate dataNascimento = LocalDate.parse(ano,formato);
+		LocalDate dataAtual = LocalDate.now();
+		
+		Period t1 = Period.between(dataNascimento, dataAtual);
+		
+		System.out.println("Sua Idade é: "+ t1 + " Anos");
+		
+		
+		
+		sc.close();
+	}
+
+}

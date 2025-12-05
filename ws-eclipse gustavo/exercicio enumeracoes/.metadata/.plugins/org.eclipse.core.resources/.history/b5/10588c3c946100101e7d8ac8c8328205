@@ -1,0 +1,35 @@
+package application;
+
+import java.util.Locale;
+import java.util.Scanner;
+
+import entities.Enum.OrderStatus;
+
+public class Progam {
+
+	public static void main(String[] args) {
+		Locale.setDefault(Locale.US);	
+		Scanner sc = new Scanner(System.in);
+		OrderStatus orderstatus;
+		
+		System.out.println("Enter client data: ");
+		
+		System.out.print("Name: ");
+		String name = sc.nextLine();
+		
+		System.out.print("Email: ");
+		String email = sc.next();
+		
+		System.out.print("Birth date (DD/MM/YYYY): ");
+		String date = sc.next();
+		
+		System.out.println("Enter order data: ");
+		System.out.print("Status: " + orderstatus);
+		
+		
+		
+		
+		sc.close();
+		}
+
+}

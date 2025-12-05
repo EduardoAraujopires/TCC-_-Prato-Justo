@@ -1,0 +1,15 @@
+package model.dao.impl;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.text.SimpleDateFormat;
+
+import db.DbException;
+import model.dao.FactoryDao;
+import model.entities.Department2;
+import model.entities.Seller;
+
+public class DepartmentDaoJDBC extends Department2{
+
+	
+}

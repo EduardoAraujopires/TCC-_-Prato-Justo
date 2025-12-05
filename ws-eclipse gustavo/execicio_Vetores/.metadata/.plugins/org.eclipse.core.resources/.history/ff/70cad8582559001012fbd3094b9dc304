@@ -1,0 +1,35 @@
+package application;
+
+import java.util.ArrayList;
+
+import java.util.Scanner;
+
+public class Progam {
+
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		
+		
+		ArrayList<Integer> numeros = new ArrayList<Integer>();
+		
+		System.out.println("Digite 5 numeros Inteiros: ");
+		
+		for (int i = 0; i < 5; i++) {
+			System.out.println("Número "+ (i+1) + ":");
+			int n = sc.nextInt();
+			numeros.add(n);
+			
+		}
+		
+		System.out.println("Numeros digitados");
+		
+		for (Integer NumerosDigitados : numeros) {
+			System.out.println("- "+NumerosDigitados);
+			
+		}
+		sc.close();
+		}
+		
+	}
+
+

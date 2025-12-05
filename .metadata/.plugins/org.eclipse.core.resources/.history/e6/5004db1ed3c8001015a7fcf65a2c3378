@@ -1,0 +1,334 @@
+// =========================================
+// JAVASCRIPT PADRONIZADO - COMO DOAR
+// =========================================
+
+document.addEventListener('DOMContentLoaded', function() {
+    // Inicializar todas as funcionalidades
+    initMobileMenu();
+    initAnimations();
+    initAuthCheck();
+    initSmoothScroll();
+    
+    console.log('🚀 Página "Como Doar" carregada com sucesso!');
+});
+
+/**
+ * ===== MENU MOBILE CORRIGIDO =====
+ */
+function initMobileMenu() {
+    const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+    const navMenu = document.getElementById('nav-menu');
+    const headerButtons = document.querySelector('.header-buttons-premium');
+    
+    if (mobileMenuBtn && navMenu) {
+        mobileMenuBtn.addEventListener('click', function() {
+            const isExpanded = this.getAttribute('aria-expanded') === 'true';
+            
+            // Alternar menu
+            this.classList.toggle('active');
+            navMenu.classList.toggle('active');
+            if (headerButtons) {
+                headerButtons.classList.toggle('active');
+            }
+            
+            // Atualizar atributo ARIA
+            this.setAttribute('aria-expanded', !isExpanded);
+            
+            // Animar ícones do hamburger
+            const spans = this.querySelectorAll('span');
+            if (this.classList.contains('active')) {
+                spans[0].style.transform = 'rotate(45deg) translate(6px, 6px)';
+                spans[1].style.opacity = '0';
+                spans[2].style.transform = 'rotate(-45deg) translate(6px, -6px)';
+            } else {
+                spans[0].style.transform = 'none';
+                spans[1].style.opacity = '1';
+                spans[2].style.transform = 'none';
+            }
+        });
+    }
+    
+    // Fechar menu ao clicar em um link
+    document.querySelectorAll('.nav-link-premium').forEach(link => {
+        link.addEventListener('click', () => {
+            if (window.innerWidth <= 768) {
+                mobileMenuBtn.classList.remove('active');
+                navMenu.classList.remove('active');
+                if (headerButtons) {
+                    headerButtons.classList.remove('active');
+                }
+                
+                // Resetar ícones do hamburger
+                const spans = mobileMenuBtn.querySelectorAll('span');
+                spans[0].style.transform = 'none';
+                spans[1].style.opacity = '1';
+                spans[2].style.transform = 'none';
+                mobileMenuBtn.setAttribute('aria-expanded', 'false');
+            }
+        });
+    });
+}
+
+/**
+ * ===== ANIMAÇÕES DE REVELAÇÃO =====
+ */
+function initAnimations() {
+    // Observer para animações de revelação
+    const revealObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('revealed');
+                
+                // Iniciar contadores quando a seção de estatísticas for revelada
+                if (entry.target.classList.contains('hero-stat-card')) {
+                    startCounterAnimation(entry.target);
+                }
+            }
+        });
+    }, {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    });
+
+    // Observar todos os elementos com data-reveal
+    document.querySelectorAll('[data-reveal]').forEach(el => {
+        revealObserver.observe(el);
+    });
+
+    // Animação das estatísticas do hero
+    document.querySelectorAll('.hero-stat-card').forEach(card => {
+        revealObserver.observe(card);
+    });
+}
+
+/**
+ * ===== ANIMAÇÃO DOS CONTADORES =====
+ */
+function startCounterAnimation(statCard) {
+    const statNumber = statCard.querySelector('.stat-number');
+    const target = parseInt(statCard.getAttribute('data-stat'));
+    const duration = 1500;
+    const step = target / (duration / 16);
+    let current = 0;
+    
+    const timer = setInterval(() => {
+        current += step;
+        if (current >= target) {
+            current = target;
+            clearInterval(timer);
+        }
+        statNumber.textContent = Math.floor(current).toLocaleString();
+    }, 16);
+}
+
+/**
+ * ===== VERIFICAÇÃO DE AUTENTICAÇÃO =====
+ */
+function initAuthCheck() {
+    const authButtons = document.querySelectorAll('.require-auth');
+    
+    authButtons.forEach(button => {
+        button.addEventListener('click', function(e) {
+            const isLoggedIn = checkAuthentication();
+            
+            if (!isLoggedIn) {
+                e.preventDefault();
+                showLoginModal();
+            }
+        });
+    });
+}
+
+function checkAuthentication() {
+    // Verificar se o usuário está autenticado
+    // Esta função deve ser integrada com seu sistema de autenticação
+    const token = localStorage.getItem('authToken');
+    const user = localStorage.getItem('user');
+    
+    return !!(token && user);
+}
+
+function showLoginModal() {
+    // Criar modal de login personalizado
+    const modal = document.createElement('div');
+    modal.className = 'auth-modal-premium';
+    modal.innerHTML = `
+        <div class="auth-modal-content-premium">
+            <div class="auth-modal-header-premium">
+                <h3>Faça Login para Continuar</h3>
+                <button class="auth-modal-close-premium">&times;</button>
+            </div>
+            <div class="auth-modal-body-premium">
+                <p>Para começar a doar, você precisa estar logado em sua conta.</p>
+                <div class="auth-modal-buttons-premium">
+                    <a href="login.html" class="btn-auth-primary-premium">Fazer Login</a>
+                    <a href="cadastro_perfil.html" class="btn-auth-secondary-premium">Criar Conta</a>
+                </div>
+            </div>
+        </div>
+    `;
+    
+    // Adicionar estilos do modal
+    const styles = `
+        .auth-modal-premium {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10000;
+            backdrop-filter: blur(5px);
+        }
+        .auth-modal-content-premium {
+            background: white;
+            border-radius: 1rem;
+            padding: 2rem;
+            max-width: 400px;
+            width: 90%;
+            animation: modalSlideIn 0.3s ease;
+        }
+        .auth-modal-header-premium {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+        .auth-modal-header-premium h3 {
+            color: var(--primary-red);
+            margin: 0;
+        }
+        .auth-modal-close-premium {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--text-light);
+        }
+        .auth-modal-body-premium p {
+            color: var(--text-light);
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+        .auth-modal-buttons-premium {
+            display: flex;
+            gap: 1rem;
+            flex-direction: column;
+        }
+        .btn-auth-primary-premium {
+            background: var(--primary-red);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 0.5rem;
+            text-decoration: none;
+            text-align: center;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        .btn-auth-primary-premium:hover {
+            background: var(--primary-red-dark);
+            transform: translateY(-2px);
+        }
+        .btn-auth-secondary-premium {
+            background: transparent;
+            color: var(--primary-red);
+            padding: 1rem 2rem;
+            border-radius: 0.5rem;
+            text-decoration: none;
+            text-align: center;
+            font-weight: 600;
+            border: 2px solid var(--primary-red);
+            transition: all 0.3s ease;
+        }
+        .btn-auth-secondary-premium:hover {
+            background: var(--primary-red);
+            color: white;
+            transform: translateY(-2px);
+        }
+        @keyframes modalSlideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-50px) scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+    `;
+    
+    // Adicionar estilos
+    const styleSheet = document.createElement('style');
+    styleSheet.textContent = styles;
+    document.head.appendChild(styleSheet);
+    
+    // Adicionar modal ao documento
+    document.body.appendChild(modal);
+    
+    // Event listeners do modal
+    modal.querySelector('.auth-modal-close-premium').addEventListener('click', () => {
+        document.body.removeChild(modal);
+    });
+    
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) {
+            document.body.removeChild(modal);
+        }
+    });
+}
+
+/**
+ * ===== SCROLL SUAVE =====
+ */
+function initSmoothScroll() {
+    const scrollLinks = document.querySelectorAll('a[href^="#"]');
+    
+    scrollLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            const targetId = this.getAttribute('href');
+            if (targetId === '#') return;
+            
+            const targetElement = document.querySelector(targetId);
+            if (targetElement) {
+                const headerHeight = document.getElementById('main-header').offsetHeight;
+                const targetPosition = targetElement.offsetTop - headerHeight - 20;
+                
+                window.scrollTo({
+                    top: targetPosition,
+                    behavior: 'smooth'
+                });
+            }
+        });
+    });
+}
+
+/**
+ * ===== OTIMIZAÇÕES DE PERFORMANCE =====
+ */
+function initPerformanceOptimizations() {
+    // Lazy loading para imagens (se houver)
+    const images = document.querySelectorAll('img[data-src]');
+    
+    const imageObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const img = entry.target;
+                img.src = img.getAttribute('data-src');
+                img.removeAttribute('data-src');
+                imageObserver.unobserve(img);
+            }
+        });
+    });
+    
+    images.forEach(img => imageObserver.observe(img));
+}
+
+// Inicializar otimizações de performance
+document.addEventListener('DOMContentLoaded', initPerformanceOptimizations);
+
+console.log('🎯 Script "Como Doar" carregado com todas as funcionalidades!');

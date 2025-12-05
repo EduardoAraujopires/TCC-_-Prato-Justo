@@ -1,0 +1,12 @@
+package entities;
+
+import java.util.Date;
+
+public class Contract {
+	private Integer number;
+	private Date data;
+	private Double totalValue;
+	
+	private Installment installment;
+	
+}

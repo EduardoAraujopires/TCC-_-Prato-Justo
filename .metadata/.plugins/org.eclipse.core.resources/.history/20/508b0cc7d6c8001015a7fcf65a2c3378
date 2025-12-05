@@ -1,0 +1,336 @@
+// =========================================
+// JAVASCRIPT PARA PÁGINA "COMO DOAR" 
+// COM ESTILO IDÊNTICO AO "POR QUE DOAR"
+// =========================================
+
+document.addEventListener('DOMContentLoaded', function() {
+    // Inicializar todas as funcionalidades
+    initMobileMenu();
+    initAnimations();
+    initTimelineInteractions();
+    initCalculator();
+    initLiveStats();
+    initAuthCheck();
+    initSmoothScroll();
+    
+    console.log('🚀 Página "Como Doar" carregada com estilo premium!');
+});
+
+/**
+ * ===== MENU MOBILE =====
+ */
+function initMobileMenu() {
+    const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+    const navMenu = document.getElementById('nav-menu');
+    const headerButtons = document.querySelector('.header-buttons-premium');
+    
+    if (mobileMenuBtn && navMenu) {
+        mobileMenuBtn.addEventListener('click', function() {
+            const isExpanded = this.getAttribute('aria-expanded') === 'true';
+            
+            // Alternar menu
+            this.classList.toggle('active');
+            navMenu.classList.toggle('active');
+            if (headerButtons) {
+                headerButtons.classList.toggle('active');
+            }
+            
+            // Atualizar atributo ARIA
+            this.setAttribute('aria-expanded', !isExpanded);
+            
+            // Animar ícones do hamburger
+            const spans = this.querySelectorAll('span');
+            if (this.classList.contains('active')) {
+                spans[0].style.transform = 'rotate(45deg) translate(6px, 6px)';
+                spans[1].style.opacity = '0';
+                spans[2].style.transform = 'rotate(-45deg) translate(6px, -6px)';
+            } else {
+                spans[0].style.transform = 'none';
+                spans[1].style.opacity = '1';
+                spans[2].style.transform = 'none';
+            }
+        });
+    }
+}
+
+/**
+ * ===== ANIMAÇÕES DE REVELAÇÃO =====
+ */
+function initAnimations() {
+    // Observer para animações de revelação
+    const revealObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('revealed');
+                
+                // Iniciar contadores quando elementos forem revelados
+                if (entry.target.classList.contains('hero-stat-card')) {
+                    startCounterAnimation(entry.target);
+                }
+                if (entry.target.classList.contains('live-stat-number')) {
+                    startLiveCounter(entry.target);
+                }
+            }
+        });
+    }, {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    });
+
+    // Observar todos os elementos com data-reveal
+    document.querySelectorAll('[data-reveal]').forEach(el => {
+        revealObserver.observe(el);
+    });
+
+    // Animação das estatísticas do hero
+    document.querySelectorAll('.hero-stat-card').forEach(card => {
+        revealObserver.observe(card);
+    });
+}
+
+/**
+ * ===== INTERAÇÕES DA TIMELINE =====
+ */
+function initTimelineInteractions() {
+    // Timeline de Urgência
+    const urgencyTimelineItems = document.querySelectorAll('.timeline-item');
+    const urgencyProgress = document.querySelector('.timeline-progress::after');
+    
+    urgencyTimelineItems.forEach((item, index) => {
+        item.addEventListener('click', () => {
+            // Atualizar progresso
+            const progress = ((index + 1) / urgencyTimelineItems.length) * 100;
+            document.querySelector('.timeline-progress::after').style.width = progress + '%';
+            
+            // Atualizar itens ativos
+            urgencyTimelineItems.forEach(tlItem => tlItem.classList.remove('active'));
+            item.classList.add('active');
+        });
+    });
+
+    // Timeline de Benefícios
+    const benefitSteps = document.querySelectorAll('.timeline-step');
+    const benefitProgress = document.querySelector('.timeline-fill-benefits');
+    const benefitCards = document.querySelectorAll('.benefit-card-premium');
+    
+    benefitSteps.forEach((step, index) => {
+        step.addEventListener('click', () => {
+            const progress = (index / (benefitSteps.length - 1)) * 100;
+            benefitProgress.style.width = progress + '%';
+            
+            // Atualizar steps ativos
+            benefitSteps.forEach(s => s.classList.remove('active'));
+            step.classList.add('active');
+            
+            // Destacar card correspondente
+            benefitCards.forEach(card => {
+                const cardStep = parseInt(card.getAttribute('data-step'));
+                if (cardStep === index + 1) {
+                    card.style.transform = 'scale(1.05)';
+                    setTimeout(() => {
+                        card.style.transform = '';
+                    }, 300);
+                }
+            });
+        });
+    });
+
+    // Auto-avanço da timeline de urgência
+    let currentUrgencyStep = 0;
+    setInterval(() => {
+        currentUrgencyStep = (currentUrgencyStep + 1) % urgencyTimelineItems.length;
+        urgencyTimelineItems[currentUrgencyStep].click();
+    }, 4000);
+}
+
+/**
+ * ===== CALCULADORA DE IMPACTO =====
+ */
+function initCalculator() {
+    const amountSlider = document.getElementById('donationAmount');
+    const amountValue = document.getElementById('amountValue');
+    const mealsResult = document.getElementById('mealsResult');
+    const familiesResult = document.getElementById('familiesResult');
+    const co2Result = document.getElementById('co2Result');
+    
+    if (amountSlider) {
+        amountSlider.addEventListener('input', function() {
+            const amount = parseInt(this.value);
+            amountValue.textContent = amount + ' kg';
+            
+            // Calcular impactos
+            const meals = Math.floor(amount * 3); // 3 refeições por kg
+            const families = Math.floor(amount / 1.5); // 1.5kg por família
+            const co2 = Math.floor(amount * 2.5); // 2.5kg CO2 por kg de alimento
+            
+            // Animar contadores
+            animateCounter(mealsResult, meals);
+            animateCounter(familiesResult, families);
+            animateCounter(co2Result, co2);
+        });
+        
+        // Disparar evento inicial
+        amountSlider.dispatchEvent(new Event('input'));
+    }
+}
+
+function animateCounter(element, target) {
+    const current = parseInt(element.textContent);
+    const difference = target - current;
+    const duration = 1000;
+    const steps = 60;
+    const increment = difference / steps;
+    let currentStep = 0;
+    
+    const timer = setInterval(() => {
+        currentStep++;
+        const value = Math.floor(current + (increment * currentStep));
+        element.textContent = value;
+        
+        if (currentStep >= steps) {
+            element.textContent = target;
+            clearInterval(timer);
+        }
+    }, duration / steps);
+}
+
+/**
+ * ===== ESTATÍSTICAS EM TEMPO REAL =====
+ */
+function initLiveStats() {
+    const liveStats = document.querySelectorAll('.live-stat-number[data-count]');
+    
+    liveStats.forEach(stat => {
+        // Simular atualização em tempo real
+        setInterval(() => {
+            const current = parseInt(stat.textContent.replace('+', ''));
+            const increment = Math.floor(Math.random() * 5) + 1;
+            const newValue = current + increment;
+            stat.textContent = newValue.toLocaleString() + '+';
+            
+            // Adicionar animação
+            stat.style.transform = 'scale(1.1)';
+            setTimeout(() => {
+                stat.style.transform = 'scale(1)';
+            }, 300);
+        }, 5000);
+    });
+}
+
+function startLiveCounter(element) {
+    const target = parseInt(element.getAttribute('data-count'));
+    const duration = 2000;
+    const steps = 60;
+    const increment = target / steps;
+    let current = 0;
+    let currentStep = 0;
+    
+    const timer = setInterval(() => {
+        currentStep++;
+        current = Math.floor(increment * currentStep);
+        element.textContent = current.toLocaleString() + '+';
+        
+        if (currentStep >= steps) {
+            element.textContent = target.toLocaleString() + '+';
+            clearInterval(timer);
+        }
+    }, duration / steps);
+}
+
+/**
+ * ===== ANIMAÇÃO DOS CONTADORES =====
+ */
+function startCounterAnimation(statCard) {
+    const statNumber = statCard.querySelector('.stat-number');
+    const target = parseInt(statCard.getAttribute('data-stat'));
+    const duration = 1500;
+    const steps = 60;
+    const increment = target / steps;
+    let current = 0;
+    let currentStep = 0;
+    
+    const timer = setInterval(() => {
+        currentStep++;
+        current = Math.floor(increment * currentStep);
+        statNumber.textContent = current.toLocaleString() + '+';
+        
+        if (currentStep >= steps) {
+            statNumber.textContent = target.toLocaleString() + '+';
+            clearInterval(timer);
+        }
+    }, duration / steps);
+}
+
+/**
+ * ===== VERIFICAÇÃO DE AUTENTICAÇÃO =====
+ */
+function initAuthCheck() {
+    const authButtons = document.querySelectorAll('.require-auth');
+    
+    authButtons.forEach(button => {
+        button.addEventListener('click', function(e) {
+            const isLoggedIn = checkAuthentication();
+            
+            if (!isLoggedIn) {
+                e.preventDefault();
+                showLoginModal();
+            }
+        });
+    });
+}
+
+function checkAuthentication() {
+    // Verificar se o usuário está autenticado
+    const token = localStorage.getItem('authToken');
+    const user = localStorage.getItem('user');
+    return !!(token && user);
+}
+
+function showLoginModal() {
+    // Modal de login (implementação básica)
+    alert('Para continuar, faça login em sua conta.');
+    window.location.href = 'login.html';
+}
+
+/**
+ * ===== SCROLL SUAVE =====
+ */
+function initSmoothScroll() {
+    const scrollLinks = document.querySelectorAll('a[href^="#"]');
+    
+    scrollLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            const targetId = this.getAttribute('href');
+            if (targetId === '#') return;
+            
+            const targetElement = document.querySelector(targetId);
+            if (targetElement) {
+                const headerHeight = document.getElementById('main-header').offsetHeight;
+                const targetPosition = targetElement.offsetTop - headerHeight - 20;
+                
+                window.scrollTo({
+                    top: targetPosition,
+                    behavior: 'smooth'
+                });
+            }
+        });
+    });
+}
+
+/**
+ * ===== ANIMAÇÕES DE FLUTUAÇÃO =====
+ */
+function initFloatingAnimations() {
+    // Animar ícones flutuantes
+    const floatingIcons = document.querySelectorAll('.floating-food-icons i');
+    floatingIcons.forEach((icon, index) => {
+        icon.style.animationDelay = (index * 2) + 's';
+    });
+}
+
+// Inicializar animações de flutuação
+document.addEventListener('DOMContentLoaded', initFloatingAnimations);
+
+console.log('🎯 Todas as funcionalidades premium foram carregadas!');

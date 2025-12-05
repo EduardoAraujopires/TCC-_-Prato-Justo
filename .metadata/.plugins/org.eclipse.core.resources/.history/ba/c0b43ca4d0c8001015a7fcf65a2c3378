@@ -1,0 +1,487 @@
+// =========================================
+// JAVASCRIPT PREMIUM - COMO DOAR
+// =========================================
+
+document.addEventListener('DOMContentLoaded', function() {
+	// Inicializar todas as funcionalidades
+	initAnimations();
+	initTimeline();
+	initFAQ();
+	initCounters();
+	initSmoothScroll();
+	initAuthCheck();
+
+	console.log('🚀 Página "Como Doar" carregada com sucesso!');
+});
+
+/**
+ * ===== INICIALIZAÇÃO DE ANIMAÇÕES =====
+ */
+function initAnimations() {
+	// Observer para animações de revelação
+	const revealObserver = new IntersectionObserver((entries) => {
+		entries.forEach(entry => {
+			if (entry.isIntersecting) {
+				entry.target.classList.add('revealed');
+
+				// Iniciar contadores quando a seção de estatísticas for revelada
+				if (entry.target.classList.contains('hero-stat-card')) {
+					startCounterAnimation(entry.target);
+				}
+			}
+		});
+	}, {
+		threshold: 0.1,
+		rootMargin: '0px 0px -50px 0px'
+	});
+
+	// Observar todos os elementos com data-reveal
+	document.querySelectorAll('[data-reveal]').forEach(el => {
+		revealObserver.observe(el);
+	});
+
+	// Animação das estatísticas do hero
+	document.querySelectorAll('.hero-stat-card').forEach(card => {
+		revealObserver.observe(card);
+	});
+}
+
+/**
+ * ===== TIMELINE INTERATIVA =====
+ */
+function initTimeline() {
+	const timelineSteps = document.querySelectorAll('.timeline-step-premium');
+	const timelineFill = document.getElementById('timeline-fill');
+	const stepCards = document.querySelectorAll('.step-card-premium');
+
+	let currentStep = 1;
+
+	// Função para atualizar timeline
+	function updateTimeline(step) {
+		// Atualizar marcadores da timeline
+		timelineSteps.forEach((timelineStep, index) => {
+			if (index + 1 <= step) {
+				timelineStep.classList.add('active');
+			} else {
+				timelineStep.classList.remove('active');
+			}
+		});
+
+		// Atualizar preenchimento da timeline
+		const percentage = ((step - 1) / (timelineSteps.length - 1)) * 100;
+		timelineFill.style.width = percentage + '%';
+
+		// Destacar card correspondente
+		stepCards.forEach(card => {
+			const cardStep = parseInt(card.getAttribute('data-step'));
+			if (cardStep === step) {
+				card.style.transform = 'translateY(-15px) scale(1.02)';
+				card.style.boxShadow = '0 25px 50px rgba(220, 38, 38, 0.15)';
+				card.style.borderColor = 'var(--primary-red)';
+			} else {
+				card.style.transform = '';
+				card.style.boxShadow = '';
+				card.style.borderColor = '';
+			}
+		});
+	}
+
+	// Event listeners para os passos da timeline
+	timelineSteps.forEach((step, index) => {
+		step.addEventListener('click', () => {
+			currentStep = index + 1;
+			updateTimeline(currentStep);
+		});
+
+		step.addEventListener('mouseenter', () => {
+			if (!step.classList.contains('active')) {
+				step.style.transform = 'scale(1.1)';
+			}
+		});
+
+		step.addEventListener('mouseleave', () => {
+			step.style.transform = '';
+		});
+	});
+
+	// Event listeners para os cards de passo
+	stepCards.forEach(card => {
+		card.addEventListener('mouseenter', function() {
+			const step = parseInt(this.getAttribute('data-step'));
+			updateTimeline(step);
+		});
+
+		card.addEventListener('click', function() {
+			const step = parseInt(this.getAttribute('data-step'));
+			currentStep = step;
+			updateTimeline(currentStep);
+		});
+	});
+
+	// Auto-avanço da timeline (opcional)
+	let autoAdvance = setInterval(() => {
+		currentStep = currentStep % timelineSteps.length + 1;
+		updateTimeline(currentStep);
+	}, 4000);
+
+	// Pausar auto-avanço quando o usuário interagir
+	document.querySelector('.steps-timeline-premium').addEventListener('mouseenter', () => {
+		clearInterval(autoAdvance);
+	});
+}
+
+/**
+ * ===== FAQ INTERATIVO =====
+ */
+function initFAQ() {
+	const faqItems = document.querySelectorAll('.faq-item-premium');
+
+	faqItems.forEach(item => {
+		const question = item.querySelector('.faq-question-premium');
+
+		question.addEventListener('click', () => {
+			// Fechar outros itens
+			faqItems.forEach(otherItem => {
+				if (otherItem !== item && otherItem.classList.contains('active')) {
+					otherItem.classList.remove('active');
+				}
+			});
+
+			// Alternar item atual
+			item.classList.toggle('active');
+
+			// Animar ícone
+			const icon = question.querySelector('i');
+			if (item.classList.contains('active')) {
+				icon.style.transform = 'rotate(180deg)';
+			} else {
+				icon.style.transform = 'rotate(0deg)';
+			}
+		});
+	});
+
+	// Abrir primeiro item por padrão
+	if (faqItems.length > 0) {
+		faqItems[0].classList.add('active');
+	}
+}
+
+/**
+ * ===== CONTADORES ANIMADOS =====
+ */
+function initCounters() {
+	const counters = document.querySelectorAll('[data-count]');
+
+	const counterObserver = new IntersectionObserver((entries) => {
+		entries.forEach(entry => {
+			if (entry.isIntersecting) {
+				const counter = entry.target;
+				const target = parseInt(counter.getAttribute('data-count'));
+				const duration = 2000; // 2 segundos
+				const step = target / (duration / 16); // 60fps
+				let current = 0;
+
+				const timer = setInterval(() => {
+					current += step;
+					if (current >= target) {
+						current = target;
+						clearInterval(timer);
+					}
+					counter.textContent = Math.floor(current).toLocaleString();
+				}, 16);
+
+				counterObserver.unobserve(counter);
+			}
+		});
+	}, { threshold: 0.5 });
+
+	counters.forEach(counter => {
+		counterObserver.observe(counter);
+	});
+}
+
+/**
+ * ===== ANIMAÇÃO DOS CONTADORES DAS ESTATÍSTICAS =====
+ */
+function startCounterAnimation(statCard) {
+	const statNumber = statCard.querySelector('.stat-number');
+	const target = parseInt(statCard.getAttribute('data-stat'));
+	const duration = 1500;
+	const step = target / (duration / 16);
+	let current = 0;
+
+	const timer = setInterval(() => {
+		current += step;
+		if (current >= target) {
+			current = target;
+			clearInterval(timer);
+		}
+		statNumber.textContent = Math.floor(current).toLocaleString();
+	}, 16);
+}
+
+/**
+ * ===== SCROLL SUAVE =====
+ */
+function initSmoothScroll() {
+	const scrollLinks = document.querySelectorAll('a[href^="#"]');
+
+	scrollLinks.forEach(link => {
+		link.addEventListener('click', function(e) {
+			e.preventDefault();
+
+			const targetId = this.getAttribute('href');
+			if (targetId === '#') return;
+
+			const targetElement = document.querySelector(targetId);
+			if (targetElement) {
+				const headerHeight = document.getElementById('main-header').offsetHeight;
+				const targetPosition = targetElement.offsetTop - headerHeight - 20;
+
+				window.scrollTo({
+					top: targetPosition,
+					behavior: 'smooth'
+				});
+			}
+		});
+	});
+}
+
+/**
+ * ===== VERIFICAÇÃO DE AUTENTICAÇÃO =====
+ */
+function initAuthCheck() {
+	const authButtons = document.querySelectorAll('.require-auth');
+
+	authButtons.forEach(button => {
+		button.addEventListener('click', function(e) {
+			const isLoggedIn = checkAuthentication();
+
+			if (!isLoggedIn) {
+				e.preventDefault();
+				showLoginModal();
+			}
+		});
+	});
+}
+
+function checkAuthentication() {
+	// Verificar se o usuário está autenticado
+	// Esta função deve ser integrada com seu sistema de autenticação
+	const token = localStorage.getItem('authToken');
+	const user = localStorage.getItem('user');
+
+	return !!(token && user);
+}
+
+function showLoginModal() {
+	// Criar modal de login personalizado
+	const modal = document.createElement('div');
+	modal.className = 'auth-modal';
+	modal.innerHTML = `
+        <div class="auth-modal-content">
+            <div class="auth-modal-header">
+                <h3>Faça Login para Continuar</h3>
+                <button class="auth-modal-close">&times;</button>
+            </div>
+            <div class="auth-modal-body">
+                <p>Para começar a doar, você precisa estar logado em sua conta.</p>
+                <div class="auth-modal-buttons">
+                    <a href="login.html" class="btn-auth-primary">Fazer Login</a>
+                    <a href="cadastro_perfil.html" class="btn-auth-secondary">Criar Conta</a>
+                </div>
+            </div>
+        </div>
+    `;
+
+	// Estilos do modal
+	const styles = `
+        .auth-modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10000;
+            backdrop-filter: blur(5px);
+        }
+        .auth-modal-content {
+            background: white;
+            border-radius: 1rem;
+            padding: 2rem;
+            max-width: 400px;
+            width: 90%;
+            animation: modalSlideIn 0.3s ease;
+        }
+        .auth-modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+        .auth-modal-header h3 {
+            color: var(--primary-red);
+            margin: 0;
+        }
+        .auth-modal-close {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--text-light);
+        }
+        .auth-modal-body p {
+            color: var(--text-light);
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+        .auth-modal-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-direction: column;
+        }
+        .btn-auth-primary {
+            background: var(--primary-red);
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 0.5rem;
+            text-decoration: none;
+            text-align: center;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        .btn-auth-primary:hover {
+            background: var(--primary-red-dark);
+            transform: translateY(-2px);
+        }
+        .btn-auth-secondary {
+            background: transparent;
+            color: var(--primary-blue);
+            padding: 1rem 2rem;
+            border-radius: 0.5rem;
+            text-decoration: none;
+            text-align: center;
+            font-weight: 600;
+            border: 2px solid var(--primary-blue);
+            transition: all 0.3s ease;
+        }
+        .btn-auth-secondary:hover {
+            background: var(--primary-blue);
+            color: white;
+            transform: translateY(-2px);
+        }
+        @keyframes modalSlideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-50px) scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+    `;
+
+	// Adicionar estilos
+	const styleSheet = document.createElement('style');
+	styleSheet.textContent = styles;
+	document.head.appendChild(styleSheet);
+
+	// Adicionar modal ao documento
+	document.body.appendChild(modal);
+
+	// Event listeners do modal
+	modal.querySelector('.auth-modal-close').addEventListener('click', () => {
+		document.body.removeChild(modal);
+	});
+
+	modal.addEventListener('click', (e) => {
+		if (e.target === modal) {
+			document.body.removeChild(modal);
+		}
+	});
+}
+
+/**
+ * ===== EFEITOS DE HOVER AVANÇADOS =====
+ */
+function initHoverEffects() {
+	// Efeito de brilho nos cards
+	const cards = document.querySelectorAll('.step-card-premium, .food-card-premium, .empathy-card-premium');
+
+	cards.forEach(card => {
+		card.addEventListener('mousemove', (e) => {
+			const rect = card.getBoundingClientRect();
+			const x = e.clientX - rect.left;
+			const y = e.clientY - rect.top;
+
+			card.style.setProperty('--mouse-x', `${x}px`);
+			card.style.setProperty('--mouse-y', `${y}px`);
+		});
+	});
+}
+
+/**
+ * ===== OTIMIZAÇÕES DE PERFORMANCE =====
+ */
+function initPerformanceOptimizations() {
+	// Lazy loading para imagens (se houver)
+	const images = document.querySelectorAll('img[data-src]');
+
+	const imageObserver = new IntersectionObserver((entries) => {
+		entries.forEach(entry => {
+			if (entry.isIntersecting) {
+				const img = entry.target;
+				img.src = img.getAttribute('data-src');
+				img.removeAttribute('data-src');
+				imageObserver.unobserve(img);
+			}
+		});
+	});
+
+	images.forEach(img => imageObserver.observe(img));
+}
+
+// Inicializar efeitos de hover quando o DOM estiver pronto
+document.addEventListener('DOMContentLoaded', initHoverEffects);
+document.addEventListener('DOMContentLoaded', initPerformanceOptimizations);
+
+/**
+ * ===== CONTROLE DE SOMBRA DINÂMICA =====
+ */
+function updateDynamicShadows() {
+	const cards = document.querySelectorAll('.step-card-premium, .food-card-premium');
+
+	cards.forEach(card => {
+		card.addEventListener('mousemove', (e) => {
+			const rect = card.getBoundingClientRect();
+			const x = e.clientX - rect.left;
+			const y = e.clientY - rect.top;
+
+			const centerX = rect.width / 2;
+			const centerY = rect.height / 2;
+
+			const shadowX = (x - centerX) / 25;
+			const shadowY = (y - centerY) / 25;
+			const shadowBlur = 30;
+
+			card.style.boxShadow = `
+                ${shadowX}px ${shadowY}px ${shadowBlur}px rgba(0, 0, 0, 0.15),
+                0 0 0 1px rgba(220, 38, 38, 0.1)
+            `;
+		});
+
+		card.addEventListener('mouseleave', () => {
+			card.style.boxShadow = '';
+		});
+	});
+}
+
+// Inicializar sombras dinâmicas
+document.addEventListener('DOMContentLoaded', updateDynamicShadows);
+
+console.log('🎯 Script "Como Doar" carregado com todas as funcionalidades premium!');

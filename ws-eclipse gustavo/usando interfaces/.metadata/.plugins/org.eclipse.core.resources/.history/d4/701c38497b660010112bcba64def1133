@@ -1,0 +1,9 @@
+package entities;
+
+public class ContractService {
+	
+		
+		private OnlinePaymentService onlinePaymentService;
+		
+	
+}

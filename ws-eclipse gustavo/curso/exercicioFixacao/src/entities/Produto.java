@@ -1,0 +1,45 @@
+package entities;
+
+public class Produto {
+	private String name;
+	private Double price;
+	private Integer quantidade;
+	
+	public Produto() {
+	}
+
+	public Produto(String name, Double price, Integer quantidade) {
+		this.name = name;
+		this.price = price;
+		this.quantidade = quantidade;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public Double getPrice() {
+		return price;
+	}
+
+	public void setPrice(Double price) {
+		this.price = price;
+	}
+
+	public Integer getQuantidade() {
+		return quantidade;
+	}
+
+	public void setQuantidade(Integer quantidade) {
+		this.quantidade = quantidade;
+	}
+	public Double soma() {
+		return price  * quantidade;
+	}
+
+	
+}

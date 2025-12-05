@@ -1,0 +1,10 @@
+content_assist_lru_history=<?xml version\="1.0" encoding\="UTF-8" standalone\="no"?><history maxLHS\="100" maxRHS\="10"><lhs name\="com.educandoweb.curso.entities.User"><rhs name\="com.educandoweb.curso.entities.User"/></lhs><lhs name\="org.springframework.http.HttpEntity"><rhs name\="org.springframework.http.ResponseEntity"/></lhs><lhs name\="org.springframework.http.ResponseEntity"><rhs name\="org.springframework.http.ResponseEntity"/></lhs><lhs name\="java.lang.Enum"><rhs name\="com.educandoweb.curso.entities.enums.OrderStatus"/><rhs name\="jakarta.persistence.GenerationType"/><rhs name\="jakarta.persistence.CascadeType"/></lhs><lhs name\="java.lang.constant.Constable"><rhs name\="com.educandoweb.curso.entities.enums.OrderStatus"/><rhs name\="jakarta.persistence.GenerationType"/><rhs name\="jakarta.persistence.CascadeType"/></lhs><lhs name\="com.educandoweb.curso.entities.enums.OrderStatus"><rhs name\="com.educandoweb.curso.entities.enums.OrderStatus"/></lhs><lhs name\="com.educandoweb.curso.entities.pk.OrderItemPk"><rhs name\="com.educandoweb.curso.entities.pk.OrderItemPk"/></lhs><lhs name\="java.util.Collection"><rhs name\="java.util.HashSet"/></lhs><lhs name\="java.lang.Iterable"><rhs name\="java.util.HashSet"/></lhs><lhs name\="java.util.Set"><rhs name\="java.util.HashSet"/></lhs><lhs name\="com.educandoweb.curso.entities.Payment"><rhs name\="com.educandoweb.curso.entities.Payment"/></lhs></history>
+content_assist_number_of_computers=14
+content_assist_proposals_background=255,255,255
+content_assist_proposals_foreground=0,0,0
+eclipse.preferences.version=1
+org.eclipse.jdt.ui.formatterprofiles.version=23
+spelling_locale_initialized=true
+typefilter_migrated_2=true
+useAnnotationsPrefPage=true
+useQuickDiffPrefPage=true

@@ -1,0 +1,21 @@
+package laco_para;
+
+import java.util.Locale;
+import java.util.Scanner;
+
+public class Main {
+
+	public static void main(String[] args) {
+		Locale.setDefault(Locale.US);
+		Scanner sc = new Scanner(System.in);
+		int n = sc.nextInt();
+		for (int i = 1; i <= n; i++) {
+			int x =sc.nextInt();
+			int r=0;
+			r = x%2;
+			System.out.println(r);
+			
+		}
+		System.out.println(r);
+	}
+}

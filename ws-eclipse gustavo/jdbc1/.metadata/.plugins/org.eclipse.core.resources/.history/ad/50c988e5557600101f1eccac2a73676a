@@ -1,0 +1,35 @@
+package application;
+
+import java.util.List;
+import java.util.Scanner;
+
+import model.dao.DaoFactory;
+import model.dao.DepartmentDao;
+import model.entities.Department;
+
+public class Progam2 {
+
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		
+		DepartmentDao departmentdao = DaoFactory.createDepartmentDao();
+		
+		System.out.println("=== Teste 1 ====");
+		Department dep = departmentdao.findById(1);
+		
+		System.out.println(dep);
+		
+		System.out.println("=== Teste 2 ====");
+		List<Department> list = departmentdao.findAll();
+		
+		for (Department d : list) {
+			System.out.println(d);
+		}
+		
+		System.out.println(dep);
+		
+		
+		sc.close();
+	}
+
+}

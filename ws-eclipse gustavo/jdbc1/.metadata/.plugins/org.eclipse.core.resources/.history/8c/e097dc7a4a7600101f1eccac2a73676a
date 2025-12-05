@@ -1,0 +1,102 @@
+package model.dao.impl;
+
+import java.io.Serializable;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.text.SimpleDateFormat;
+import java.util.List;
+
+import db.DbException;
+import model.dao.DepartmentDao;
+import model.dao.FactoryDao;
+import model.entities.Department;
+import model.entities.Seller;
+
+public class DepartmentDaoJDBC implements DepartmentDao{
+
+	
+	SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+	private Connection conn;
+	
+	
+	public DepartmentDaoJDBC(Connection conn) {
+	}
+
+	@Override
+	public void insert(Seller obj) {
+		PreparedStatement st = null;
+		
+		try {
+			
+			st = conn.prepareStatement(
+					 "INSERT INTO department "
+					+"(Id, Name) "
+					+ "VALUES "
+					+ "(?, ?)");
+			
+			st.setInt(1, obj.getId());
+			st.setString(2, obj.getName());
+			
+			st.executeUpdate();
+			
+		}catch (Exception e) {
+			throw new DbException(e.getMessage());
+		
+		}
+		
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+		
+	}
+
+	@Override
+	public void update(Seller obj) {
+		
+		
+	}
+
+	@Override
+	public void deleteById(Integer id) {
+		
+	}
+
+	@Override
+	public Seller findById(Integer id) {
+	
+		return null;
+	}
+
+	@Override
+	public void insert(Department obj) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void update(Department obj) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public List<Department> findAll() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

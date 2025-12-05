@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Como Doar - Prato Justo</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="./header-styles.css">
+    <link rel="stylesheet" href="./Como_Doar.css">
+    <style>
+        body {
+            padding-top: 80px;
+            background: #f9fafb;
+        }
+    </style>
+</head>
+<body>
+    <!-- HEADER -->
+    <header class="header modern-header" id="main-header">
+        <div class="container header-container">
+            <a href="index.html" class="logo" aria-label="Ir para página inicial">
+                <span class="logo-text">Prato Justo</span>
+            </a>
+
+            <nav class="nav-menu" id="nav-menu" role="navigation" aria-label="Menu principal">
+                <ul class="nav-links">
+                    <li><a href="index.html" class="nav-link">Início</a></li>
+                    <li class="dropdown" role="menuitem">
+                        <a href="#" class="nav-link dropdown-toggle" aria-expanded="false" aria-haspopup="true">
+                            Minhas Doações <i class="fas fa-chevron-down" aria-hidden="true"></i>
+                            <span class="notification-badge" id="donations-badge">3</span>
+                        </a>
+                        <ul class="dropdown-menu enhanced" role="menu">
+                            <li role="none">
+                                <a href="./solicitacoes.html" class="dropdown-item" role="menuitem">
+                                    <i class="fas fa-list-check"></i>
+                                    <div class="item-content">
+                                        <span class="item-title">Solicitações</span>
+                                        <span class="item-desc">Gerencie pedidos recebidos</span>
+                                    </div>
+                                    <span class="item-status pending">3 pendentes</span>
+                                </a>
+                            </li>
+                            <li role="none">
+                                <a href="cadastro_alimento.html" class="dropdown-item" role="menuitem">
+                                    <i class="fas fa-plus-circle"></i>
+                                    <div class="item-content">
+                                        <span class="item-title">Cadastrar</span>
+                                        <span class="item-desc">Adicione alimentos para doação</span>
+                                    </div>
+                                </a>
+                            </li>
+                            <li role="none">
+                                <a href="chat.html" class="dropdown-item" role="menuitem">
+                                    <i class="fas fa-comments"></i>
+                                    <div class="item-content">
+                                        <span class="item-title">Chat</span>
+                                        <span class="item-desc">Comunicação direta</span>
+                                    </div>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li><a href="./Como_Doar.html" class="nav-link active" aria-current="page">Como doar</a></li>
+                    <li><a href="./porqueDoar.html" class="nav-link">Por que doar</a></li>
+                    <li><a href="./Sobre.html" class="nav-link">Sobre</a></li>
+                </ul>
+            </nav>
+
+            <div class="header-buttons" id="header-actions">
+                <a href="./login.html" class="btn btn-outline">Entrar</a>
+                <a href="./cadastro_perfil.html" class="btn btn-primary">Cadastrar</a>
+            </div>
+
+            <button class="mobile-menu-btn" id="mobile-menu-btn" aria-label="Abrir menu mobile" aria-expanded="false">
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+            </button>
+        </div>
+
+        <div class="mobile-overlay" id="mobile-overlay"></div>
+    </header>
+
+    <!-- CONTEÚDO PRINCIPAL -->
+    <main>
+        <!-- Hero Section Premium -->
+        <section class="como-doar-hero-premium">
+            <div class="hero-background-premium">
+                <div class="floating-food-icons">
+                    <i class="fas fa-apple-alt"></i>
+                    <i class="fas fa-bread-slice"></i>
+                    <i class="fas fa-carrot"></i>
+                    <i class="fas fa-drumstick-bite"></i>
+                    <i class="fas fa-cheese"></i>
+                    <i class="fas fa-leaf"></i>
+                    <i class="fas fa-seedling"></i>
+                    <i class="fas fa-egg"></i>
+                    <i class="fas fa-fish"></i>
+                    <i class="fas fa-wine-bottle"></i>
+                </div>
+            </div>
+            <div class="hero-overlay-premium"></div>
+            
+            <div class="container">
+                <div class="hero-content-wrapper-premium">
+                    <div class="impact-badge-premium">
+                        <i class="fas fa-rocket"></i>
+                        Processo 100% Gratuito
+                    </div>
+                    
+                    <h1 class="hero-title-premium">
+                        Como <span class="highlight-premium">Doar</span> no Prato Justo
+                    </h1>
+                    
+                    <p class="hero-subtitle-premium">
+                        Transforme alimentos que seriam desperdiçados em <strong>esperança para famílias necessitadas</strong>. 
+                        Cada doação faz a diferença real na vida de quem mais precisa.
+                    </p>
+
+                    <!-- Estatísticas de Impacto -->
+                    <div class="hero-stats-premium">
+                        <div class="hero-stat-card" data-stat="1000">
+                            <div class="stat-icon">
+                                <i class="fas fa-users"></i>
+                            </div>
+                            <div class="stat-number">1.000+</div>
+                            <div class="stat-label">Famílias Impactadas</div>
+                            <div class="stat-description">Por mês através de doações como a sua</div>
+                        </div>
+                        
+                        <div class="hero-stat-card" data-stat="5000">
+                            <div class="stat-icon">
+                                <i class="fas fa-weight-hanging"></i>
+                            </div>
+                            <div class="stat-number">5.000kg</div>
+                            <div class="stat-label">Alimentos Doados</div>
+                            <div class="stat-description">Desperdício evitado mensalmente</div>
+                        </div>
+                        
+                        <div class="hero-stat-card" data-stat="100">
+                            <div class="stat-icon">
+                                <i class="fas fa-heart"></i>
+                            </div>
+                            <div class="stat-number">100%</div>
+                            <div class="stat-label">Voluntários Satisfeitos</div>
+                            <div class="stat-description">Avaliação positiva da experiência</div>
+                        </div>
+                    </div>
+
+                    <!-- CTA Hero -->
+                    <div class="hero-cta-premium">
+                        <div class="cta-message-premium">
+                            <i class="fas fa-hand-holding-heart"></i>
+                            <div>
+                                <strong>Sua doação importa!</strong> Cada alimento doado representa uma refeição 
+                                para quem precisa.
+                            </div>
+                        </div>
+                        
+                        <div class="cta-buttons-hero">
+                            <a href="cadastro_alimento.html" class="btn-hero-primary require-auth">
+                                <i class="fas fa-plus-circle"></i>
+                                Começar a Doar Agora
+                            </a>
+                            <a href="#passos-doacao" class="btn-hero-secondary">
+                                <i class="fas fa-play-circle"></i>
+                                Ver Como Funciona
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="scroll-indicator-premium">
+                <div class="scroll-text">Role para descobrir</div>
+                <div class="scroll-arrow"></div>
+            </div>
+        </section>
+
+        <!-- Seção Empatia -->
+        <section class="empathy-section-premium">
+            <div class="container">
+                <div class="empathy-container-premium">
+                    <div class="empathy-badge-premium">
+                        <i class="fas fa-heart-circle-check"></i>
+                        Impacto Social Real
+                    </div>
+                    
+                    <h2 class="empathy-title-premium">Cada Doação Constrói Histórias</h2>
+                    
+                    <div class="empathy-quote-premium">
+                        "Quando você doa, não está apenas entregando alimentos. Está oferecendo dignidade, 
+                        esperança e a certeza de que alguém se importa."
+                    </div>
+
+                    <div class="empathy-cards-premium">
+                        <div class="empathy-card-premium" data-reveal>
+                            <div class="empathy-icon-premium">
+                                <i class="fas fa-family"></i>
+                            </div>
+                            <h3>Famílias Reais</h3>
+                            <p>Sua doação chega diretamente a famílias que enfrentam dificuldades, 
+                               idosos carentes e crianças que precisam de nutrição adequada.</p>
+                        </div>
+                        
+                        <div class="empathy-card-premium" data-reveal>
+                            <div class="empathy-icon-premium">
+                                <i class="fas fa-handshake"></i>
+                            </div>
+                            <h3>Conexão Humana</h3>
+                            <p>Mais que uma transação, criamos laços entre pessoas. Você sabe exatamente 
+                               quem está ajudando e o impacto da sua ação.</p>
+                        </div>
+                        
+                        <div class="empathy-card-premium" data-reveal>
+                            <div class="empathy-icon-premium">
+                                <i class="fas fa-seedling"></i>
+                            </div>
+                            <h3>Futuro Sustentável</h3>
+                            <p>Além de alimentar pessoas hoje, você está construindo um planeta mais 
+                               sustentável para as futuras gerações.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Seção Passos para Doação -->
+        <section class="donation-steps-premium" id="passos-doacao">
+            <div class="container">
+                <div class="section-header-premium">
+                    <div class="section-badge-premium">
+                        <i class="fas fa-footsteps"></i>
+                        Passo a Passo
+                    </div>
+                    <h2>Como Doar em <span class="highlight-text">4 Passos</span></h2>
+                    <p>Um processo simples, seguro e humanizado para você fazer a diferença</p>
+                </div>
+
+                <div class="steps-container-premium">
+                    <div class="step-card-premium" data-step="1" data-reveal>
+                        <div class="step-number-premium">01</div>
+                        <div class="step-icon-premium">
+                            <i class="fas fa-user-plus"></i>
+                        </div>
+                        <h3>Cadastre-se Gratuitamente</h3>
+                        <p>Crie sua conta no Prato Justo em menos de 2 minutos. Apenas nome, e-mail e senha - 
+                           tudo 100% seguro e gratuito.</p>
+                        <div class="step-features-premium">
+                            <span><i class="fas fa-shield-alt"></i> Dados protegidos</span>
+                            <span><i class="fas fa-bolt"></i> Cadastro rápido</span>
+                            <span><i class="fas fa-lock"></i> Privacidade garantida</span>
+                        </div>
+                        <div class="step-tip-premium">
+                            <i class="fas fa-lightbulb"></i>
+                            <strong>Dica:</strong> Use um e-mail que você verifica frequentemente
+                        </div>
+                    </div>
+
+                    <div class="step-card-premium" data-step="2" data-reveal>
+                        <div class="step-number-premium">02</div>
+                        <div class="step-icon-premium">
+                            <i class="fas fa-utensils"></i>
+                        </div>
+                        <h3>Adicione os Alimentos</h3>
+                        <p>Descreva os alimentos disponíveis: tipo, quantidade, data de validade e localização. 
+                           Fotos aumentam as chances de doação rápida.</p>
+                        <div class="step-features-premium">
+                            <span><i class="fas fa-camera"></i> Fotos opcionais</span>
+                            <span><i class="fas fa-map-marker-alt"></i> Localização</span>
+                            <span><i class="fas fa-calendar"></i> Data de validade</span>
+                        </div>
+                        <div class="step-tip-premium">
+                            <i class="fas fa-lightbulb"></i>
+                            <strong>Dica:</strong> Alimentos com fotos têm 3x mais chances de doação
+                        </div>
+                    </div>
+
+                    <div class="step-card-premium" data-step="3" data-reveal>
+                        <div class="step-number-premium">03</div>
+                        <div class="step-icon-premium">
+                            <i class="fas fa-bell"></i>
+                        </div>
+                        <h3>Aguarde as Solicitações</h3>
+                        <p>Comunidades e pessoas carentes visualizarão sua doação e entrarão em contato via 
+                           chat integrado. Você recebe notificações em tempo real.</p>
+                        <div class="step-features-premium">
+                            <span><i class="fas fa-comments"></i> Chat direto</span>
+                            <span><i class="fas fa-bell"></i> Notificações</span>
+                            <span><i class="fas fa-clock"></i> Resposta rápida</span>
+                        </div>
+                        <div class="step-tip-premium">
+                            <i class="fas fa-lightbulb"></i>
+                            <strong>Dica:</strong> Mantenha as notificações ativas para responder rápido
+                        </div>
+                    </div>
+
+                    <div class="step-card-premium" data-step="4" data-reveal>
+                        <div class="step-number-premium">04</div>
+                        <div class="step-icon-premium">
+                            <i class="fas fa-truck"></i>
+                        </div>
+                        <h3>Combine a Entrega</h3>
+                        <p>Defina local e horário convenientes para ambos. Garanta a qualidade e segurança 
+                           dos alimentos durante a entrega.</p>
+                        <div class="step-features-premium">
+                            <span><i class="fas fa-handshake"></i> Combinar entrega</span>
+                            <span><i class="fas fa-check"></i> Confirmar recebimento</span>
+                            <span><i class="fas fa-star"></i> Avaliar experiência</span>
+                        </div>
+                        <div class="step-tip-premium">
+                            <i class="fas fa-lightbulb"></i>
+                            <strong>Dica:</strong> Locais públicos são mais seguros para encontros
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Timeline Interativa -->
+                <div class="steps-timeline-premium" data-reveal>
+                    <div class="timeline-progress-premium">
+                        <div class="timeline-fill-premium" id="timeline-fill"></div>
+                    </div>
+                    <div class="timeline-steps-premium">
+                        <div class="timeline-step-premium active" data-step="1">
+                            <div class="timeline-marker-premium">
+                                <i class="fas fa-user-plus"></i>
+                            </div>
+                            <span>Cadastro</span>
+                        </div>
+                        <div class="timeline-step-premium" data-step="2">
+                            <div class="timeline-marker-premium">
+                                <i class="fas fa-utensils"></i>
+                            </div>
+                            <span>Alimentos</span>
+                        </div>
+                        <div class="timeline-step-premium" data-step="3">
+                            <div class="timeline-marker-premium">
+                                <i class="fas fa-bell"></i>
+                            </div>
+                            <span>Solicitações</span>
+                        </div>
+                        <div class="timeline-step-premium" data-step="4">
+                            <div class="timeline-marker-premium">
+                                <i class="fas fa-truck"></i>
+                            </div>
+                            <span>Entrega</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Seção Tipos de Alimentos -->
+        <section class="food-types-premium">
+            <div class="container">
+                <div class="section-header-premium">
+                    <div class="section-badge-premium">
+                        <i class="fas fa-apple-alt"></i>
+                        O Que Doar
+                    </div>
+                    <h2>Alimentos <span class="highlight-text">Aceitos</span></h2>
+                    <p>Diversos tipos de alimentos podem ser doados - todos fazem a diferença</p>
+                </div>
+
+                <div class="food-grid-premium">
+                    <div class="food-card-premium" data-reveal>
+                        <div class="food-icon-premium">
+                            <i class="fas fa-apple-alt"></i>
+                        </div>
+                        <h3>Frutas Frescas</h3>
+                        <p>Frutas da estação, secas ou processadas em bom estado</p>
+                        <ul class="food-examples-premium">
+                            <li><i class="fas fa-check"></i> Maçãs, bananas, laranjas</li>
+                            <li><i class="fas fa-check"></i> Frutas da época</li>
+                            <li><i class="fas fa-check"></i> Frutas secas e desidratadas</li>
+                        </ul>
+                        <div class="food-status-premium available">
+                            <i class="fas fa-check-circle"></i>
+                            Altamente Procurado
+                        </div>
+                    </div>
+
+                    <div class="food-card-premium" data-reveal>
+                        <div class="food-icon-premium">
+                            <i class="fas fa-carrot"></i>
+                        </div>
+                        <h3>Verduras & Legumes</h3>
+                        <p>Hortaliças frescas para alimentação nutritiva</p>
+                        <ul class="food-examples-premium">
+                            <li><i class="fas fa-check"></i> Alface, tomate, cenoura</li>
+                            <li><i class="fas fa-check"></i> Brócolis, couve, espinafre</li>
+                            <li><i class="fas fa-check"></i> Legumes variados da estação</li>
+                        </ul>
+                        <div class="food-status-premium available">
+                            <i class="fas fa-check-circle"></i>
+                            Muito Necessário
+                        </div>
+                    </div>
+
+                    <div class="food-card-premium" data-reveal>
+                        <div class="food-icon-premium">
+                            <i class="fas fa-bread-slice"></i>
+                        </div>
+                        <h3>Pães & Massas</h3>
+                        <p>Produtos de panificação e massas frescas</p>
+                        <ul class="food-examples-premium">
+                            <li><i class="fas fa-check"></i> Pães de padaria do dia</li>
+                            <li><i class="fas fa-check"></i> Massas caseiras</li>
+                            <li><i class="fas fa-check"></i> Produtos de confeitaria</li>
+                        </ul>
+                        <div class="food-status-premium available">
+                            <i class="fas fa-check-circle"></i>
+                            Alta Demanda
+                        </div>
+                    </div>
+
+                    <div class="food-card-premium" data-reveal>
+                        <div class="food-icon-premium">
+                            <i class="fas fa-drumstick-bite"></i>
+                        </div>
+                        <h3>Proteínas</h3>
+                        <p>Carnes, ovos, laticínios e fontes proteicas</p>
+                        <ul class="food-examples-premium">
+                            <li><i class="fas fa-check"></i> Carnes congeladas</li>
+                            <li><i class="fas fa-check"></i> Ovos frescos</li>
+                            <li><i class="fas fa-check"></i> Laticínios e derivados</li>
+                        </ul>
+                        <div class="food-status-premium available">
+                            <i class="fas fa-check-circle"></i>
+                            Essencial
+                        </div>
+                    </div>
+
+                    <div class="food-card-premium" data-reveal>
+                        <div class="food-icon-premium">
+                            <i class="fas fa-cookie"></i>
+                        </div>
+                        <h3>Não Perecíveis</h3>
+                        <p>Alimentos com maior prazo de validade</p>
+                        <ul class="food-examples-premium">
+                            <li><i class="fas fa-check"></i> Enlatados e conservas</li>
+                            <li><i class="fas fa-check"></i> Grãos e cereais</li>
+                            <li><i class="fas fa-check"></i> Produtos secos e embalados</li>
+                        </ul>
+                        <div class="food-status-premium available">
+                            <i class="fas fa-check-circle"></i>
+                            Sempre Útil
+                        </div>
+                    </div>
+
+                    <div class="food-card-premium" data-reveal>
+                        <div class="food-icon-premium">
+                            <i class="fas fa-seedling"></i>
+                        </div>
+                        <h3>Orgânicos & Naturais</h3>
+                        <p>Produtos saudáveis e sustentáveis</p>
+                        <ul class="food-examples-premium">
+                            <li><i class="fas fa-check"></i> Alimentos orgânicos</li>
+                            <li><i class="fas fa-check"></i> Produtos naturais</li>
+                            <li><i class="fas fa-check"></i> Sem agrotóxicos</li>
+                        </ul>
+                        <div class="food-status-premium available">
+                            <i class="fas fa-check-circle"></i>
+                            Valorizado
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Alerta de Qualidade -->
+                <div class="quality-alert-premium" data-reveal>
+                    <div class="alert-icon-premium">
+                        <i class="fas fa-exclamation-triangle"></i>
+                    </div>
+                    <div class="alert-content-premium">
+                        <h3>Importante: Qualidade dos Alimentos</h3>
+                        <p>Doe apenas alimentos em bom estado de conservação, dentro do prazo de validade 
+                           e adequados para consumo. Sua responsabilidade garante segurança para todos.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Seção FAQ Interativa -->
+        <section class="faq-section-premium">
+            <div class="container">
+                <div class="section-header-premium">
+                    <div class="section-badge-premium">
+                        <i class="fas fa-question-circle"></i>
+                        Tire Suas Dúvidas
+                    </div>
+                    <h2>Perguntas <span class="highlight-text">Frequentes</span></h2>
+                    <p>Respostas claras para suas principais dúvidas sobre doações</p>
+                </div>
+
+                <div class="faq-container-premium">
+                    <div class="faq-item-premium" data-reveal>
+                        <div class="faq-question-premium">
+                            <h3>Preciso pagar algo para doar?</h3>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer-premium">
+                            <p><strong>Não!</strong> A plataforma Prato Justo é 100% gratuita para doadores. 
+                            Você não paga absolutamente nada para cadastrar, anunciar ou doar alimentos. 
+                            Nosso objetivo é facilitar a doação sem custos.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item-premium" data-reveal>
+                        <div class="faq-question-premium">
+                            <h3>Como funciona a entrega dos alimentos?</h3>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer-premium">
+                            <p>Você combina <strong>diretamente com o receptor</strong> o local e horário da entrega. 
+                            A plataforma oferece chat integrado para facilitar a comunicação. Sugerimos 
+                            locais públicos e de fácil acesso para maior segurança.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item-premium" data-reveal>
+                        <div class="faq-question-premium">
+                            <h3>Quanto tempo leva para alguém solicitar minha doação?</h3>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer-premium">
+                            <p>Geralmente as doações recebem solicitações em <strong>poucas horas</strong>. 
+                            O tempo varia conforme a localização, tipo de alimento e demanda da região. 
+                            Alimentos básicos têm aceitação mais rápida.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item-premium" data-reveal>
+                        <div class="faq-question-premium">
+                            <h3>Posso doar alimentos próximos do vencimento?</h3>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer-premium">
+                            <p><strong>Sim!</strong> Alimentos próximos do vencimento são aceitos, desde que 
+                            estejam em <strong>bom estado e seguros para consumo</strong>. É importante 
+                            informar claramente a data de validade no anúncio.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item-premium" data-reveal>
+                        <div class="faq-question-premium">
+                            <h3>E se ninguém solicitar minha doação?</h3>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer-premium">
+                            <p>Caso sua doação não seja solicitada em 48h, nosso sistema automaticamente 
+                            a <strong>compartilha com instituições parceiras</strong> da região, 
+                            aumentando significativamente as chances de doação.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Seção CTA Final -->
+        <section class="cta-final-premium">
+            <div class="container">
+                <div class="cta-content-premium" data-reveal>
+                    <div class="cta-badge-premium">
+                        <i class="fas fa-hand-holding-heart"></i>
+                        Sua Ação Importa
+                    </div>
+                    
+                    <h2>Pronto para <span class="highlight-text">Fazer a Diferença</span>?</h2>
+                    
+                    <p class="cta-description-premium">
+                        Junte-se a milhares de doadores que já transformaram vidas através de gestos simples. 
+                        Cada alimento doado é uma refeição garantida para quem precisa.
+                    </p>
+
+                    <!-- Estatísticas Finais -->
+                    <div class="final-stats-premium">
+                        <div class="final-stat-premium">
+                            <div class="final-number-premium" data-count="12500">12.500+</div>
+                            <div class="final-label-premium">Refeições Doadas</div>
+                        </div>
+                        <div class="final-stat-premium">
+                            <div class="final-number-premium" data-count="2800">2.800+</div>
+                            <div class="final-label-premium">Doadores Ativos</div>
+                        </div>
+                        <div class="final-stat-premium">
+                            <div class="final-number-premium" data-count="95">95%</div>
+                            <div class="final-label-premium">Taxa de Sucesso</div>
+                        </div>
+                    </div>
+
+                    <div class="cta-buttons-final-premium">
+                        <a href="cadastro_alimento.html" class="btn-final-primary require-auth">
+                            <i class="fas fa-plus-circle"></i>
+                            Começar a Doar Agora
+                        </a>
+                        <a href="porqueDoar.html" class="btn-final-secondary">
+                            <i class="fas fa-info-circle"></i>
+                            Saber Mais Impacto
+                        </a>
+                    </div>
+
+                    <div class="cta-guarantee-premium">
+                        <div class="guarantee-item-premium">
+                            <i class="fas fa-shield-alt"></i>
+                            <span>100% Gratuito</span>
+                        </div>
+                        <div class="guarantee-item-premium">
+                            <i class="fas fa-clock"></i>
+                            <span>Processo Rápido</span>
+                        </div>
+                        <div class="guarantee-item-premium">
+                            <i class="fas fa-heart"></i>
+                            <span>Impacto Garantido</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-logo">
+                        <div class="logo-icon"><i class="fas fa-utensils"></i></div>
+                        <h3>Prato Justo</h3>
+                    </div>
+                    <p>Conectando solidariedade através da alimentação</p>
+                    <div class="social-links">
+                        <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+
+                <div class="footer-section">
+                    <h4>Links Rápidos</h4>
+                    <ul>
+                        <li><a href="./index.html">Início</a></li>
+                        <li><a href="./Sobre.html">Sobre Nós</a></li>
+                        <li><a href="Como_Doar.html">Como Doar</a></li>
+                        <li><a href="porqueDoar.html">Por Que Doar</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h4>Recursos</h4>
+                    <ul>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Histórias</a></li>
+                        <li><a href="#">Parceiros</a></li>
+                        <li><a href="#">FAQ</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h4>Contato</h4>
+                    <div class="contact-info">
+                        <p><i class="fas fa-envelope"></i> contato@pratojusto.org</p>
+                        <p><i class="fas fa-phone"></i> (11) 9999-9999</p>
+                        <p><i class="fas fa-map-marker-alt"></i> São Paulo, Brasil</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2025 Prato Justo. Todos os direitos reservados.</p>
+                <div class="footer-links">
+                    <a href="#">Privacidade</a>
+                    <a href="#">Termos</a>
+                    <a href="#">Cookies</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="auth.js"></script>
+    <script src="headerUser.js"></script>
+    <script src="Como_Doar.js"></script>
+</body>
+</html>

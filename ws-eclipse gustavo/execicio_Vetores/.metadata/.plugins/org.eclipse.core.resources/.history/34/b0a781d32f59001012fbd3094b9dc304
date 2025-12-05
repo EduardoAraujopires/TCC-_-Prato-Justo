@@ -1,0 +1,47 @@
+package application;
+
+import java.util.ArrayList;
+import java.util.Locale;
+import java.util.Scanner;
+
+public class Progam {
+
+	public static void main(String[] args) {
+		Locale.setDefault(Locale.US);
+		Scanner sc = new Scanner(System.in);
+
+	ArrayList<Double> notas = new ArrayList<>();
+	
+	System.out.print("Digite o nome do aluno: ");
+	String nome = sc.next();
+	System.out.println("Digite as 4 notas do aluno (de 0 a 10): ");
+	for (int i = 0; i < 4; i++) {
+		System.out.print("Nota "+ (i+1) + ": ");
+		double NotasAluno = sc.nextDouble();
+		notas.add(NotasAluno);
+			
+	}
+	double Soma = 0;
+	
+	for (Double Nota : notas) {
+		Soma += Nota;
+	}
+	
+	double media = Soma / notas.size();
+			
+	
+	System.out.println("Aluno: "+ nome);
+	System.out.println("Notas: "+"["+notas+"]");
+	System.out.printf("Media: %.2f%n", media);
+	
+	if(media>= 7.0) {
+		System.out.println("Resultado: Aprovado  ✅");
+	}
+	else {
+		System.out.println("Resultado: Reprovado ❌");
+	}
+	
+	sc.close();
+	}
+
+}

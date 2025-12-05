@@ -1,0 +1,53 @@
+package application;
+
+import java.util.ArrayList;
+
+import java.util.Scanner;
+
+public class Progam {
+
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		
+		
+		ArrayList<Integer> numeros = new ArrayList<Integer>();
+		
+		System.out.println("Digite 5 numeros Inteiros: ");
+		System.out.println();
+		int n = 0;
+		for (int i = 0; i < 5; i++) {
+			System.out.print("Número "+ (i+1) + ": ");
+			 n = sc.nextInt();
+			numeros.add(n);
+			
+		}
+		System.out.println();
+		System.out.println("Numeros digitados");
+		
+		for (Integer NumerosDigitados : numeros) {
+			System.out.println("- "+NumerosDigitados);
+		}
+		
+		int soma = 0;
+		int maior = numeros.get(0);
+		
+		
+		for (Integer num : numeros) {
+			soma += num;
+			if(soma > maior) {
+				soma = maior;
+			}
+		}
+		
+		double media = soma /5.0;
+		
+		System.out.println("\nSoma dos numeros: "+ soma);
+		System.out.println("Media: "+ media);
+		System.out.println("Maior Numero: "+ maior);
+		
+		sc.close();
+		}
+		
+	}
+
+

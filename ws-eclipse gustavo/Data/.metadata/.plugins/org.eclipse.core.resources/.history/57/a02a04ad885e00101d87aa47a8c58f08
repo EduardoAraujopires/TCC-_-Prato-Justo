@@ -1,0 +1,47 @@
+package application;
+
+import java.time.Duration;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Scanner;
+
+public class Progam {
+
+	public static void main(String[] args) {
+		//DateTimeFormatter dataAtual = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+		//DateTimeFormatter HoraAtual = DateTimeFormatter.ofPattern("HH:mm:ss");
+		//DateTimeFormatter DataCompleta = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+		
+		
+		//LocalDate d1 = LocalDate.now();
+		//LocalDateTime d2 = LocalDateTime.now();
+		//LocalDateTime d3 = LocalDateTime.now();
+		//System.out.println("Data atual = "+ d1.format(dataAtual));
+		//System.out.println("Hora atual = "+ d2.format(HoraAtual));
+		//System.out.println("Data e Hora Completa = "+ d3.format(DataCompleta));
+		Scanner sc = new Scanner(System.in);
+
+		DateTimeFormatter format = DateTimeFormatter.ofPattern("HH:mm");
+		
+		System.out.print("Digite o horário de início: ");
+		String HoraInicio = sc.nextLine();
+		LocalTime horainicio = LocalTime.parse(HoraInicio,format);
+		
+		System.out.print("Digite o Horário de termino: ");
+		String HoraFim = sc.nextLine();
+		LocalTime fim = LocalTime.parse(HoraFim,format);
+		
+		Duration duracao = Duration.between(horainicio, fim);
+		
+		double Horas = duracao.toHours();
+		double Minutos = duracao.toMinutes()%60;
+		
+		System.out.printf("Duração do evento: %.0f/d", Horas, " Horas e %0f",Minutos," Minutos");
+		
+		
+		
+		
+		sc.close();
+	}
+
+}

@@ -1,0 +1,17 @@
+package application;
+
+public class Progam {
+
+	public static void main(String[] args) {
+		int soma = 0;
+		int[] vect = {10,15,20,25,5,30};
+		int resut = 0;
+		for (int i : vect) {
+			soma += i;
+			resut = soma;
+			System.out.print("A soma dos numeros é: "+ resut);
+		}
+		
+	}
+
+}

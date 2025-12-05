@@ -1,0 +1,33 @@
+package bitwise;
+
+public class Main {
+
+	public static void main(String[] args) {
+		String original = " ABCDEF ABCDF UhfHFj  ";
+		String s01 = original.toLowerCase();
+		String s02 = original.toUpperCase();
+        String s03 = original.trim();
+		String s04 = original.substring(2);
+		String s05 = original.substring(2, 9);
+		String s06 = original.replace('A','x');
+		String s07 = original.replace("ABC","edu");
+		String s = "eduardo araujo pires";
+		String[] vect = s.split(" ");
+
+		System.out.println("original: " + original);
+		System.out.println("toLowerCase: " + s01);
+		System.out.println("toUpperCase: " + s02);
+		System.out.println("trim: " + "-" + s03 + "-");
+		System.out.println("substring: " + "-" + s04 + "-");
+		System.out.println("substring (2, 9): " + "-" + s05 + "-");
+		System.out.println("replace(a, x): " + "-" + s06 + "-");
+		System.out.println("replace(ABC, edu): " + "-" + s07 + "-");
+		System.out.println(vect[0]);
+		System.out.println(vect[1]);
+		System.out.println(vect[2]);
+		
+		//split
+	
+	}
+
+}

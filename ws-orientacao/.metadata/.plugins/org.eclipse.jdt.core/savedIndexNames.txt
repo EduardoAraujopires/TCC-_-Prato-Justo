@@ -1,0 +1,6 @@
+INDEX VERSION 1.134+C:\TEMP\ws-orientacao\.metadata\.plugins\org.eclipse.jdt.core
+1865797976.index
+979888944.index
+2785348643.index
+3490687961.index
+1196144675.index

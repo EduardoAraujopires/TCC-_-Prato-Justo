@@ -1,0 +1,25 @@
+package entities;
+
+import java.time.LocalDate;
+public class ContractService {
+	
+		
+		private OnlinePaymentService onlinePaymentService;
+
+		public ContractService(OnlinePaymentService onlinePaymentService) {
+			this.onlinePaymentService = onlinePaymentService;
+		}
+		
+		public void processContract(Contract contract,int months) {
+			double basicquota = contract.getTotalValue() / months;
+			
+			for(int i = 1; i <= months;i++) {
+			LocalDate dueDate = contract.getData().plusMonths(i);
+			double interest = onlinePaymentService.interest(basicquota, i);
+					
+					
+					
+					
+			}
+		}
+}

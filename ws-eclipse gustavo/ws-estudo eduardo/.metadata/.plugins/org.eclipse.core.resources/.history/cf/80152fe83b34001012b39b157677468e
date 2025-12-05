@@ -1,0 +1,27 @@
+package laco_para;
+
+import java.util.Locale;
+import java.util.Scanner;
+
+import jdk.internal.org.jline.terminal.TerminalBuilder.SystemOutput;
+
+public class Main {
+
+	public static void main(String[] args) {
+		Locale.setDefault(Locale.US);
+		Scanner sc = new Scanner(System.in);
+		char resp = 's';
+		while (resp != 'n' ) {
+		int n = sc.nextInt();
+		for (int i = 1; i <=n; i++) {
+		      int p = i;
+		      int s= i * i;
+		      int t = i * i *i;
+		      System.out.printf("%d  %d  %d%n",p,s,t);
+		    }
+		System.out.println("deseja fazer outro calculo <s/n>");
+		  resp = sc.next().charAt(0);
+		   sc.close();
+		}
+	}			
+}	

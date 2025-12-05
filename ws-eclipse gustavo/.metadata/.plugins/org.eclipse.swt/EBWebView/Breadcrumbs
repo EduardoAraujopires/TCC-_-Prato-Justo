@@ -1,0 +1,82 @@
+1:07:16 Tab14 StartNav166 #typed
+1:07:16 Tab14 FinishNav166
+1:07:16 Tab14 PageLoad
+1:07:16 Tab14 StartNav167 #typed
+1:07:16 Tab14 FinishNav167
+1:07:16 Tab14 PageLoad
+1:07:18 Tab14 StartNav168 #typed
+1:07:18 Tab14 FinishNav168
+1:07:18 Tab14 PageLoad
+1:07:29 Tab14 StartNav169 #typed
+1:07:29 Tab14 FinishNav169
+1:07:29 Tab14 PageLoad
+1:07:33 Tab14 StartNav170 #typed
+1:07:33 Tab14 FinishNav170
+1:07:33 Tab14 PageLoad
+1:07:35 Tab14 StartNav171 #typed
+1:07:35 Tab14 FinishNav171
+1:07:35 Tab14 PageLoad
+1:07:35 Tab14 StartNav172 #typed
+1:07:35 Tab14 FinishNav172
+1:07:35 Tab14 PageLoad
+1:07:47 Tab14 StartNav173 #typed
+1:07:47 Tab14 FinishNav173
+1:07:47 Tab14 PageLoad
+1:08:05 Tab14 StartNav174 #typed
+1:08:05 Tab14 FinishNav174
+1:08:05 Tab14 PageLoad
+1:08:06 Tab14 StartNav175 #typed
+1:08:06 Tab14 FinishNav175
+1:08:06 Tab14 PageLoad
+1:08:12 Tab14 StartNav176 #typed
+1:08:12 Tab14 FinishNav176
+1:08:12 Tab14 PageLoad
+1:08:13 Tab14 StartNav177 #typed
+1:08:13 Tab14 FinishNav177
+1:08:13 Tab14 PageLoad
+1:08:21 Tab14 StartNav178 #typed
+1:08:21 Tab14 FinishNav178
+1:08:21 Tab14 PageLoad
+1:08:29 Microsoft.NewBrowser_Popup
+1:08:29 Microsoft.BrowserList.AddBrowser
+1:08:29 Browser20 Insert active Tab20 at 0
+1:08:29 Tab20 StartNav179 #auto_toplevel
+1:08:29 Tab20 StartNav180 #typed
+1:08:29 Tab20 FinishNav179
+1:08:29 Tab20 PageLoad
+1:08:29 Tab20 FinishNav180
+1:08:29 Tab20 PageLoad
+1:08:29 Tab14 StartNav181 #typed
+1:08:29 Tab14 FinishNav181
+1:08:29 Tab14 PageLoad
+1:08:29 Tab20 StartNav182 #typed
+1:08:29 Tab20 FinishNav182
+1:08:29 Tab20 PageLoad
+1:08:32 Tab14 StartNav183 #typed
+1:08:32 Tab14 FinishNav183
+1:08:32 Tab14 PageLoad
+1:08:34 Tab14 StartNav184 #typed
+1:08:34 Tab14 FinishNav184
+1:08:34 Tab14 PageLoad
+1:08:42 Tab14 StartNav185 #typed
+1:08:42 Tab14 FinishNav185
+1:08:42 Tab14 PageLoad
+1:08:43 Tab14 StartNav186 #typed
+1:08:43 Tab14 FinishNav186
+1:08:43 Tab14 PageLoad
+1:09:04 Tab14 StartNav187 #typed
+1:09:05 Tab14 FinishNav187
+1:09:05 Tab14 PageLoad
+1:09:11 Tab14 StartNav188 #typed
+1:09:11 Tab14 FinishNav188
+1:09:11 Tab14 PageLoad
+1:09:12 Tab14 StartNav189 #typed
+1:09:12 Tab14 FinishNav189
+1:09:12 Tab14 PageLoad
+1:09:15 Tab14 StartNav190 #typed
+1:09:15 Tab14 FinishNav190
+1:09:15 Tab14 PageLoad
+1:09:47 Tab14 StartNav191 #typed
+1:09:47 Tab14 FinishNav191
+1:09:47 Tab14 PageLoad
+1:10:01 Microsoft.Shutdown.OnWindowClosing

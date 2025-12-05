@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Como Doar - Prato Justo</title>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+	<link rel="stylesheet" href="./Como_Doar.css">
+</head>
+
+<body>
+
+	<!-- Hero Section Interativa -->
+	<section class="hero-interactive" id="hero">
+	    <div class="hero-particles" id="hero-particles"></div>
+	    <div class="container-premium">
+	        <div class="hero-content">
+	            <!-- Badge Animada -->
+	            <div class="hero-badge animated-badge">
+	                <i class="fas fa-sparkles"></i>
+	                Experiência Interativa
+	            </div>
+
+	            <!-- Título com Digitação -->
+	            <h1 class="hero-title" id="typed-title">
+	                <span class="title-line">Como <span class="text-gradient">Doar</span></span>
+	                <span class="title-line">no Prato Justo</span>
+	            </h1>
+
+	            <!-- Subtítulo Corrigido -->
+	            <p class="hero-subtitle">
+	                Um passo a passo <span class="text-gradient">simples</span> para transformar vidas
+	            </p>
+
+	            <!-- Stats Interativas -->
+	            <div class="hero-stats-interactive">
+	                <div class="stat-item" data-value="12500" data-speed="50">
+	                    <div class="stat-icon">
+	                        <i class="fas fa-utensils"></i>
+	                    </div>
+	                    <div class="stat-content">
+	                        <div class="stat-number"><span class="counter">0</span>+</div>
+	                        <div class="stat-label">Refeições Doadas</div>
+	                    </div>
+	                    <div class="stat-glow"></div>
+	                </div>
+
+	                <div class="stat-item" data-value="95" data-speed="30">
+	                    <div class="stat-icon">
+	                        <i class="fas fa-bolt"></i>
+	                    </div>
+	                    <div class="stat-content">
+	                        <div class="stat-number"><span class="counter">0</span>%</div>
+	                        <div class="stat-label">Taxa de Sucesso</div>
+	                    </div>
+	                    <div class="stat-glow"></div>
+	                </div>
+
+	                <div class="stat-item" data-value="2800" data-speed="40">
+	                    <div class="stat-icon">
+	                        <i class="fas fa-users"></i>
+	                    </div>
+	                    <div class="stat-content">
+	                        <div class="stat-number"><span class="counter">0</span>+</div>
+	                        <div class="stat-label">Doadores Ativos</div>
+	                    </div>
+	                    <div class="stat-glow"></div>
+	                </div>
+	            </div>
+
+	            <!-- CTA Principal - CENTRALIZADO E SIMPLES -->
+	            <div class="hero-cta">
+	                <div class="cta-buttons" style="justify-content: center;">
+	                    <a href="#simulator" class="btn btn-primary btn-glow scroll-to">
+	                        <i class="fas fa-rocket"></i>
+	                        <span>Começar a Doar</span>
+	                        <div class="btn-sparkles"></div>
+	                    </a>
+	                </div>
+	            </div>
+	        </div>
+	    </div>
+
+	    <!-- Scroll Indicator -->
+	    <div class="scroll-indicator">
+	        <div class="scroll-arrow">
+	            <div class="arrow-animation"></div>
+	        </div>
+	        <span>Desça para explorar</span>
+	    </div>
+	</section>
+
+	<!-- Conteúdo Principal -->
+	<main>
+		<!-- Hero Section Interativa -->
+		<section class="hero-interactive" id="hero">
+			<div class="hero-particles" id="hero-particles"></div>
+			<div class="container-premium">
+				<div class="hero-content">
+					<!-- Badge Animada -->
+					<div class="hero-badge animated-badge">
+						<i class="fas fa-sparkles"></i>
+						Experiência Interativa
+					</div>
+
+					<!-- Título com Digitação -->
+					<h1 class="hero-title" id="typed-title">
+						<span class="title-line">Como <span class="text-gradient">Doar</span></span>
+						<span class="title-line">no Prato Justo</span>
+					</h1>
+
+					<!-- Subtítulo Dinâmico -->
+					<p class="hero-subtitle" id="dynamic-subtitle">
+						Uma jornada <span class="word-rotator"></span> para transformar vidas
+					</p>
+
+					<!-- Stats Interativas -->
+					<div class="hero-stats-interactive">
+						<div class="stat-item" data-value="12500" data-speed="50">
+							<div class="stat-icon">
+								<i class="fas fa-utensils"></i>
+							</div>
+							<div class="stat-content">
+								<div class="stat-number"><span class="counter">0</span>+</div>
+								<div class="stat-label">Refeições Doadas</div>
+							</div>
+							<div class="stat-glow"></div>
+						</div>
+
+						<div class="stat-item" data-value="95" data-speed="30">
+							<div class="stat-icon">
+								<i class="fas fa-bolt"></i>
+							</div>
+							<div class="stat-content">
+								<div class="stat-number"><span class="counter">0</span>%</div>
+								<div class="stat-label">Taxa de Sucesso</div>
+							</div>
+							<div class="stat-glow"></div>
+						</div>
+
+						<div class="stat-item" data-value="2800" data-speed="40">
+							<div class="stat-icon">
+								<i class="fas fa-users"></i>
+							</div>
+							<div class="stat-content">
+								<div class="stat-number"><span class="counter">0</span>+</div>
+								<div class="stat-label">Doadores Ativos</div>
+							</div>
+							<div class="stat-glow"></div>
+						</div>
+					</div>
+
+					<!-- CTA Principal -->
+					<div class="hero-cta">
+						<div class="cta-buttons">
+							<a href="#simulator" class="btn btn-primary btn-glow scroll-to">
+								<i class="fas fa-rocket"></i>
+								<span>Simular Meu Impacto</span>
+								<div class="btn-sparkles"></div>
+							</a>
+							<a href="#journey" class="btn btn-secondary scroll-to">
+								<i class="fas fa-compass"></i>
+								<span>Explorar Jornada</span>
+							</a>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- Scroll Indicator -->
+			<div class="scroll-indicator">
+				<div class="scroll-arrow">
+					<div class="arrow-animation"></div>
+				</div>
+				<span>Desça para explorar</span>
+			</div>
+		</section>
+
+		<!-- Simulador de Impacto Interativo -->
+		<section class="impact-simulator" id="simulator">
+			<div class="container-premium">
+				<div class="section-header">
+					<div class="section-badge">
+						<i class="fas fa-calculator"></i>
+						Simulador de Impacto
+					</div>
+					<h2>Veja Seu <span class="text-gradient">Impacto</span> em Tempo Real</h2>
+					<p>Descubra quantas vidas você pode transformar com sua doação</p>
+				</div>
+
+				<div class="simulator-container">
+					<div class="simulator-controls">
+						<div class="control-group">
+							<label class="control-label">Tipo de Alimento</label>
+							<div class="food-selector">
+								<div class="food-option active" data-type="fruits" data-multiplier="3">
+									<div class="option-icon">
+										<i class="fas fa-apple-alt"></i>
+									</div>
+									<span>Frutas</span>
+									<div class="option-badge alta">Alta Demanda</div>
+								</div>
+								<div class="food-option" data-type="vegetables" data-multiplier="2.5">
+									<div class="option-icon">
+										<i class="fas fa-carrot"></i>
+									</div>
+									<span>Legumes</span>
+									<div class="option-badge alta">Alta Demanda</div>
+								</div>
+								<div class="food-option" data-type="grains" data-multiplier="4">
+									<div class="option-icon">
+										<i class="fas fa-bread-slice"></i>
+									</div>
+									<span>Grãos</span>
+									<div class="option-badge media">Média Demanda</div>
+								</div>
+								<div class="food-option" data-type="protein" data-multiplier="6">
+									<div class="option-icon">
+										<i class="fas fa-drumstick-bite"></i>
+									</div>
+									<span>Proteínas</span>
+									<div class="option-badge alta">Alta Demanda</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="control-group">
+							<label class="control-label">Quantidade: <span id="quantity-value">5</span>kg</label>
+							<input type="range" id="quantity-slider" min="1" max="50" value="5"
+								class="slider-interactive">
+							<div class="slider-labels">
+								<span>1kg</span>
+								<span>25kg</span>
+								<span>50kg</span>
+							</div>
+						</div>
+
+						<div class="control-group">
+							<label class="control-label">Frequência de Doação</label>
+							<div class="frequency-selector">
+								<div class="frequency-option active" data-frequency="1">
+									<span>Única</span>
+								</div>
+								<div class="frequency-option" data-frequency="4">
+									<span>Mensal</span>
+								</div>
+								<div class="frequency-option" data-frequency="52">
+									<span>Semanal</span>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="simulator-results">
+						<div class="results-visualization">
+							<div class="impact-meter">
+								<div class="meter-header">
+									<h4>Seu Impacto Total</h4>
+									<div class="impact-value" id="total-impact">15 refeições</div>
+								</div>
+								<div class="meter-container">
+									<div class="meter-track">
+										<div class="meter-fill" id="meter-fill"></div>
+										<div class="meter-glow"></div>
+									</div>
+									<div class="meter-labels">
+										<span>Pequeno Impacto</span>
+										<span>Grande Impacto</span>
+									</div>
+								</div>
+							</div>
+
+							<div class="real-time-animation">
+								<div class="animation-container">
+									<div class="plate-animation">
+										<div class="plate" id="animated-plate">
+											<div class="food-item" id="animated-food">🍎</div>
+										</div>
+										<div class="people-benefited">
+											<div class="person" style="--delay: 0">👨‍👩‍👧</div>
+											<div class="person" style="--delay: 1">👴</div>
+											<div class="person" style="--delay: 2">🧒</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="results-stats">
+							<div class="result-stat">
+								<div class="stat-icon">
+									<i class="fas fa-utensils"></i>
+								</div>
+								<div class="stat-content">
+									<div class="stat-number" id="meals-result">15</div>
+									<div class="stat-label">Refeições</div>
+								</div>
+							</div>
+
+							<div class="result-stat">
+								<div class="stat-icon">
+									<i class="fas fa-home"></i>
+								</div>
+								<div class="stat-content">
+									<div class="stat-number" id="families-result">3</div>
+									<div class="stat-label">Famílias</div>
+								</div>
+							</div>
+
+							<div class="result-stat">
+								<div class="stat-icon">
+									<i class="fas fa-leaf"></i>
+								</div>
+								<div class="stat-content">
+									<div class="stat-number" id="co2-result">12</div>
+									<div class="stat-label">kg CO₂ Evitados</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="results-cta">
+							<button class="btn btn-primary btn-large require-auth" id="transform-action">
+								<i class="fas fa-magic"></i>
+								Transformar Simulação em Ação Real
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- Jornada Interativa de Doação -->
+		<section class="interactive-journey" id="journey">
+			<div class="container-premium">
+				<div class="section-header">
+					<div class="section-badge">
+						<i class="fas fa-map-marked-alt"></i>
+						Jornada Interativa
+					</div>
+					<h2>Sua <span class="text-gradient">Jornada</span> de Doação</h2>
+					<p>Uma experiência guiada e personalizada para sua primeira doação</p>
+				</div>
+
+				<div class="journey-container">
+					<div class="journey-progress">
+						<div class="progress-track">
+							<div class="progress-fill" id="journey-progress"></div>
+						</div>
+						<div class="progress-steps">
+							<div class="progress-step active" data-step="1">
+								<div class="step-marker">
+									<div class="step-number">1</div>
+									<div class="step-glow"></div>
+								</div>
+								<span class="step-label">Escolha</span>
+							</div>
+							<div class="progress-step" data-step="2">
+								<div class="step-marker">
+									<div class="step-number">2</div>
+									<div class="step-glow"></div>
+								</div>
+								<span class="step-label">Prepare</span>
+							</div>
+							<div class="progress-step" data-step="3">
+								<div class="step-marker">
+									<div class="step-number">3</div>
+									<div class="step-glow"></div>
+								</div>
+								<span class="step-label">Conecte</span>
+							</div>
+							<div class="progress-step" data-step="4">
+								<div class="step-marker">
+									<div class="step-number">4</div>
+									<div class="step-glow"></div>
+								</div>
+								<span class="step-label">Impacte</span>
+							</div>
+						</div>
+					</div>
+
+					<div class="journey-steps">
+						<!-- Passo 1 -->
+						<div class="journey-step active" data-step="1">
+							<div class="step-content">
+								<h3>Escolha Inteligente</h3>
+								<p>Nosso sistema recomenda os melhores alimentos baseado na demanda atual da sua região
+								</p>
+
+								<div class="step-interaction">
+									<div class="recommendation-engine">
+										<div class="recommendation-card active" data-food="fruits">
+											<div class="card-icon">
+												<i class="fas fa-apple-alt"></i>
+											</div>
+											<div class="card-content">
+												<h4>Frutas da Estação</h4>
+												<p>Maçã, banana, laranja</p>
+												<div class="demand-indicator high">
+													<i class="fas fa-fire"></i>
+													Alta Demanda
+												</div>
+											</div>
+										</div>
+
+										<div class="recommendation-card" data-food="vegetables">
+											<div class="card-icon">
+												<i class="fas fa-carrot"></i>
+											</div>
+											<div class="card-content">
+												<h4>Legumes Frescos</h4>
+												<p>Tomate, cenoura, batata</p>
+												<div class="demand-indicator high">
+													<i class="fas fa-fire"></i>
+													Alta Demanda
+												</div>
+											</div>
+										</div>
+
+										<div class="recommendation-card" data-food="grains">
+											<div class="card-icon">
+												<i class="fas fa-bread-slice"></i>
+											</div>
+											<div class="card-content">
+												<h4>Pães e Grãos</h4>
+												<p>Pão integral, arroz, feijão</p>
+												<div class="demand-indicator medium">
+													<i class="fas fa-chart-line"></i>
+													Média Demanda
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<!-- Passo 2 -->
+						<div class="journey-step" data-step="2">
+							<div class="step-content">
+								<h3>Preparo Perfeito</h3>
+								<p>Aprenda as melhores práticas para embalar e conservar seus alimentos</p>
+
+								<div class="step-interaction">
+									<div class="preparation-guide">
+										<div class="guide-step completed">
+											<div class="guide-icon">
+												<i class="fas fa-check"></i>
+											</div>
+											<div class="guide-content">
+												<h5>Higienização</h5>
+												<p>Lave bem frutas e legumes</p>
+											</div>
+										</div>
+
+										<div class="guide-step current">
+											<div class="guide-icon">
+												<i class="fas fa-box"></i>
+											</div>
+											<div class="guide-content">
+												<h5>Embalagem</h5>
+												<p>Use recipientes adequados</p>
+											</div>
+										</div>
+
+										<div class="guide-step">
+											<div class="guide-icon">
+												<i class="fas fa-tag"></i>
+											</div>
+											<div class="guide-content">
+												<h5>Identificação</h5>
+												<p>Identifique data e conteúdo</p>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<!-- Passo 3 -->
+						<div class="journey-step" data-step="3">
+							<div class="step-content">
+								<h3>Conexão Imediata</h3>
+								<p>Conecte-se com pessoas e instituições próximas que precisam de ajuda</p>
+
+								<div class="step-interaction">
+									<div class="connection-map">
+										<div class="map-point active" data-distance="0.8">
+											<div class="point-pulse"></div>
+											<div class="point-info">
+												<strong>Família Silva</strong>
+												<span>0.8km de distância</span>
+											</div>
+										</div>
+
+										<div class="map-point" data-distance="1.2">
+											<div class="point-pulse"></div>
+											<div class="point-info">
+												<strong>Creche Esperança</strong>
+												<span>1.2km de distância</span>
+											</div>
+										</div>
+
+										<div class="map-point" data-distance="0.5">
+											<div class="point-pulse"></div>
+											<div class="point-info">
+												<strong>Asilo Paz</strong>
+												<span>0.5km de distância</span>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<!-- Passo 4 -->
+						<div class="journey-step" data-step="4">
+							<div class="step-content">
+								<h3>Impacto Confirmado</h3>
+								<p>Acompanhe em tempo real o destino final da sua doação</p>
+
+								<div class="step-interaction">
+									<div class="impact-tracker">
+										<div class="tracker-timeline">
+											<div class="timeline-event completed">
+												<div class="event-icon">
+													<i class="fas fa-check"></i>
+												</div>
+												<div class="event-content">
+													<h5>Doação Recebida</h5>
+													<span>15:30 - Hoje</span>
+												</div>
+											</div>
+
+											<div class="timeline-event completed">
+												<div class="event-icon">
+													<i class="fas fa-check"></i>
+												</div>
+												<div class="event-content">
+													<h5>Em Distribuição</h5>
+													<span>16:45 - Hoje</span>
+												</div>
+											</div>
+
+											<div class="timeline-event current">
+												<div class="event-icon">
+													<i class="fas fa-truck"></i>
+												</div>
+												<div class="event-content">
+													<h5>Entregue à Família</h5>
+													<span>Em andamento</span>
+												</div>
+											</div>
+
+											<div class="timeline-event">
+												<div class="event-icon">
+													<i class="fas fa-heart"></i>
+												</div>
+												<div class="event-content">
+													<h5>Impacto Registrado</h5>
+													<span>Próxima etapa</span>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="journey-navigation">
+						<button class="btn btn-outline" id="prev-step" disabled>
+							<i class="fas fa-arrow-left"></i>
+							Voltar
+						</button>
+						<button class="btn btn-primary" id="next-step">
+							Continuar
+							<i class="fas fa-arrow-right"></i>
+						</button>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- Seção de Recompensas -->
+		<section class="rewards-section">
+			<div class="container-premium">
+				<div class="section-header">
+					<div class="section-badge">
+						<i class="fas fa-trophy"></i>
+						Sistema de Recompensas
+					</div>
+					<h2>Doe e <span class="text-gradient">Ganhe</span> Reconhecimento</h2>
+					<p>Transforme sua solidariedade em uma jornada gratificante</p>
+				</div>
+
+				<div class="rewards-grid">
+					<div class="reward-card" data-tier="bronze">
+						<div class="reward-icon">
+							<i class="fas fa-seedling"></i>
+							<div class="reward-glow"></div>
+						</div>
+						<h3>Doador Iniciante</h3>
+						<p>Primeira doação realizada</p>
+						<div class="reward-progress">
+							<div class="progress-fill" style="width: 100%"></div>
+						</div>
+						<div class="reward-badge unlocked">
+							<i class="fas fa-unlock"></i>
+							Conquista Desbloqueada
+						</div>
+					</div>
+
+					<div class="reward-card" data-tier="silver">
+						<div class="reward-icon">
+							<i class="fas fa-star"></i>
+							<div class="reward-glow"></div>
+						</div>
+						<h3>Doador Frequente</h3>
+						<p>5+ doações realizadas</p>
+						<div class="reward-progress">
+							<div class="progress-fill" style="width: 60%"></div>
+						</div>
+						<div class="reward-badge">
+							<i class="fas fa-lock"></i>
+							60% Concluído
+						</div>
+					</div>
+
+					<div class="reward-card" data-tier="gold">
+						<div class="reward-icon">
+							<i class="fas fa-crown"></i>
+							<div class="reward-glow"></div>
+						</div>
+						<h3>Herói da Comunidade</h3>
+						<p>20+ doações realizadas</p>
+						<div class="reward-progress">
+							<div class="progress-fill" style="width: 25%"></div>
+						</div>
+						<div class="reward-badge">
+							<i class="fas fa-lock"></i>
+							25% Concluído
+						</div>
+					</div>
+				</div>
+			</div>
+		</section>
+	</main>
+
+	<!-- Footer -->
+	<footer class="footer-premium">
+		<div class="container-premium">
+			<div class="footer-content">
+				<div class="footer-section">
+					<div class="footer-logo">
+						<i class="fas fa-utensils"></i>
+						<h3>Prato Justo</h3>
+					</div>
+					<p>Conectando solidariedade através da alimentação</p>
+				</div>
+				<div class="footer-section">
+					<h4>Links Rápidos</h4>
+					<a href="index.html">Início</a>
+					<a href="Como_Doar.html">Como Doar</a>
+					<a href="porqueDoar.html">Por Que Doar</a>
+					<a href="Sobre.html">Sobre Nós</a>
+				</div>
+				<div class="footer-section">
+					<h4>Contato</h4>
+					<p><i class="fas fa-envelope"></i> contato@pratojusto.org</p>
+					<p><i class="fas fa-phone"></i> (11) 9999-9999</p>
+				</div>
+			</div>
+			<div class="footer-bottom">
+				<p>&copy; 2025 Prato Justo. Todos os direitos reservados.</p>
+			</div>
+		</div>
+	</footer>
+
+	<script src="./Como_Doar.js"></script>
+</body>
+
+</html>

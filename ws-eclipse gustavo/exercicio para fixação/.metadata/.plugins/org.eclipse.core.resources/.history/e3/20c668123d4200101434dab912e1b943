@@ -1,0 +1,51 @@
+package application;
+
+import java.util.Locale;
+import java.util.Scanner;
+
+import entities.Account;
+
+public class Progam {
+
+	static Account account;
+	
+	public static void main(String[] args) {
+		Locale.setDefault(Locale.US);
+		Scanner sc = new Scanner(System.in);
+		
+		System.out.print("Enter account number: ");
+		int number = sc.nextInt();
+		System.out.print("Enter account holder: ");
+		sc.nextLine();
+		String holder = sc.nextLine();
+		System.out.print("Is there na initial deposit (y/n)? ");
+		char response = sc.next().charAt(0);
+		if(response == 'y') {
+			System.out.print("Enter initial deposit value: ");
+			int depositInitial = sc.nextInt();
+			
+			account = new Account(number, holder, depositInitial);
+		}
+		else {
+			account = new Account(number, holder);
+			
+		}
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		sc.close();
+	}
+
+}

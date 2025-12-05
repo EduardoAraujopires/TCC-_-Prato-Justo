@@ -1,0 +1,21 @@
+package application;
+
+import java.util.Locale;
+import java.util.Scanner;
+
+public class Progam {
+
+	public static void main(String[] args) {
+		Locale.setDefault(Locale.US);
+		Scanner sc = new Scanner (System.in);
+		
+		System.out.println("Entre os dados do comtrato: ");
+		System.out.print("Numero: ");
+		int number = sc.nextInt();
+		
+		
+		
+		sc.close();
+	}
+
+}

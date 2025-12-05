@@ -1,0 +1,22 @@
+package application;
+
+import java.util.ArrayList;
+import java.util.Scanner;
+
+public class Progam {
+
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		
+		ArrayList <String> nomes = new ArrayList <>();
+		System.out.println("Digite o nome de 5 pessoas: ");
+		
+		for (int i = 0; i < 5; i++) {
+			
+		}
+		
+		
+		sc.close(); 
+	}
+
+}

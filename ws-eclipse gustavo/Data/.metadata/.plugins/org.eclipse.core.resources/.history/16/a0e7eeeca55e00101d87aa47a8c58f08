@@ -1,0 +1,60 @@
+package application;
+
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
+import java.util.Locale;
+import java.util.Scanner;
+
+import entities.Department;
+import entities.Worker;
+import entities.enums.WorkerLevel;
+
+public class Progam {
+
+	public static void main(String[] args) {
+		
+		Locale.setDefault(Locale.US);
+		Scanner sc = new Scanner(System.in);
+		
+		DateTimeFormatter data = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+		
+		System.out.print("Enter department's name: ");
+		String DepartmentName = sc.nextLine();
+		System.out.println("Enter worker data:");
+		System.out.print("Name: ");
+		String workerName = sc.next();
+		System.out.print("Level: ");
+		String workerLevel = sc.next();
+		System.out.print("Base Salary: ");
+		double baseSalary = sc.nextDouble();
+		
+		Worker worker = new Worker(workerName, WorkerLevel.valueOf(workerLevel), baseSalary, new Department(DepartmentName));
+		
+		
+		System.out.print("How many contracts to this worker? ");
+		int NumeroContracts = sc.nextInt();
+		
+		for (int i = 1; i < NumeroContracts; i++) {
+			System.out.println("Enter conntract #"+ i + " data: ");
+			System.out.print("Date (DD/MM/YYYY): ");
+			Date contractDate = (Date) data.parse(sc.next());
+			
+		}
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		sc.close();
+
+	}
+
+}

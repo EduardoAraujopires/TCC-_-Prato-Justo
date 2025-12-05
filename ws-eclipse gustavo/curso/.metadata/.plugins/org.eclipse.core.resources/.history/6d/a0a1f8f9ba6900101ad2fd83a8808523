@@ -1,0 +1,61 @@
+package application;
+
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.Locale;
+import java.util.Scanner;
+
+public class Progam {
+
+	public static void main(String[] args) {
+		Locale.setDefault(Locale.US);
+		Scanner sc = new Scanner(System.in);
+		
+		System.out.print("Entre com o caminho da pasta: ");
+		String path = sc.nextLine();
+		
+		try(BufferedReader br = new BufferedReader(new FileReader(path))){
+			
+			String linhas = br.readLine();
+			
+			System.out.print("Digite o salario: ");
+			Double mediaSalarial = sc.nextDouble();
+			
+			
+			while(linhas != null) {
+				String[] vetor = linhas.split(",");
+				String nome = vetor[0];
+				String email = vetor[1];
+				Double salario = Double.parseDouble(vetor[2]);
+						
+				linhas = br.readLine();
+			}
+			
+			
+			
+			
+		}catch(IOException e) {
+			System.out.println("ERRO: "+ e.getMessage());
+		}
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		sc.close();
+	}
+
+}

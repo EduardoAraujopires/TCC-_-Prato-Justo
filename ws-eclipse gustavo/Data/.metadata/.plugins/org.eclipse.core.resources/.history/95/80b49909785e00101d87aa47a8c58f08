@@ -1,0 +1,18 @@
+package application;
+
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+
+public class Progam {
+
+	public static void main(String[] args) {
+		DateTimeFormatter dataAtual = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+
+		LocalDate d1 = LocalDate.parse();
+		
+		System.out.println("Data atual = "+ d1);
+		
+		
+	}
+
+}

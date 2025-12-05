@@ -1,0 +1,34 @@
+package application;
+
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+import entities.Produto;
+
+public class Progam {
+
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		
+		List<Produto> list  = new ArrayList<>();
+		
+		System.out.println("Digite ");
+		String sourceFileStr = sc.nextLine();
+		
+		
+		File sourceFile = new File(sourceFileStr);
+		String sourceFolderStr = sourceFile.getParent();
+		
+		boolean sucess = new File(sourceFolderStr + "\\out").mkdir();
+		System.out.println(sucess);
+		
+		
+		
+		
+		
+		sc.close();
+	}
+
+}

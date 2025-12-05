@@ -1,0 +1,50 @@
+package application;
+
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.time.Instant;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Scanner;
+import java.util.Set;
+
+import entities.userLog;
+
+public class Progam {
+
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		
+		
+		System.out.print("Digite o caminho completo: ");
+		String pasta = sc.nextLine();
+		
+		try(BufferedReader br = new BufferedReader(new FileReader(pasta))){
+			
+			Set<userLog> set = new HashSet<>();
+			
+			String linha = br.readLine();
+			while(linha != null) {
+				String[] vetor = linha.split(" ");
+				String name = vetor[0];
+				Date moments = Date.from(Instant.parse(vetor[1]));
+			
+				set.add( new userLog(name, moments));
+				
+				linha = br.readLine();
+				
+			}
+				System.out.print("Total users: " + set.size());
+			
+		}catch(IOException e) {
+			System.out.println(e.getMessage());
+		}
+		
+		
+		
+		
+		sc.close();
+	}
+
+}

@@ -1,0 +1,43 @@
+package application;
+
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.Locale;
+import java.util.Scanner;
+
+public class Progam {
+
+	public static void main(String[] args) {
+		Locale.setDefault(Locale.US);
+		Scanner sc = new Scanner(System.in);
+		
+		System.out.print("Entre com o caminho da pasta: ");
+		String path = sc.nextLine();
+		
+		try(BufferedReader br = new BufferedReader(new FileReader(path))){
+			
+		}catch(IOException e) {
+			System.out.println("ERRO: "+ e.getMessage());
+		}
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		sc.close();
+	}
+
+}

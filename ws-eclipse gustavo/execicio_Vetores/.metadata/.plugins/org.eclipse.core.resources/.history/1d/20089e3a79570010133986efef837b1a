@@ -1,0 +1,34 @@
+package application;
+
+import java.util.Scanner;
+
+import entities.Aluno;
+
+public class Progam {
+
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		
+		
+		Aluno[] vect = new Aluno[5];
+		
+		
+		System.out.println("--- Alunos Cadastrados ---");
+		for (int i = 0; i < vect.length;i++) {
+			System.out.print("Nome: ");
+			String nome = sc.next();
+			System.out.print("Idade: ");
+			int idade = sc.nextInt();
+			System.out.print("Nota Final: ");
+			double notaFinal = sc.nextDouble();
+			System.out.println("---------------------------");
+		
+		vect[i] = new Aluno(nome, idade, notaFinal);
+		
+		}
+		
+		
+		sc.close();
+	}
+
+}

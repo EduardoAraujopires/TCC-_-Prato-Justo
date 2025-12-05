@@ -1,0 +1,10 @@
+package com.educandoweb.curso.entities.pk;
+
+import com.educandoweb.curso.entities.Order;
+import com.educandoweb.curso.entities.Product;
+
+public class OrderItemPk {
+
+	private Order order;
+	private Product product;
+}

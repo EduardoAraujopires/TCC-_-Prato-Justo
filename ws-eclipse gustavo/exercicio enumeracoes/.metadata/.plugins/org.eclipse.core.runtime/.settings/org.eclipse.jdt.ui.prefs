@@ -1,0 +1,10 @@
+content_assist_lru_history=<?xml version\="1.0" encoding\="UTF-8" standalone\="no"?><history maxLHS\="100" maxRHS\="10"><lhs name\="entities.OrderItem"><rhs name\="entities.OrderItem"/></lhs><lhs name\="java.text.DateFormat"><rhs name\="java.text.SimpleDateFormat"/></lhs><lhs name\="java.text.Format"><rhs name\="java.text.SimpleDateFormat"/></lhs><lhs name\="java.lang.Cloneable"><rhs name\="java.text.SimpleDateFormat"/></lhs><lhs name\="java.text.SimpleDateFormat"><rhs name\="java.text.SimpleDateFormat"/></lhs><lhs name\="java.lang.Appendable"><rhs name\="java.lang.StringBuilder"/></lhs><lhs name\="java.lang.CharSequence"><rhs name\="java.lang.StringBuilder"/></lhs><lhs name\="java.lang.AbstractStringBuilder"><rhs name\="java.lang.StringBuilder"/></lhs><lhs name\="entities.Client"><rhs name\="entities.Client"/></lhs><lhs name\="java.lang.Enum"><rhs name\="entities.enums.OrderStatus"/></lhs><lhs name\="java.lang.constant.Constable"><rhs name\="entities.enums.OrderStatus"/></lhs><lhs name\="entities.enums.OrderStatus"><rhs name\="entities.enums.OrderStatus"/></lhs><lhs name\="entities.OrdemItem"><rhs name\="entities.OrdemItem"/></lhs></history>
+content_assist_number_of_computers=14
+content_assist_proposals_background=52,57,61
+content_assist_proposals_foreground=238,238,238
+eclipse.preferences.version=1
+org.eclipse.jdt.ui.formatterprofiles.version=23
+spelling_locale_initialized=true
+typefilter_migrated_2=true
+useAnnotationsPrefPage=true
+useQuickDiffPrefPage=true

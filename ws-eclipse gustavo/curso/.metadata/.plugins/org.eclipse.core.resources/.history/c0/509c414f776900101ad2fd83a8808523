@@ -1,0 +1,89 @@
+package application;
+
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
+import java.util.Scanner;
+
+import entities.Funcionario;
+
+public class Progam {
+
+	public static void main(String[] args) {
+		Locale.setDefault(Locale.US);
+		Scanner sc = new Scanner(System.in);
+		
+		List<Funcionario> list = new ArrayList <>();
+		
+		System.out.print("Digite o caminho do Diretório: ");
+		String diretorio = sc.nextLine();
+		
+		File arquivo = new File(diretorio);
+		String criandoArquivo = arquivo.getParent();
+		
+		Boolean sucess = new File(criandoArquivo + "\\out").mkdir();
+		
+		String subPasta = diretorio + "\\out\\summary.csv";
+		
+		try(BufferedReader br= new BufferedReader(new FileReader(diretorio))){
+			String linha = br.readLine();
+			while(linha != null) {
+				String[] vetor = linha.split(",");
+				String name = vetor[0];
+				double price = Double.parseDouble(vetor[1]);
+				int quantity = Integer.parseInt(vetor[2]);
+				
+				Funcionario funcionario = new Funcionario(name, price, quantity);
+				
+				list.add(funcionario);
+				linha = br.readLine();
+				
+			    }
+		
+		
+		try(BufferedWriter bw = new BufferedWriter(new FileWriter(subPasta))){
+			
+			for(Funcionario item : list) {
+				 bw.write(item.getNome() + "," + item.soma());
+				 bw.newLine();
+			}
+		 }catch(IOException e) {
+				System.out.println(e.getMessage());
+			}
+			
+			System.out.println(subPasta + "Created");
+			
+		}catch(IOException e) {
+			System.out.println(e.getMessage());
+		}
+       
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		sc.close();
+	}
+
+}
