@@ -564,29 +564,60 @@ document.addEventListener('DOMContentLoaded', function() {
         }, 5000);
     }
 
-    // ===== BOTÃO FLUTUANTE =====
+    // ===== CHATBOT FLUTUANTE =====
     function createFloatingButton() {
-        const floatingBtn = document.createElement('button');
-        floatingBtn.className = 'floating-btn pulse-glow';
-        floatingBtn.innerHTML = '❤️';
-        floatingBtn.title = 'Doar Agora - Ajude uma família';
-
-        floatingBtn.addEventListener('click', () => {
-            // Verificação simples de autenticação
-            const isAuthenticated = localStorage.getItem('userAuthenticated') === 'true';
-
-            if (!isAuthenticated) {
-                if (confirm('Faça login para doar alimentos e transformar vidas!\n\nDeseja fazer login agora?')) {
-                    window.location.href = 'login.html';
-                }
-            } else {
-                window.location.href = 'cadastro_alimento.html';
+        const floatingDiv = document.createElement('div');
+        floatingDiv.className = 'floating-chatbot';
+        
+        // Botão ícone do chat
+        const chatButton = document.createElement('button');
+        chatButton.className = 'chatbot-toggle-btn';
+        chatButton.innerHTML = '<i class="fas fa-comments"></i>';
+        chatButton.title = 'Abrir Chatbot';
+        chatButton.setAttribute('aria-label', 'Abrir chatbot');
+        
+        // Container do chatbot (inicialmente oculto)
+        const chatbotContainer = document.createElement('div');
+        chatbotContainer.className = 'chatbot-widget';
+        chatbotContainer.style.display = 'none';
+        
+        const iframe = document.createElement('iframe');
+        iframe.src = 'https://bots.easy-peasy.ai/bot/714444d0-c60c-4015-a637-e8724c3b4a11';
+        iframe.width = '100%';
+        iframe.height = '500';
+        iframe.frameBorder = '0';
+        iframe.style.borderRadius = '1rem';
+        iframe.style.border = 'none';
+        iframe.allow = 'microphone';
+        
+        chatbotContainer.appendChild(iframe);
+        
+        // Botão de fechar (inicialmente oculto)
+        const closeButton = document.createElement('button');
+        closeButton.className = 'chatbot-close-btn';
+        closeButton.innerHTML = '<i class="fas fa-times"></i>';
+        closeButton.title = 'Fechar Chatbot';
+        closeButton.setAttribute('aria-label', 'Fechar chatbot');
+        closeButton.style.display = 'none';
+        
+        // Toggle do chatbot
+        chatButton.addEventListener('click', () => {
+            if (chatbotContainer.style.display === 'none') {
+                chatbotContainer.style.display = 'block';
+                chatButton.style.display = 'none';
+                closeButton.style.display = 'flex';
             }
         });
-
-        const floatingDiv = document.createElement('div');
-        floatingDiv.className = 'floating-action';
-        floatingDiv.appendChild(floatingBtn);
+        
+        closeButton.addEventListener('click', () => {
+            chatbotContainer.style.display = 'none';
+            chatButton.style.display = 'flex';
+            closeButton.style.display = 'none';
+        });
+        
+        floatingDiv.appendChild(chatButton);
+        floatingDiv.appendChild(chatbotContainer);
+        chatbotContainer.appendChild(closeButton);
 
         document.body.appendChild(floatingDiv);
     }
