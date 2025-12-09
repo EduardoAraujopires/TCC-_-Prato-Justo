@@ -53,6 +53,10 @@ class ProfileManager {
         await this.loadUserDonations();
         await this.loadUserRatings();
         await this.calculateUserStats();
+        
+        // Aplicar tema salvo
+        const savedTheme = localStorage.getItem('pratoJustoTheme') || 'light';
+        this.applyTheme(savedTheme);
     }
 
     /**
@@ -213,8 +217,12 @@ class ProfileManager {
         }
 
         // Esconder botões de editar cards se estiver vendo perfil de outro usuário
+        // Esconder botão de editar preferências (preferências não são editáveis pelo modal)
         document.querySelectorAll('.btn-edit-card').forEach(btn => {
-            if (this.isViewingOwnProfile) {
+            const cardType = btn.dataset.card;
+            if (cardType === 'preferences') {
+                btn.style.display = 'none'; // Sempre esconder botão de editar preferências
+            } else if (this.isViewingOwnProfile) {
                 btn.style.display = 'flex';
             } else {
                 btn.style.display = 'none';
@@ -322,6 +330,35 @@ class ProfileManager {
 
         // Descrição
         document.getElementById('description-text').textContent = this.currentUser.descricao || 'Não informado';
+
+        // Preferências
+        const notifications = localStorage.getItem('userNotifications') || 'ativadas';
+        
+        // Sempre usar português como idioma padrão
+        const language = 'pt-BR';
+        localStorage.setItem('userLanguage', 'pt-BR');
+        
+        const theme = localStorage.getItem('pratoJustoTheme') || 'light';
+        
+        // Mapear valores para exibição
+        const notificationsLabel = notifications === 'ativadas' || notifications === 'true' ? 'Ativadas' : 'Desativadas';
+        const languageLabel = 'Português'; // Sempre português
+        const themeLabels = {
+            'dark': 'Escuro',
+            'light': 'Claro',
+            'escuro': 'Escuro',
+            'claro': 'Claro',
+            'auto': 'Automático'
+        };
+        const themeLabel = themeLabels[theme] || 'Claro';
+        
+        const notificationsEl = document.getElementById('notifications-pref');
+        const languageEl = document.getElementById('language-pref');
+        const themeEl = document.getElementById('theme-pref');
+        
+        if (notificationsEl) notificationsEl.textContent = notificationsLabel;
+        if (languageEl) languageEl.textContent = languageLabel;
+        if (themeEl) themeEl.textContent = themeLabel;
 
         // Calcular dias ativo
         if (this.currentUser.dataCadastro) {
@@ -576,10 +613,10 @@ class ProfileManager {
         const ratingsList = document.getElementById('ratings-list');
         if (!ratingsList) return;
         
-        if (this.userRatings.length === 0) {
+        if (!this.userRatings || this.userRatings.length === 0) {
             ratingsList.innerHTML = `
-                <div class="empty-state">
-                    <i class="fas fa-star"></i>
+                <div class="empty-state" style="text-align: center; padding: 2rem; color: #64748b;">
+                    <i class="fas fa-star" style="font-size: 2rem; color: #d1d5db; margin-bottom: 0.5rem; display: block;"></i>
                     <span>Nenhuma avaliação encontrada</span>
                 </div>
             `;
@@ -596,28 +633,38 @@ class ProfileManager {
                     : '<i class="far fa-star" style="color: #d1d5db;"></i>'
             ).join('');
 
-            const avaliadorNome = avaliacao.avaliador?.nome || 'Usuário';
+            const avaliadorNome = avaliacao.avaliador?.nome || avaliacao.avaliadorNome || 'Usuário';
             const dataFormatada = avaliacao.criadoEm 
-                ? new Date(avaliacao.criadoEm).toLocaleDateString('pt-BR')
+                ? new Date(avaliacao.criadoEm).toLocaleDateString('pt-BR', {
+                    day: '2-digit',
+                    month: '2-digit',
+                    year: 'numeric'
+                })
                 : 'Data não informada';
 
             return `
-                <div class="rating-item" style="padding: 1rem; border-bottom: 1px solid #e5e7eb; margin-bottom: 0.5rem;">
+                <div class="rating-item" style="padding: 1rem; border-bottom: 1px solid #e5e7eb; margin-bottom: 0.5rem; transition: background 0.2s;" 
+                     onmouseover="this.style.background='#f9fafb'" 
+                     onmouseout="this.style.background='transparent'">
                     <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 0.5rem;">
-                        <div>
+                        <div style="flex: 1;">
                             <div style="font-weight: 600; color: #1e293b; margin-bottom: 0.25rem;">
                                 ${avaliadorNome}
                             </div>
-                            <div style="font-size: 0.85rem; color: #64748b;">
+                            <div style="font-size: 0.85rem; color: #64748b; display: flex; align-items: center; gap: 0.25rem;">
+                                <i class="fas fa-calendar" style="font-size: 0.75rem;"></i>
                                 ${dataFormatada}
                             </div>
                         </div>
-                        <div style="font-size: 1.2rem;">
+                        <div style="font-size: 1.2rem; display: flex; align-items: center; gap: 0.5rem;">
                             ${starsHTML}
+                            <span style="font-size: 0.9rem; color: #64748b; font-weight: 600;">
+                                ${avaliacao.nota}/5
+                            </span>
                         </div>
                     </div>
                     ${avaliacao.comentario ? `
-                        <p style="margin: 0; color: #475569; font-size: 0.9rem; line-height: 1.5;">
+                        <p style="margin: 0; color: #475569; font-size: 0.9rem; line-height: 1.5; font-style: italic; padding-top: 0.5rem; border-top: 1px solid #f3f4f6;">
                             "${avaliacao.comentario}"
                         </p>
                     ` : ''}
@@ -625,20 +672,28 @@ class ProfileManager {
             `;
         }).join('');
 
-        // Se houver mais de 5 avaliações, adicionar link para ver todas
-        if (this.userRatings.length > 5) {
+        // Sempre mostrar botão "Ver Todas" se houver avaliações (mesmo que sejam 5 ou menos)
+        if (this.userRatings.length > 0) {
+            const totalText = this.userRatings.length > 5 
+                ? `Ver todas as ${this.userRatings.length} avaliações`
+                : 'Ver todas as avaliações';
+            
             ratingsList.innerHTML += `
                 <div style="text-align: center; margin-top: 1rem; padding-top: 1rem; border-top: 1px solid #e5e7eb;">
                     <button onclick="viewAllRatings()" style="
                         background: #667eea;
                         color: white;
                         border: none;
-                        padding: 0.5rem 1.5rem;
+                        padding: 0.75rem 1.5rem;
                         border-radius: 8px;
                         cursor: pointer;
                         font-weight: 600;
-                    ">
-                        Ver todas as ${this.userRatings.length} avaliações
+                        font-size: 0.9rem;
+                        transition: all 0.2s;
+                    " onmouseover="this.style.background='#5568d3'; this.style.transform='translateY(-2px)'" 
+                       onmouseout="this.style.background='#667eea'; this.style.transform='translateY(0)'">
+                        <i class="fas fa-external-link-alt" style="margin-right: 0.5rem;"></i>
+                        ${totalText}
                     </button>
                 </div>
             `;
@@ -751,8 +806,13 @@ class ProfileManager {
         // Botões de editar cards
         document.querySelectorAll('.btn-edit-card').forEach(btn => {
             btn.addEventListener('click', (e) => {
-                const cardType = e.target.closest('.btn-edit-card').dataset.card;
-                this.editCard(cardType);
+                e.stopPropagation();
+                // Garantir que pegamos o botão mesmo se o clique foi no ícone
+                const button = e.target.closest('.btn-edit-card') || e.currentTarget;
+                const cardType = button.dataset.card;
+                if (cardType) {
+                    this.editCard(cardType);
+                }
             });
         });
 
@@ -912,6 +972,7 @@ class ProfileManager {
         document.getElementById('edit-address').value = this.currentUser.rua || '';
         document.getElementById('edit-city').value = this.currentUser.cidade || '';
 
+
         // Avatar
         const preview = document.getElementById('edit-avatar-preview');
         const placeholder = document.getElementById('edit-avatar-placeholder');
@@ -960,6 +1021,7 @@ class ProfileManager {
             rua: formData.get('address') || null,
             cidade: formData.get('city') || null
         };
+
 
         console.log('📤 Enviando dados:', updatedData);
 
@@ -1091,10 +1153,75 @@ class ProfileManager {
     }
 
     /**
+     * Aplica o tema selecionado
+     */
+    applyTheme(theme) {
+        if (theme === 'dark' || theme === 'escuro') {
+            document.body.classList.add('dark-theme');
+        } else if (theme === 'light' || theme === 'claro') {
+            document.body.classList.remove('dark-theme');
+        } else if (theme === 'auto') {
+            // Usar preferência do sistema
+            const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+            if (prefersDark) {
+                document.body.classList.add('dark-theme');
+            } else {
+                document.body.classList.remove('dark-theme');
+            }
+        }
+    }
+
+    /**
      * Edita um card específico
      */
     editCard(cardType) {
-        this.showNotification(`Editar ${cardType} - Funcionalidade em desenvolvimento`, 'info');
+        // Se for preferências, não fazer nada (preferências não são editáveis pelo modal)
+        if (cardType === 'preferences') {
+            return;
+        }
+        
+        // Abrir o modal de edição
+        this.openEditModal();
+        
+        // Aguardar um pouco para garantir que o modal está aberto e visível
+        setTimeout(() => {
+            const modal = document.getElementById('edit-profile-modal');
+            if (!modal || modal.getAttribute('aria-hidden') === 'true') {
+                console.warn('Modal não está aberto');
+                return;
+            }
+            
+            let targetElement = null;
+            
+            switch(cardType) {
+                case 'contact':
+                    // Focar no campo de email (primeiro campo de contato)
+                    targetElement = document.getElementById('edit-email');
+                    break;
+                case 'address':
+                    // Focar no campo de endereço
+                    targetElement = document.getElementById('edit-address');
+                    break;
+                default:
+                    targetElement = document.getElementById('edit-name');
+            }
+            
+            // Rolar até o elemento e focar nele
+            if (targetElement) {
+                // Scroll dentro do modal
+                const modalBody = modal.querySelector('.modal-body');
+                if (modalBody) {
+                    const elementTop = targetElement.offsetTop;
+                    modalBody.scrollTop = elementTop - 50; // 50px de margem superior
+                } else {
+                    targetElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }
+                
+                setTimeout(() => {
+                    targetElement.focus();
+                }, 300);
+            }
+        }, 150);
     }
 
     /**
@@ -1104,7 +1231,222 @@ class ProfileManager {
         if (section === 'donations') {
             window.location.href = 'minhas-doacoes.html';
         } else if (section === 'ratings') {
-            this.showNotification('Visualizar todas as avaliações - Funcionalidade em desenvolvimento', 'info');
+            this.showAllRatings();
+        }
+    }
+
+    /**
+     * Mostra todas as avaliações em um modal
+     */
+    showAllRatings() {
+        if (!this.userRatings || this.userRatings.length === 0) {
+            this.showNotification('Nenhuma avaliação encontrada', 'info');
+            return;
+        }
+
+        // Criar overlay do modal
+        const overlay = document.createElement('div');
+        overlay.className = 'ratings-modal-overlay';
+        overlay.style.cssText = `
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10000;
+            padding: 2rem;
+            overflow-y: auto;
+            animation: fadeIn 0.3s ease;
+        `;
+
+        // Criar conteúdo do modal
+        const modalContent = document.createElement('div');
+        modalContent.className = 'ratings-modal-content';
+        modalContent.style.cssText = `
+            background: white;
+            border-radius: 20px;
+            padding: 2rem;
+            max-width: 800px;
+            width: 100%;
+            max-height: 85vh;
+            overflow-y: auto;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            animation: slideUp 0.3s ease;
+        `;
+
+        // Criar header do modal
+        const header = document.createElement('div');
+        header.style.cssText = `
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid #e5e7eb;
+        `;
+
+        const title = document.createElement('h2');
+        title.style.cssText = `
+            margin: 0;
+            color: #667eea;
+            font-size: 1.75rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        `;
+        title.innerHTML = `
+            <i class="fas fa-star" style="color: #fbbf24;"></i>
+            Todas as Avaliações (${this.userRatings.length})
+        `;
+
+        const closeBtn = document.createElement('button');
+        closeBtn.innerHTML = '<i class="fas fa-times"></i>';
+        closeBtn.style.cssText = `
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: #64748b;
+            cursor: pointer;
+            padding: 0.5rem;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+        `;
+        closeBtn.onmouseover = () => {
+            closeBtn.style.background = '#f3f4f6';
+            closeBtn.style.color = '#1e293b';
+        };
+        closeBtn.onmouseout = () => {
+            closeBtn.style.background = 'none';
+            closeBtn.style.color = '#64748b';
+        };
+        closeBtn.onclick = () => overlay.remove();
+
+        header.appendChild(title);
+        header.appendChild(closeBtn);
+
+        // Criar lista de avaliações
+        const ratingsContainer = document.createElement('div');
+        ratingsContainer.style.cssText = `
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        `;
+
+        if (this.userRatings.length === 0) {
+            ratingsContainer.innerHTML = `
+                <div style="text-align: center; padding: 3rem; color: #64748b;">
+                    <i class="fas fa-star" style="font-size: 3rem; color: #d1d5db; margin-bottom: 1rem;"></i>
+                    <p style="font-size: 1.1rem; margin: 0;">Nenhuma avaliação encontrada</p>
+                </div>
+            `;
+        } else {
+            const ratingsHTML = this.userRatings.map(avaliacao => {
+                const starsHTML = Array(5).fill(0).map((_, i) => 
+                    i < avaliacao.nota 
+                        ? '<i class="fas fa-star" style="color: #fbbf24;"></i>'
+                        : '<i class="far fa-star" style="color: #d1d5db;"></i>'
+                ).join('');
+
+                const avaliadorNome = avaliacao.avaliador?.nome || 'Usuário';
+                const dataFormatada = avaliacao.criadoEm 
+                    ? new Date(avaliacao.criadoEm).toLocaleDateString('pt-BR', {
+                        day: '2-digit',
+                        month: '2-digit',
+                        year: 'numeric'
+                    })
+                    : 'Data não informada';
+
+                return `
+                    <div style="
+                        background: #f9fafb;
+                        padding: 1.5rem;
+                        border-radius: 12px;
+                        border-left: 4px solid #667eea;
+                        transition: transform 0.2s, box-shadow 0.2s;
+                    " onmouseover="this.style.transform='translateX(4px)'; this.style.boxShadow='0 4px 12px rgba(0,0,0,0.1)'" 
+                       onmouseout="this.style.transform='translateX(0)'; this.style.boxShadow='none'">
+                        <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 0.75rem;">
+                            <div style="flex: 1;">
+                                <div style="font-weight: 600; color: #1e293b; margin-bottom: 0.25rem; font-size: 1.1rem;">
+                                    ${avaliadorNome}
+                                </div>
+                                <div style="font-size: 0.9rem; color: #64748b; display: flex; align-items: center; gap: 0.5rem;">
+                                    <i class="fas fa-calendar"></i>
+                                    ${dataFormatada}
+                                </div>
+                            </div>
+                            <div style="font-size: 1.5rem; display: flex; align-items: center;">
+                                ${starsHTML}
+                                <span style="margin-left: 0.5rem; font-size: 1rem; color: #64748b; font-weight: 600;">
+                                    ${avaliacao.nota}/5
+                                </span>
+                            </div>
+                        </div>
+                        ${avaliacao.comentario ? `
+                            <div style="
+                                margin-top: 0.75rem;
+                                padding-top: 0.75rem;
+                                border-top: 1px solid #e5e7eb;
+                            ">
+                                <p style="margin: 0; color: #475569; font-size: 1rem; line-height: 1.6; font-style: italic;">
+                                    "${avaliacao.comentario}"
+                                </p>
+                            </div>
+                        ` : ''}
+                    </div>
+                `;
+            }).join('');
+
+            ratingsContainer.innerHTML = ratingsHTML;
+        }
+
+        // Montar modal
+        modalContent.appendChild(header);
+        modalContent.appendChild(ratingsContainer);
+        overlay.appendChild(modalContent);
+
+        // Adicionar ao body
+        document.body.appendChild(overlay);
+        document.body.style.overflow = 'hidden';
+
+        // Fechar ao clicar no overlay
+        overlay.addEventListener('click', (e) => {
+            if (e.target === overlay) {
+                overlay.remove();
+                document.body.style.overflow = '';
+            }
+        });
+
+        // Adicionar animações CSS se não existirem
+        if (!document.getElementById('ratings-modal-styles')) {
+            const style = document.createElement('style');
+            style.id = 'ratings-modal-styles';
+            style.textContent = `
+                @keyframes fadeIn {
+                    from { opacity: 0; }
+                    to { opacity: 1; }
+                }
+                @keyframes slideUp {
+                    from {
+                        opacity: 0;
+                        transform: translateY(20px);
+                    }
+                    to {
+                        opacity: 1;
+                        transform: translateY(0);
+                    }
+                }
+            `;
+            document.head.appendChild(style);
         }
     }
 
@@ -1141,86 +1483,13 @@ class ProfileManager {
     }
 }
 
-// Função global para ver todas as avaliações
+// Função global para ver todas as avaliações (mantida para compatibilidade)
 function viewAllRatings() {
-    if (window.profileManager && window.profileManager.userRatings) {
-        // Criar modal para mostrar todas as avaliações
-        const modal = document.createElement('div');
-        modal.style.cssText = `
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.5);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 10000;
-            padding: 2rem;
-            overflow-y: auto;
-        `;
-
-        const ratingsHTML = window.profileManager.userRatings.map(avaliacao => {
-            const starsHTML = Array(5).fill(0).map((_, i) => 
-                i < avaliacao.nota 
-                    ? '<i class="fas fa-star" style="color: #fbbf24;"></i>'
-                    : '<i class="far fa-star" style="color: #d1d5db;"></i>'
-            ).join('');
-
-            const avaliadorNome = avaliacao.avaliador?.nome || 'Usuário';
-            const dataFormatada = avaliacao.criadoEm 
-                ? new Date(avaliacao.criadoEm).toLocaleDateString('pt-BR')
-                : 'Data não informada';
-
-            return `
-                <div style="background: white; padding: 1.5rem; border-radius: 10px; margin-bottom: 1rem; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
-                    <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 0.75rem;">
-                        <div>
-                            <div style="font-weight: 600; color: #1e293b; margin-bottom: 0.25rem; font-size: 1.1rem;">
-                                ${avaliadorNome}
-                            </div>
-                            <div style="font-size: 0.9rem; color: #64748b;">
-                                <i class="fas fa-calendar"></i> ${dataFormatada}
-                            </div>
-                        </div>
-                        <div style="font-size: 1.5rem;">
-                            ${starsHTML}
-                        </div>
-                    </div>
-                    ${avaliacao.comentario ? `
-                        <p style="margin: 0; color: #475569; font-size: 1rem; line-height: 1.6; padding-top: 0.75rem; border-top: 1px solid #e5e7eb;">
-                            "${avaliacao.comentario}"
-                        </p>
-                    ` : ''}
-                </div>
-            `;
-        }).join('');
-
-        modal.innerHTML = `
-            <div style="background: white; border-radius: 20px; padding: 2rem; max-width: 700px; width: 100%; max-height: 80vh; overflow-y: auto;">
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
-                    <h2 style="margin: 0; color: #667eea;">
-                        <i class="fas fa-star"></i> Todas as Avaliações (${window.profileManager.userRatings.length})
-                    </h2>
-                    <button onclick="this.closest('div[style*=\"position: fixed\"]').remove()" 
-                            style="background: none; border: none; font-size: 1.5rem; color: #64748b; cursor: pointer; padding: 0.5rem;">
-                        <i class="fas fa-times"></i>
-                    </button>
-                </div>
-                <div>
-                    ${ratingsHTML}
-                </div>
-            </div>
-        `;
-
-        document.body.appendChild(modal);
-
-        modal.addEventListener('click', (e) => {
-            if (e.target === modal) {
-                modal.remove();
-            }
-        });
+    if (window.profileManager && window.profileManager.showAllRatings) {
+        window.profileManager.showAllRatings();
+    } else if (window.profileManager && window.profileManager.userRatings) {
+        // Fallback se o método não existir
+        window.profileManager.showAllRatings();
     }
 }
 

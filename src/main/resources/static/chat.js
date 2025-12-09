@@ -604,6 +604,18 @@ async function initializeApp() {
 	} else {
 		// Se houver userId na URL, mostrar camada de chat ativo
 		showActiveChatLayer();
+		// Garantir que o campo de input esteja visível após recarregar
+		setTimeout(() => {
+			if (elements.chatInputContainer && state.currentChatUserId) {
+				elements.chatInputContainer.style.display = 'flex';
+				elements.chatInputContainer.style.visibility = 'visible';
+				if (elements.messageInput) {
+					elements.messageInput.disabled = false;
+					elements.messageInput.style.visibility = 'visible';
+					elements.messageInput.style.display = 'block';
+				}
+			}
+		}, 100);
 	}
 
 	console.log('[App] Aplicação inicializada com sucesso');
@@ -963,6 +975,27 @@ async function setupChatWithUser(user, userId, requestId) {
 
 	// Mostrar camada de chat ativo
 	showActiveChatLayer();
+
+	// Garantir que o campo de input esteja visível após carregar chat
+	setTimeout(() => {
+		updateElements();
+		if (elements.chatInputContainer) {
+			elements.chatInputContainer.style.display = 'flex';
+			elements.chatInputContainer.style.visibility = 'visible';
+			elements.chatInputContainer.style.opacity = '1';
+		}
+		if (elements.messageInput) {
+			elements.messageInput.disabled = false;
+			elements.messageInput.style.visibility = 'visible';
+			elements.messageInput.style.display = 'block';
+			elements.messageInput.style.opacity = '1';
+		}
+		if (elements.sendBtn) {
+			elements.sendBtn.style.visibility = 'visible';
+			elements.sendBtn.style.display = 'flex';
+			elements.sendBtn.style.opacity = '1';
+		}
+	}, 100);
 
 	// Carregar histórico de mensagens
 	await loadChatHistory(otherUserId);
@@ -2594,6 +2627,12 @@ function showSelectionLayer() {
 		elements.chatActiveLayer.style.visibility = 'hidden';
 		elements.chatActiveLayer.style.opacity = '0';
 	}
+	
+	// Garantir que o campo de input não seja escondido permanentemente
+	// Ele será mostrado novamente quando um chat for selecionado
+	if (elements.chatInputContainer) {
+		elements.chatInputContainer.style.display = 'none';
+	}
 }
 
 // Função para mostrar a camada de chat ativo
@@ -2619,15 +2658,20 @@ function showActiveChatLayer() {
 	if (elements.chatInputContainer) {
 		elements.chatInputContainer.style.display = 'flex';
 		elements.chatInputContainer.style.visibility = 'visible';
+		elements.chatInputContainer.style.opacity = '1';
 	}
 	
 	if (elements.messageInput) {
 		elements.messageInput.disabled = false;
 		elements.messageInput.style.visibility = 'visible';
+		elements.messageInput.style.display = 'block';
+		elements.messageInput.style.opacity = '1';
 	}
 	
 	if (elements.sendBtn) {
 		elements.sendBtn.style.visibility = 'visible';
+		elements.sendBtn.style.display = 'flex';
+		elements.sendBtn.style.opacity = '1';
 	}
 }
 
