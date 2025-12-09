@@ -406,8 +406,8 @@ class InteractiveExperience {
 		// Atualizar progresso
 		const progressFill = document.getElementById('journey-progress');
 		// Calcular porcentagem: quando no step 1 = 0%, step 2 = 33%, step 3 = 67%, step 4 = 100%
-		const progressPercentage = this.totalSteps > 1 
-			? ((this.currentStep - 1) / (this.totalSteps - 1)) * 100 
+		const progressPercentage = this.totalSteps > 1
+			? ((this.currentStep - 1) / (this.totalSteps - 1)) * 100
 			: 0;
 
 		if (progressFill) {
@@ -465,7 +465,7 @@ class InteractiveExperience {
 		if (heroSection && !heroSection.querySelector('.hero__falling-foods')) {
 			const heroFallingContainer = document.createElement('div');
 			heroFallingContainer.className = 'hero__falling-foods';
-			
+
 			// Ícones Font Awesome para alimentos - quantidade reduzida no início
 			const heroFoods = [
 				{ icon: 'fa-apple-alt', delay: '3s', speed: '12s', xStart: '15%', size: '0.8' },
@@ -495,7 +495,7 @@ class InteractiveExperience {
 			if (!section.querySelector('.section-falling-foods')) {
 				const sectionFallingContainer = document.createElement('div');
 				sectionFallingContainer.className = 'section-falling-foods';
-				
+
 				// Ícones minimalistas para outras seções
 				const minimalFoods = [
 					{ icon: 'fa-apple-alt', delay: `${sectionIndex * 2}s`, speed: '18s', xStart: '12%' },
@@ -529,33 +529,33 @@ class InteractiveExperience {
 			const icon = document.createElement('div');
 			icon.className = 'floating-food-icon falling';
 			icon.textContent = icons[Math.floor(Math.random() * icons.length)];
-			
+
 			// Posicionamento aleatório horizontal
 			icon.style.left = `${Math.random() * 100}%`;
-			
+
 			// Delay aleatório para criar efeito contínuo de queda
 			const delay = Math.random() * 8;
 			icon.style.animationDelay = `${delay}s`;
-			
+
 			// Duração variada para diferentes velocidades
 			const duration = 8 + Math.random() * 6; // Entre 8 e 14 segundos
 			icon.style.animationDuration = `${duration}s`;
-			
+
 			// Tamanho variado
 			const size = 1.2 + Math.random() * 1; // Entre 1.2rem e 2.2rem
 			icon.style.fontSize = `${size}rem`;
-			
+
 			// Opacidade variada
 			icon.style.opacity = `${Math.random() * 0.4 + 0.3}`;
-			
+
 			// Rotação variada (para movimento mais natural)
 			const rotation = Math.random() * 720; // Rotação entre 0 e 720 graus
 			icon.style.setProperty('--rotation', `${rotation}deg`);
-			
+
 			// Deriva lateral (movimento horizontal durante a queda)
 			const drift = (Math.random() - 0.5) * 2; // Entre -1 e 1
 			icon.style.setProperty('--drift', drift.toString());
-			
+
 			container.appendChild(icon);
 		}
 	}
@@ -899,19 +899,19 @@ class InteractiveExperience {
 	createFloatingChatbot() {
 		const floatingDiv = document.createElement('div');
 		floatingDiv.className = 'floating-chatbot';
-		
+
 		// Botão ícone do chat
 		const chatButton = document.createElement('button');
 		chatButton.className = 'chatbot-toggle-btn';
 		chatButton.innerHTML = '<i class="fas fa-comments"></i>';
 		chatButton.title = 'Abrir Chatbot';
 		chatButton.setAttribute('aria-label', 'Abrir chatbot');
-		
+
 		// Container do chatbot (inicialmente oculto)
 		const chatbotContainer = document.createElement('div');
 		chatbotContainer.className = 'chatbot-widget';
 		chatbotContainer.style.display = 'none';
-		
+
 		const iframe = document.createElement('iframe');
 		iframe.src = 'https://bots.easy-peasy.ai/bot/714444d0-c60c-4015-a637-e8724c3b4a11';
 		iframe.width = '100%';
@@ -920,9 +920,9 @@ class InteractiveExperience {
 		iframe.style.borderRadius = '1rem';
 		iframe.style.border = 'none';
 		iframe.allow = 'microphone';
-		
+
 		chatbotContainer.appendChild(iframe);
-		
+
 		// Botão de fechar (inicialmente oculto)
 		const closeButton = document.createElement('button');
 		closeButton.className = 'chatbot-close-btn';
@@ -930,7 +930,7 @@ class InteractiveExperience {
 		closeButton.title = 'Fechar Chatbot';
 		closeButton.setAttribute('aria-label', 'Fechar chatbot');
 		closeButton.style.display = 'none';
-		
+
 		// Toggle do chatbot
 		chatButton.addEventListener('click', () => {
 			if (chatbotContainer.style.display === 'none') {
@@ -939,13 +939,13 @@ class InteractiveExperience {
 				closeButton.style.display = 'flex';
 			}
 		});
-		
+
 		closeButton.addEventListener('click', () => {
 			chatbotContainer.style.display = 'none';
 			chatButton.style.display = 'flex';
 			closeButton.style.display = 'none';
 		});
-		
+
 		floatingDiv.appendChild(chatButton);
 		floatingDiv.appendChild(chatbotContainer);
 		chatbotContainer.appendChild(closeButton);

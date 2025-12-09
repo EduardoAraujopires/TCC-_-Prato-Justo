@@ -1404,3 +1404,251 @@ body {
         font-size: 1rem;
     }
 }
+/* =========================================== */
+/* ANIMAÇÕES E TRANSIÇÕES PARA PÁGINA SOBRE */
+/* =========================================== */
+
+/* Transição suave para o botão "Seja Parceiro" */
+.btn-cta-secondary {
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Estado oculto do botão - apenas se estiver logado */
+.btn-cta-secondary[style*="display: none"],
+.btn-cta-secondary.btn--hidden {
+    opacity: 0 !important;
+    transform: scale(0.8) !important;
+    visibility: hidden !important;
+    height: 0 !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    border: none !important;
+    overflow: hidden !important;
+    pointer-events: none !important;
+}
+
+/* Layout responsivo para os botões CTA */
+.cta-buttons-premium {
+    transition: all 0.3s ease;
+}
+
+/* Quando apenas um botão está visível (usuário logado) */
+.cta-buttons-premium:has(.btn-cta-primary:only-child),
+.cta-buttons-premium.single-button {
+    justify-content: center !important;
+    text-align: center !important;
+}
+
+.cta-buttons-premium:has(.btn-cta-primary:only-child) .btn-cta-primary,
+.cta-buttons-premium.single-button .btn-cta-primary {
+    margin: 0 auto !important;
+    max-width: 300px !important;
+    width: 100% !important;
+}
+
+/* Quando dois botões estão visíveis (usuário não logado) */
+.cta-buttons-premium:has(.btn-cta-primary + .btn-cta-secondary),
+.cta-buttons-premium.multiple-buttons {
+    justify-content: center !important;
+    flex-wrap: wrap !important;
+    gap: 15px !important;
+}
+
+/* Header com efeito de scroll aprimorado */
+.modern-header.scrolled {
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    background: rgba(255, 255, 255, 0.98) !important;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+}
+
+/* Sistema de animações de entrada */
+[data-animate] {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+[data-animate].animate__active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Destaque temporário para seção (opcional) */
+.section--focused {
+    animation: pulseHighlight 2s ease-in-out;
+}
+
+@keyframes pulseHighlight {
+    0% {
+        background-color: transparent;
+        box-shadow: none;
+    }
+    20% {
+        background-color: rgba(220, 38, 38, 0.03);
+        box-shadow: 0 0 0 4px rgba(220, 38, 38, 0.1);
+    }
+    100% {
+        background-color: transparent;
+        box-shadow: none;
+    }
+}
+
+/* Animação para o menu hamburger */
+.mobile-menu-btn span {
+    transition: all 0.3s ease;
+}
+
+.mobile-menu-btn[aria-expanded="true"] span:nth-child(1) {
+    transform: rotate(45deg) translate(6px, 6px);
+}
+
+.mobile-menu-btn[aria-expanded="true"] span:nth-child(2) {
+    opacity: 0;
+}
+
+.mobile-menu-btn[aria-expanded="true"] span:nth-child(3) {
+    transform: rotate(-45deg) translate(8px, -7px);
+}
+
+/* Efeito de loading para o botão (opcional) */
+.btn-cta-secondary.loading {
+    position: relative;
+    color: transparent !important;
+}
+
+.btn-cta-secondary.loading::after {
+    content: '';
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-top-color: white;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* Responsividade adicional */
+@media (max-width: 768px) {
+    .cta-buttons-premium:has(.btn-cta-primary + .btn-cta-secondary),
+    .cta-buttons-premium.multiple-buttons {
+        flex-direction: column !important;
+        align-items: center !important;
+        gap: 12px !important;
+    }
+
+    .cta-buttons-premium:has(.btn-cta-primary + .btn-cta-secondary) .btn-cta-primary,
+    .cta-buttons-premium.multiple-buttons .btn-cta-primary {
+        margin: 0 !important;
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+
+    .cta-buttons-premium:has(.btn-cta-primary + .btn-cta-secondary) .btn-cta-secondary,
+    .cta-buttons-premium.multiple-buttons .btn-cta-secondary {
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+}
+/* =========================================== */
+/* CORREÇÃO DA BARRA DE NAVEGAÇÃO FIXA */
+/* =========================================== */
+
+/* Garante que o header seja fixo no topo */
+.modern-header {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    right: 0 !important;
+    width: 100% !important;
+    z-index: 1000 !important;
+    background-color: white !important;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Corrige o espaço que o header fixo ocupa */
+body {
+    padding-top: 70px !important; /* Ajuste conforme a altura do seu header */
+}
+
+/* Ajusta as seções para começarem após o header */
+main {
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+}
+
+/* Ajusta a seção hero para não ficar atrás do header */
+.sobre-hero {
+    padding-top: 70px !important; /* Mesmo valor do body padding-top */
+    margin-top: 0 !important;
+    position: relative;
+    z-index: 1;
+}
+
+/* Garante que o conteúdo principal comece abaixo do header */
+.sobre-hero .container {
+    position: relative;
+    z-index: 2;
+}
+
+/* Corrige possíveis sobreposições com elementos absolutos */
+.hero-background,
+.floating-food-icons,
+.hero-overlay {
+    z-index: 1 !important;
+}
+
+/* Ajuste para mobile */
+@media (max-width: 768px) {
+    body {
+        padding-top: 60px !important; /* Menos padding no mobile se o header for menor */
+    }
+
+    .sobre-hero {
+        padding-top: 60px !important;
+    }
+
+    .modern-header {
+        height: 60px !important; /* Altura fixa para mobile */
+    }
+}
+
+/* Corrige o efeito de scroll do header */
+.modern-header {
+    transition: all 0.3s ease, transform 0.3s ease !important;
+    transform: translateY(0) !important;
+}
+
+/* Quando estiver scrolled, mantém fixo com sombra */
+.modern-header.scrolled {
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15) !important;
+    background: rgba(255, 255, 255, 0.98) !important;
+    backdrop-filter: blur(10px) !important;
+    -webkit-backdrop-filter: blur(10px) !important;
+}
+
+/* Corrige possíveis problemas com dropdowns */
+.dropdown-menu {
+    z-index: 1001 !important; /* Acima do header fixo */
+}
+
+/* Ajusta o menu mobile */
+.nav-menu.active {
+    position: fixed !important;
+    top: 70px !important; /* Começa abaixo do header */
+    left: 0 !important;
+    right: 0 !important;
+    height: calc(100vh - 70px) !important;
+    z-index: 999 !important;
+}
+
+@media (max-width: 768px) {
+    .nav-menu.active {
+        top: 60px !important;
+        height: calc(100vh - 60px) !important;
+    }
+}
