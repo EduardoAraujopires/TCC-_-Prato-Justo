@@ -991,7 +991,13 @@ async function markAsCollected(requestId, donationId) {
             
             // Solicitar avaliação
             setTimeout(() => {
-                showEvaluationModal(requestId);
+                console.log('[Minhas Doações] Tentando mostrar modal de avaliação para solicitação:', requestId);
+                if (typeof window.showEvaluationModal === 'function') {
+                    console.log('[Minhas Doações] Chamando window.showEvaluationModal');
+                    window.showEvaluationModal(requestId);
+                } else {
+                    console.warn('[Minhas Doações] Função showEvaluationModal não encontrada globalmente');
+                }
             }, 1500);
         } else {
             const error = await response.text();
@@ -1062,14 +1068,8 @@ function openChat(userId, requestId) {
     }
 }
 
-// Função para mostrar modal de avaliação
-function showEvaluationModal(requestId) {
-    if (typeof window.showEvaluationModal === 'function') {
-        window.showEvaluationModal(requestId);
-    } else {
-        console.log('Sistema de avaliação não carregado');
-    }
-}
+// A função showEvaluationModal é definida no arquivo avaliacao-solicitacao.js
+// Não definir uma função local aqui para evitar conflitos e recursão
 
 // Adicionar estilos de animação
 const style = document.createElement('style');

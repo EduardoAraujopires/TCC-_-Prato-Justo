@@ -666,7 +666,31 @@ async function confirmCollection(requestId, event) {
         });
 
         if (response.ok) {
-            alert('Coleta confirmada com sucesso!');
+            // Mostrar mensagem de sucesso mais elegante
+            const successMessage = document.createElement('div');
+            successMessage.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+                color: white;
+                padding: 1rem 1.5rem;
+                border-radius: 12px;
+                box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4);
+                z-index: 10001;
+                animation: slideInRight 0.3s ease;
+            `;
+            successMessage.innerHTML = `
+                <i class="fas fa-check-circle" style="margin-right: 0.5rem;"></i>
+                <strong>Coleta confirmada com sucesso!</strong>
+            `;
+            document.body.appendChild(successMessage);
+            
+            // Remover mensagem após 3 segundos
+            setTimeout(() => {
+                successMessage.style.animation = 'slideOutRight 0.3s ease';
+                setTimeout(() => successMessage.remove(), 300);
+            }, 3000);
             
             // Recarregar solicitações
             if (window.solicitacoesApp) {
@@ -674,10 +698,19 @@ async function confirmCollection(requestId, event) {
                 window.solicitacoesApp.calculateStats();
             }
             
-            // Solicitar avaliação
+            // Mostrar ícone de avaliação após concluir
             setTimeout(() => {
-                showEvaluationModal(requestId);
+                showEvaluationIconSimple(requestId);
             }, 1500);
+            
+            // Solicitar avaliação após um breve delay para melhor UX
+            setTimeout(() => {
+                if (typeof window.showEvaluationModal === 'function') {
+                    window.showEvaluationModal(requestId);
+                } else {
+                    console.warn('[Avaliação] Função showEvaluationModal não encontrada. Certifique-se de que avaliacao-solicitacao.js está carregado.');
+                }
+            }, 2000);
         } else {
             const error = await response.text();
             alert(`Erro: ${error}`);
@@ -697,20 +730,89 @@ async function confirmCollection(requestId, event) {
     }
 }
 
+/**
+ * ===== MOSTRAR ÍCONE DE AVALIAÇÃO SIMPLES =====
+ */
+function showEvaluationIconSimple(solicitacaoId) {
+    // Remover ícone existente se houver
+    const existingIcon = document.getElementById('evaluation-icon-badge');
+    if (existingIcon) {
+        existingIcon.remove();
+    }
+
+    // Criar ícone flutuante simples
+    const iconBadge = document.createElement('button');
+    iconBadge.id = 'evaluation-icon-badge';
+    iconBadge.innerHTML = '<i class="fas fa-star"></i> Avaliar';
+    iconBadge.type = 'button';
+    
+    // Estilos inline simples com tema do projeto
+    Object.assign(iconBadge.style, {
+        position: 'fixed',
+        bottom: '30px',
+        right: '30px',
+        background: 'linear-gradient(135deg, #dc2626 0%, #991b1b 100%)',
+        color: 'white',
+        border: 'none',
+        padding: '1rem 1.5rem',
+        borderRadius: '50px',
+        boxShadow: '0 8px 25px rgba(220, 38, 38, 0.4)',
+        cursor: 'pointer',
+        zIndex: '9999',
+        display: 'flex',
+        alignItems: 'center',
+        gap: '0.75rem',
+        fontWeight: '600',
+        fontSize: '1rem',
+        fontFamily: 'inherit',
+        transition: 'all 0.3s ease',
+        animation: 'bounceIn 0.6s ease'
+    });
+
+    // Hover effect
+    iconBadge.onmouseenter = () => {
+        iconBadge.style.transform = 'scale(1.1) translateY(-5px)';
+        iconBadge.style.boxShadow = '0 12px 35px rgba(220, 38, 38, 0.5)';
+    };
+    iconBadge.onmouseleave = () => {
+        iconBadge.style.transform = 'scale(1) translateY(0)';
+        iconBadge.style.boxShadow = '0 8px 25px rgba(220, 38, 38, 0.4)';
+    };
+
+    // Ao clicar, abrir modal de avaliação
+    iconBadge.onclick = () => {
+        if (typeof window.showEvaluationModal === 'function') {
+            window.showEvaluationModal(solicitacaoId);
+        } else if (typeof showEvaluationModal === 'function') {
+            showEvaluationModal(solicitacaoId);
+        } else {
+            alert('Sistema de avaliação não disponível. Recarregue a página.');
+        }
+    };
+
+    document.body.appendChild(iconBadge);
+
+    // Adicionar animação CSS se não existir
+    if (!document.getElementById('evaluation-icon-animations')) {
+        const style = document.createElement('style');
+        style.id = 'evaluation-icon-animations';
+        style.textContent = `
+            @keyframes bounceIn {
+                0% { opacity: 0; transform: scale(0.3); }
+                50% { opacity: 1; transform: scale(1.1); }
+                100% { transform: scale(1); }
+            }
+        `;
+        document.head.appendChild(style);
+    }
+}
+
 function openChat(userId, requestId) {
     if (!userId) {
         alert('Informações do doador não disponíveis.');
         return;
     }
     window.location.href = `chat.html?userId=${userId}&requestId=${requestId}`;
-}
-
-function showEvaluationModal(requestId) {
-    if (typeof window.showEvaluationModal === 'function') {
-        window.showEvaluationModal(requestId);
-    } else {
-        console.log('Sistema de avaliação não carregado');
-    }
 }
 
 // Inicializar a aplicação quando o DOM estiver carregado

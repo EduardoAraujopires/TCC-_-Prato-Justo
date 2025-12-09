@@ -181,10 +181,24 @@
     <script src="navbar-manager.js"></script>
     <script src="notification-badge-manager.js"></script>
     <script src="avaliacao-solicitacao.js"></script>
+    <script>
+        // Garantir que a função do arquivo de avaliação seja exposta globalmente ANTES de carregar minhas-doacoes.js
+        if (typeof showEvaluationModal === 'function') {
+            window.showEvaluationModal = showEvaluationModal;
+            console.log('[Minhas Doações] ✅ Função showEvaluationModal exposta globalmente do arquivo avaliacao-solicitacao.js');
+        } else {
+            console.error('[Minhas Doações] ❌ Função showEvaluationModal não encontrada em avaliacao-solicitacao.js');
+        }
+    </script>
     <script src="minhas-doacoes.js"></script>
     <script>
-        // Expor função globalmente
-        window.showEvaluationModal = showEvaluationModal;
+        // Não sobrescrever a função global - ela já foi definida pelo arquivo de avaliação
+        // Apenas verificar se está disponível
+        if (typeof window.showEvaluationModal === 'function') {
+            console.log('[Minhas Doações] ✅ Função showEvaluationModal disponível globalmente');
+        } else {
+            console.error('[Minhas Doações] ❌ Função showEvaluationModal não disponível após carregar todos os scripts');
+        }
     </script>
 </body>
 </html>

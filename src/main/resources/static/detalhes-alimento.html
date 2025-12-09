@@ -278,6 +278,30 @@
                 <!-- Lista de avaliações -->
             </div>
         </div>
+
+        <!-- Seção de Avaliação (aparece quando há solicitação concluída) -->
+        <div class="evaluation-section" id="evaluation-section" style="display: none;">
+            <div class="evaluation-container">
+                <div class="evaluation-header">
+                    <div class="evaluation-icon">
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <div class="evaluation-title">
+                        <h3>Doação Concluída!</h3>
+                        <p>Avalie sua experiência com esta doação</p>
+                    </div>
+                </div>
+                <div class="evaluation-content">
+                    <div class="evaluation-info" id="evaluation-info">
+                        <!-- Informações da solicitação concluída -->
+                    </div>
+                    <button id="btn-avaliar" class="btn btn-evaluation">
+                        <i class="fas fa-star"></i>
+                        Avaliar Doação
+                    </button>
+                </div>
+            </div>
+        </div>
     </main>
 
     <!-- Modal de Confirmação de Solicitação -->
@@ -310,6 +334,7 @@
     <script src="navbar-manager.js"></script>
     <script src="notification-badge-manager.js"></script>
     <script src="realtime-manager.js"></script>
+    <script src="avaliacao-solicitacao.js"></script>
     <script src="detalhes-alimento.js"></script>
 </body>
 </html>

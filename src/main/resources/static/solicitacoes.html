@@ -10,6 +10,28 @@
     <link rel="stylesheet" href="./Sobre.css">
     <link rel="stylesheet" href="./minhas-doacoes.css">
     <link rel="stylesheet" href="./solicitacoes.css">
+    <style>
+        @keyframes slideInRight {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+        @keyframes slideOutRight {
+            from {
+                transform: translateX(0);
+                opacity: 1;
+            }
+            to {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+        }
+    </style>
 </head>
 <body>
 <!-- HEADER -->
@@ -180,10 +202,22 @@
     <script src="navbar-manager.js"></script>
     <script src="notification-badge-manager.js"></script>
     <script src="avaliacao-solicitacao.js"></script>
+    <script>
+        // Garantir que a função seja exposta globalmente
+        console.log('[Solicitações] Carregando avaliacao-solicitacao.js');
+        if (typeof showEvaluationModal === 'function') {
+            window.showEvaluationModal = showEvaluationModal;
+            console.log('[Solicitações] ✅ showEvaluationModal exposta globalmente');
+        } else {
+            console.error('[Solicitações] ❌ showEvaluationModal não encontrada após carregar script');
+        }
+    </script>
     <script src="solicitacoes.js"></script>
     <script>
-        // Expor função globalmente
-        window.showEvaluationModal = showEvaluationModal;
+        // Verificar novamente após carregar solicitacoes.js
+        console.log('[Solicitações] Verificando funções disponíveis após carregar todos os scripts');
+        console.log('[Solicitações] showEvaluationModal:', typeof showEvaluationModal);
+        console.log('[Solicitações] window.showEvaluationModal:', typeof window.showEvaluationModal);
     </script>
 </body>
 </html>

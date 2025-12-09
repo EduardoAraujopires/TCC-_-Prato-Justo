@@ -192,6 +192,25 @@ function displayDoacaoDetails(doacao) {
     // Verificar se o usuário é o dono e ocultar botão de solicitar se for
     checkIfUserIsOwner(doacao);
     
+    // Verificar se há solicitações concluídas e mostrar ícone de avaliação
+    setTimeout(() => {
+        checkCompletedRequestsAndShowIcon(doacao);
+    }, 1000);
+    
+    // Expor função globalmente para teste manual
+    window.testarAvaliacao = function() {
+        console.log('[Avaliação] Teste manual - verificando elementos...');
+        const evaluationSection = document.getElementById('evaluation-section');
+        if (evaluationSection) {
+            evaluationSection.style.display = 'block';
+            console.log('[Avaliação] Seção de avaliação exibida manualmente');
+            alert('Seção de avaliação exibida! Verifique na página.');
+        } else {
+            console.error('[Avaliação] Elemento evaluation-section não encontrado!');
+            alert('Elemento não encontrado no DOM!');
+        }
+    };
+    
     // Exibir conteúdo principal
     mainContent.style.display = 'block';
 }
@@ -725,6 +744,474 @@ function showError(message) {
     mainContent.style.display = 'none';
 }
 
+/**
+ * ===== VERIFICAR SOLICITAÇÕES CONCLUÍDAS E MOSTRAR ÍCONE DE AVALIAÇÃO (SIMPLIFICADO) =====
+ */
+async function checkCompletedRequestsAndShowIcon(doacao) {
+    const token = localStorage.getItem('token');
+    if (!token) return;
+
+    try {
+        // Buscar solicitações da doação
+        const response = await fetch(`${API_BASE_URL}/doacoes/${doacao.id}/solicitacoes`, {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        });
+
+        if (!response.ok) return;
+
+        const solicitacoes = await response.json();
+        
+        // Buscar usuário atual
+        const userResponse = await fetch(`${API_BASE_URL}/api/user/me`, {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        });
+
+        if (!userResponse.ok) return;
+
+        const currentUser = await userResponse.json();
+        
+        // Verificar se há solicitação concluída
+        const completedRequest = solicitacoes.find(s => {
+            const status = s.status?.toLowerCase();
+            return (status === 'concluida' || status === 'concluída' || status === 'concluido') &&
+                   ((s.solicitante && s.solicitante.id === currentUser.id) ||
+                    (doacao.doador && doacao.doador.id === currentUser.id));
+        });
+
+        if (completedRequest) {
+            // Verificar se já avaliou
+            const avaliacoesResponse = await fetch(`${API_BASE_URL}/avaliacoes-solicitacao/solicitacao/${completedRequest.id}`, {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            });
+
+            let jaAvaliou = false;
+            if (avaliacoesResponse.ok) {
+                const avaliacoes = await avaliacoesResponse.json();
+                jaAvaliou = avaliacoes.some(a => a.avaliador && a.avaliador.id === currentUser.id);
+            }
+
+            if (!jaAvaliou) {
+                showEvaluationIcon(completedRequest.id, doacao);
+            }
+        }
+    } catch (error) {
+        console.error('Erro ao verificar solicitações:', error);
+    }
+}
+
+/**
+ * ===== MOSTRAR ÍCONE DE AVALIAÇÃO (SIMPLIFICADO) =====
+ */
+function showEvaluationIcon(solicitacaoId, doacao) {
+    // Remover ícone existente se houver
+    const existingIcon = document.getElementById('evaluation-icon-badge');
+    if (existingIcon) {
+        existingIcon.remove();
+    }
+
+    // Criar ícone flutuante simples
+    const iconBadge = document.createElement('button');
+    iconBadge.id = 'evaluation-icon-badge';
+    iconBadge.innerHTML = '<i class="fas fa-star"></i> Avaliar';
+    iconBadge.type = 'button';
+    
+    // Estilos inline simples com tema do projeto
+    Object.assign(iconBadge.style, {
+        position: 'fixed',
+        bottom: '30px',
+        right: '30px',
+        background: 'linear-gradient(135deg, #dc2626 0%, #991b1b 100%)',
+        color: 'white',
+        border: 'none',
+        padding: '1rem 1.5rem',
+        borderRadius: '50px',
+        boxShadow: '0 8px 25px rgba(220, 38, 38, 0.4)',
+        cursor: 'pointer',
+        zIndex: '9999',
+        display: 'flex',
+        alignItems: 'center',
+        gap: '0.75rem',
+        fontWeight: '600',
+        fontSize: '1rem',
+        fontFamily: 'inherit',
+        transition: 'all 0.3s ease',
+        animation: 'bounceIn 0.6s ease'
+    });
+
+    // Hover effect
+    iconBadge.onmouseenter = () => {
+        iconBadge.style.transform = 'scale(1.1) translateY(-5px)';
+        iconBadge.style.boxShadow = '0 12px 35px rgba(220, 38, 38, 0.5)';
+    };
+    iconBadge.onmouseleave = () => {
+        iconBadge.style.transform = 'scale(1) translateY(0)';
+        iconBadge.style.boxShadow = '0 8px 25px rgba(220, 38, 38, 0.4)';
+    };
+
+    // Ao clicar, abrir modal de avaliação
+    iconBadge.onclick = () => {
+        if (typeof window.showEvaluationModal === 'function') {
+            window.showEvaluationModal(solicitacaoId);
+        } else {
+            alert('Sistema de avaliação não disponível. Recarregue a página.');
+        }
+    };
+
+    document.body.appendChild(iconBadge);
+
+    // Adicionar animação CSS se não existir
+    if (!document.getElementById('evaluation-icon-animations')) {
+        const style = document.createElement('style');
+        style.id = 'evaluation-icon-animations';
+        style.textContent = `
+            @keyframes bounceIn {
+                0% { opacity: 0; transform: scale(0.3); }
+                50% { opacity: 1; transform: scale(1.1); }
+                100% { transform: scale(1); }
+            }
+        `;
+        document.head.appendChild(style);
+    }
+}
+
+/**
+ * ===== VERIFICAR SOLICITAÇÕES CONCLUÍDAS E MOSTRAR AVALIAÇÃO (VERSÃO COMPLETA) =====
+ */
+async function checkCompletedRequests(doacao) {
+    console.log('[Avaliação] checkCompletedRequests chamado para doação:', doacao.id);
+    
+    const token = localStorage.getItem('token');
+    if (!token) {
+        console.log('[Avaliação] Token não encontrado');
+        return;
+    }
+
+    try {
+        // Buscar solicitações da doação
+        console.log('[Avaliação] Buscando solicitações da doação...');
+        const response = await fetch(`${API_BASE_URL}/doacoes/${doacao.id}/solicitacoes`, {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        });
+
+        if (!response.ok) {
+            console.log('[Avaliação] Erro ao buscar solicitações:', response.status);
+            return;
+        }
+
+        const solicitacoes = await response.json();
+        console.log('[Avaliação] Solicitações encontradas:', solicitacoes);
+        
+        // Buscar usuário atual
+        console.log('[Avaliação] Buscando usuário atual...');
+        const userResponse = await fetch(`${API_BASE_URL}/api/user/me`, {
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        });
+
+        if (!userResponse.ok) {
+            console.log('[Avaliação] Erro ao buscar usuário:', userResponse.status);
+            return;
+        }
+
+        const currentUser = await userResponse.json();
+        console.log('[Avaliação] Usuário atual:', currentUser.id);
+        console.log('[Avaliação] Doador da doação:', doacao.doador?.id);
+        
+        // Verificar se há solicitação concluída onde o usuário atual participou
+        const completedRequest = solicitacoes.find(s => {
+            const status = s.status?.toLowerCase();
+            const isConcluida = status === 'concluida' || status === 'concluída' || status === 'concluido';
+            const isParticipante = 
+                (s.solicitante && s.solicitante.id === currentUser.id) ||
+                (doacao.doador && doacao.doador.id === currentUser.id);
+            
+            console.log('[Avaliação] Verificando solicitação:', {
+                id: s.id,
+                status: s.status,
+                statusLower: status,
+                isConcluida,
+                solicitanteId: s.solicitante?.id,
+                doadorId: doacao.doador?.id,
+                currentUserId: currentUser.id,
+                isParticipante
+            });
+            
+            return isConcluida && isParticipante;
+        });
+        
+        // Se não encontrou, tentar buscar todas as solicitações do usuário
+        if (!completedRequest && solicitacoes.length > 0) {
+            console.log('[Avaliação] Tentando buscar solicitações do usuário...');
+            try {
+                const minhasSolicitacoesResponse = await fetch(`${API_BASE_URL}/doacoes/minhas-solicitacoes`, {
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    }
+                });
+                
+                if (minhasSolicitacoesResponse.ok) {
+                    const minhasSolicitacoes = await minhasSolicitacoesResponse.json();
+                    const minhaSolicitacaoConcluida = minhasSolicitacoes.find(s => {
+                        const status = s.status?.toLowerCase();
+                        const isConcluida = status === 'concluida' || status === 'concluída' || status === 'concluido';
+                        const isDaDoacao = s.doacao && s.doacao.id === doacao.id;
+                        return isConcluida && isDaDoacao;
+                    });
+                    
+                    if (minhaSolicitacaoConcluida) {
+                        console.log('[Avaliação] Encontrada solicitação concluída nas minhas solicitações:', minhaSolicitacaoConcluida);
+                        // Usar a solicitação encontrada
+                        const completedRequestFromList = solicitacoes.find(s => s.id === minhaSolicitacaoConcluida.id);
+                        if (completedRequestFromList) {
+                            const avaliacoesResponse = await fetch(`${API_BASE_URL}/avaliacoes-solicitacao/solicitacao/${completedRequestFromList.id}`, {
+                                headers: {
+                                    'Authorization': `Bearer ${token}`
+                                }
+                            });
+
+                            let jaAvaliou = false;
+                            if (avaliacoesResponse.ok) {
+                                const avaliacoes = await avaliacoesResponse.json();
+                                jaAvaliou = avaliacoes.some(a => a.avaliador && a.avaliador.id === currentUser.id);
+                            }
+
+                            if (!jaAvaliou) {
+                                showEvaluationSection(completedRequestFromList, doacao, currentUser);
+                                return;
+                            }
+                        }
+                    }
+                }
+            } catch (error) {
+                console.error('[Avaliação] Erro ao buscar minhas solicitações:', error);
+            }
+        }
+
+        console.log('[Avaliação] Solicitação concluída encontrada?', !!completedRequest);
+
+        if (completedRequest) {
+            console.log('[Avaliação] ✅ Solicitação concluída encontrada:', completedRequest);
+            
+            // Verificar se já avaliou
+            const avaliacoesResponse = await fetch(`${API_BASE_URL}/avaliacoes-solicitacao/solicitacao/${completedRequest.id}`, {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            });
+
+            let jaAvaliou = false;
+            if (avaliacoesResponse.ok) {
+                const avaliacoes = await avaliacoesResponse.json();
+                jaAvaliou = avaliacoes.some(a => a.avaliador && a.avaliador.id === currentUser.id);
+                console.log('[Avaliação] Já avaliou?', jaAvaliou, 'Total de avaliações:', avaliacoes.length);
+            }
+
+            if (!jaAvaliou) {
+                console.log('[Avaliação] ✅ Mostrando seção de avaliação...');
+                showEvaluationSection(completedRequest, doacao, currentUser);
+            } else {
+                console.log('[Avaliação] ⚠️ Usuário já avaliou esta solicitação');
+            }
+        } else {
+            console.log('[Avaliação] ⚠️ Nenhuma solicitação concluída encontrada para este usuário');
+            console.log('[Avaliação] Total de solicitações:', solicitacoes.length);
+            if (solicitacoes.length > 0) {
+                console.log('[Avaliação] Status das solicitações:', solicitacoes.map(s => ({ 
+                    id: s.id, 
+                    status: s.status,
+                    solicitanteId: s.solicitante?.id,
+                    doadorId: doacao.doador?.id
+                })));
+            }
+        }
+    } catch (error) {
+        console.error('[Avaliação] Erro ao verificar solicitações concluídas:', error);
+        console.error('[Avaliação] Stack:', error.stack);
+    }
+}
+
+/**
+ * ===== VERSÃO SIMPLIFICADA - SEMPRE MOSTRAR SEÇÃO DE AVALIAÇÃO (PARA TESTE) =====
+ */
+function showEvaluationSectionSimplified(doacao) {
+    console.log('[Avaliação] 🧪 VERSÃO SIMPLIFICADA - Mostrando seção de avaliação sempre');
+    
+    const evaluationSection = document.getElementById('evaluation-section');
+    const evaluationInfo = document.getElementById('evaluation-info');
+    const btnAvaliar = document.getElementById('btn-avaliar');
+
+    if (!evaluationSection || !evaluationInfo || !btnAvaliar) {
+        console.error('[Avaliação] ❌ Elementos não encontrados:', {
+            evaluationSection: !!evaluationSection,
+            evaluationInfo: !!evaluationInfo,
+            btnAvaliar: !!btnAvaliar
+        });
+        return;
+    }
+
+    // Preencher informações com dados básicos
+    const doadorNome = doacao.doador?.nome || 'Doador';
+    const dataAtual = new Date().toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit', year: 'numeric' });
+
+    evaluationInfo.innerHTML = `
+        <div class="evaluation-details">
+            <div class="evaluation-detail-item">
+                <i class="fas fa-user"></i>
+                <span><strong>Avaliar:</strong> ${doadorNome}</span>
+            </div>
+            <div class="evaluation-detail-item">
+                <i class="fas fa-calendar-check"></i>
+                <span><strong>Concluída em:</strong> ${dataAtual}</span>
+            </div>
+            <div class="evaluation-detail-item">
+                <i class="fas fa-gift"></i>
+                <span><strong>Doação:</strong> ${doacao.titulo || 'Doação'}</span>
+            </div>
+        </div>
+    `;
+
+    // Event listener para o botão de avaliar
+    btnAvaliar.onclick = () => {
+        console.log('[Avaliação] Botão de avaliar clicado');
+        // Tentar buscar a primeira solicitação concluída ou usar um ID padrão
+        const token = localStorage.getItem('token');
+        if (token) {
+            fetch(`${API_BASE_URL}/doacoes/${doacao.id}/solicitacoes`, {
+                headers: {
+                    'Authorization': `Bearer ${token}`
+                }
+            })
+            .then(response => response.json())
+            .then(solicitacoes => {
+                const concluida = solicitacoes.find(s => {
+                    const status = s.status?.toLowerCase();
+                    return status === 'concluida' || status === 'concluída' || status === 'concluido';
+                });
+                
+                if (concluida && typeof window.showEvaluationModal === 'function') {
+                    window.showEvaluationModal(concluida.id, concluida);
+                } else {
+                    alert('Solicitação concluída não encontrada. Por favor, vá até a página de solicitações para avaliar.');
+                }
+            })
+            .catch(error => {
+                console.error('[Avaliação] Erro ao buscar solicitação:', error);
+                alert('Erro ao abrir avaliação. Por favor, tente novamente.');
+            });
+        } else {
+            alert('Você precisa estar logado para avaliar.');
+        }
+    };
+
+    // Mostrar seção com animação
+    console.log('[Avaliação] ✅ Exibindo seção de avaliação (versão simplificada)...');
+    evaluationSection.style.display = 'block';
+    evaluationSection.style.visibility = 'visible';
+    evaluationSection.style.opacity = '1';
+    evaluationSection.style.animation = 'slideInUp 0.5s ease';
+    
+    // Scroll até a seção
+    setTimeout(() => {
+        evaluationSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }, 600);
+}
+
+/**
+ * ===== MOSTRAR SEÇÃO DE AVALIAÇÃO =====
+ */
+function showEvaluationSection(solicitacao, doacao, currentUser) {
+    console.log('[Avaliação] showEvaluationSection chamado');
+    
+    const evaluationSection = document.getElementById('evaluation-section');
+    const evaluationInfo = document.getElementById('evaluation-info');
+    const btnAvaliar = document.getElementById('btn-avaliar');
+
+    console.log('[Avaliação] Elementos encontrados:', {
+        evaluationSection: !!evaluationSection,
+        evaluationInfo: !!evaluationInfo,
+        btnAvaliar: !!btnAvaliar
+    });
+
+    if (!evaluationSection) {
+        console.error('[Avaliação] ❌ evaluation-section não encontrado no DOM!');
+        return;
+    }
+    
+    if (!evaluationInfo) {
+        console.error('[Avaliação] ❌ evaluation-info não encontrado no DOM!');
+        return;
+    }
+    
+    if (!btnAvaliar) {
+        console.error('[Avaliação] ❌ btn-avaliar não encontrado no DOM!');
+        return;
+    }
+
+    // Determinar quem deve ser avaliado
+    const isDoador = doacao.doador && doacao.doador.id === currentUser.id;
+    const avaliado = isDoador ? solicitacao.solicitante : doacao.doador;
+    const avaliadoNome = avaliado ? avaliado.nome : 'Usuário';
+
+    // Preencher informações
+    const dataConclusao = solicitacao.atualizadoEm || solicitacao.criadoEm;
+    const dataFormatada = dataConclusao 
+        ? new Date(dataConclusao).toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit', year: 'numeric' })
+        : 'Data não informada';
+
+    evaluationInfo.innerHTML = `
+        <div class="evaluation-details">
+            <div class="evaluation-detail-item">
+                <i class="fas fa-user"></i>
+                <span><strong>Avaliar:</strong> ${avaliadoNome}</span>
+            </div>
+            <div class="evaluation-detail-item">
+                <i class="fas fa-calendar-check"></i>
+                <span><strong>Concluída em:</strong> ${dataFormatada}</span>
+            </div>
+            <div class="evaluation-detail-item">
+                <i class="fas fa-gift"></i>
+                <span><strong>Doação:</strong> ${doacao.titulo}</span>
+            </div>
+        </div>
+    `;
+
+    // Event listener para o botão de avaliar
+    btnAvaliar.onclick = () => {
+        if (typeof window.showEvaluationModal === 'function') {
+            window.showEvaluationModal(solicitacao.id, solicitacao);
+        } else if (typeof showEvaluationModal === 'function') {
+            showEvaluationModal(solicitacao.id, solicitacao);
+        } else {
+            console.error('Função showEvaluationModal não encontrada');
+            alert('Sistema de avaliação não disponível. Por favor, recarregue a página.');
+        }
+    };
+
+    // Mostrar seção com animação
+    console.log('[Avaliação] Exibindo seção de avaliação...');
+    evaluationSection.style.display = 'block';
+    evaluationSection.style.visibility = 'visible';
+    evaluationSection.style.opacity = '1';
+    evaluationSection.style.animation = 'slideInUp 0.5s ease';
+    
+    // Verificar se foi exibido
+    setTimeout(() => {
+        const isVisible = evaluationSection.offsetParent !== null;
+        console.log('[Avaliação] Seção visível?', isVisible);
+        console.log('[Avaliação] Display:', window.getComputedStyle(evaluationSection).display);
+        console.log('[Avaliação] Visibility:', window.getComputedStyle(evaluationSection).visibility);
+    }, 100);
+}
+
 // Adicionar estilos para animação
 const style = document.createElement('style');
 style.textContent = `
@@ -735,6 +1222,16 @@ style.textContent = `
         }
         to {
             transform: translateX(0);
+            opacity: 1;
+        }
+    }
+    @keyframes slideInUp {
+        from {
+            transform: translateY(30px);
+            opacity: 0;
+        }
+        to {
+            transform: translateY(0);
             opacity: 1;
         }
     }
