@@ -530,6 +530,11 @@ class SolicitacoesApp {
                             <i class="fas fa-times-circle"></i>
                             Cancelar Solicitação
                         </button>
+                    ` : status === 'concluida' ? `
+                        <button class="btn-evaluate" onclick="event.stopPropagation(); openEvaluation(${request.id})" title="Avaliar experiência">
+                            <i class="fas fa-star"></i>
+                            Avaliar
+                        </button>
                     ` : ''}
                     <button class="btn-view" onclick="event.stopPropagation(); viewDonation(${doacao.id})" title="Ver detalhes">
                         <i class="fas fa-eye"></i>
@@ -727,6 +732,16 @@ async function confirmCollection(requestId, event) {
             collectBtn.disabled = false;
             collectBtn.innerHTML = '<i class="fas fa-check-circle"></i> Confirmar Coleta';
         }
+    }
+}
+
+function openEvaluation(requestId, solicitacaoData = null) {
+    if (typeof window.showEvaluationModal === 'function') {
+        window.showEvaluationModal(requestId, solicitacaoData);
+    } else if (typeof showEvaluationModal === 'function') {
+        showEvaluationModal(requestId, solicitacaoData);
+    } else {
+        alert('Sistema de avaliação não disponível. Recarregue a página e tente novamente.');
     }
 }
 

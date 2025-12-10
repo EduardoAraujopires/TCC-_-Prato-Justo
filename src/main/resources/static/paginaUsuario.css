@@ -528,23 +528,43 @@ body {
 .ratings-list {
   max-height: 300px;
   overflow-y: auto;
+  overflow-x: hidden;
+  padding-right: 6px;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.35) rgba(255, 255, 255, 0.08);
 }
 
 .donations-list::-webkit-scrollbar,
-.ratings-list::-webkit-scrollbar {
-  width: 6px;
+.ratings-list::-webkit-scrollbar,
+.ratings-modal-content::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
 }
 
 .donations-list::-webkit-scrollbar-track,
-.ratings-list::-webkit-scrollbar-track {
-  background: rgba(255, 255, 255, 0.05);
-  border-radius: 3px;
+.ratings-list::-webkit-scrollbar-track,
+.ratings-modal-content::-webkit-scrollbar-track {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.08));
+  border-radius: 999px;
 }
 
 .donations-list::-webkit-scrollbar-thumb,
-.ratings-list::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.2);
-  border-radius: 3px;
+.ratings-list::-webkit-scrollbar-thumb,
+.ratings-modal-content::-webkit-scrollbar-thumb {
+  background: linear-gradient(135deg, #fbbf24, #dc2626);
+  border-radius: 999px;
+  box-shadow: inset 0 0 0 2px rgba(0, 0, 0, 0.1);
+}
+
+.donations-list::-webkit-scrollbar-thumb:hover,
+.ratings-list::-webkit-scrollbar-thumb:hover,
+.ratings-modal-content::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(135deg, #fde68a, #ef4444);
+}
+
+.ratings-modal-content {
+  scrollbar-width: thin;
+  scrollbar-color: #dc2626 rgba(0, 0, 0, 0.06);
 }
 
 .donation-item {
@@ -682,6 +702,8 @@ body {
   border-radius: var(--radius-lg);
   margin-bottom: var(--spacing-md);
   background: rgba(255, 255, 255, 0.05);
+  overflow: hidden;
+  min-width: 0;
 }
 
 .rating-stars-item {
@@ -1362,6 +1384,20 @@ body {
   .rating-overview {
     flex-direction: column;
     text-align: center;
+  }
+
+  .rating-item {
+    padding: var(--spacing-sm) var(--spacing-md);
+  }
+
+  .rating-item > div {
+    flex-wrap: wrap;
+    gap: var(--spacing-sm);
+  }
+
+  .rating-item .rating-stars-item {
+    font-size: 0.875rem;
+    gap: 0.15rem;
   }
 
   /* Modal extra pequeno */

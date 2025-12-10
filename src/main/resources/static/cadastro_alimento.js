@@ -214,6 +214,7 @@ document.addEventListener('DOMContentLoaded', () => {
 			searchCepBtn.disabled = true;
 			searchCepBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Buscando...';
 
+			// 1. Buscar endereço via ViaCEP
 			const response = await fetch(`https://viacep.com.br/ws/${cleanCep}/json/`);
 			const data = await response.json();
 
@@ -230,7 +231,11 @@ document.addEventListener('DOMContentLoaded', () => {
 			// Foca no campo número após preencher
 			setTimeout(() => numberInput.focus(), 100);
 
+			// Gerar endereço completo
 			generateFullAddress();
+
+			// 2. Obter coordenadas via geocodificação (OpenStreetMap)
+			await geocodeAddressFromFields();
 
 			showNotification('Endereço encontrado com sucesso!', 'success');
 
@@ -243,6 +248,146 @@ document.addEventListener('DOMContentLoaded', () => {
 		} finally {
 			searchCepBtn.disabled = false;
 			searchCepBtn.innerHTML = '<i class="fas fa-search"></i> Buscar';
+		}
+	}
+
+	// Flag para evitar múltiplas chamadas simultâneas
+	let geocodingInProgress = false;
+
+	// --- Geocodificação de Endereço (obter coordenadas) ---
+	async function geocodeAddressFromFields() {
+		// Evitar múltiplas chamadas simultâneas
+		if (geocodingInProgress) {
+			console.log('⏳ Geocodificação já em andamento, aguardando...');
+			return;
+		}
+
+		const street = streetInput.value.trim();
+		const number = numberInput.value.trim();
+		const city = cityInput.value.trim();
+		const state = stateInput.value.trim();
+		const cep = cepInput.value.replace(/\D/g, '');
+
+		// Se não tiver informações suficientes, não fazer geocodificação
+		if (!city || !state) {
+			return;
+		}
+
+		geocodingInProgress = true;
+
+		try {
+			// Atualizar status para mostrar que está buscando
+			if (locationStatus) {
+				locationStatus.textContent = 'Obtendo coordenadas...';
+				locationStatus.style.color = '#fbbf24';
+			}
+
+			// Tentar múltiplas estratégias de geocodificação
+			const queries = [];
+			
+			// Estratégia 1: CEP formatado (00000-000)
+			if (cep && cep.length === 8) {
+				queries.push(cep);
+				queries.push(`${cep.substring(0, 5)}-${cep.substring(5)}`);
+			}
+			
+			// Estratégia 2: Endereço completo com número
+			if (street && number && city && state) {
+				queries.push(`${street}, ${number}, ${city}, ${state}, Brasil`);
+				queries.push(`${street} ${number}, ${city}, ${state}, Brasil`);
+			}
+			
+			// Estratégia 3: Endereço sem número
+			if (street && city && state) {
+				queries.push(`${street}, ${city}, ${state}, Brasil`);
+			}
+			
+			// Estratégia 4: Cidade + Estado
+			if (city && state) {
+				queries.push(`${city}, ${state}, Brasil`);
+			}
+
+			if (queries.length === 0) {
+				if (locationStatus) {
+					locationStatus.textContent = 'Informações insuficientes para obter coordenadas.';
+					locationStatus.style.color = '#fbbf24';
+				}
+				return;
+			}
+
+			// Tentar cada query até encontrar coordenadas
+			let coordenadas = null;
+			
+			for (const query of queries) {
+				console.log('🔍 Tentando geocodificar:', query);
+				
+				try {
+					// Fazer requisição para Nominatim (OpenStreetMap)
+					const url = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query)}&limit=1&countrycodes=br&addressdetails=1`;
+					
+					const response = await fetch(url, {
+						headers: {
+							'User-Agent': 'PratoJusto/1.0'
+						}
+					});
+
+					if (!response.ok) {
+						console.warn('⚠️ Resposta não OK:', response.status);
+						continue;
+					}
+
+					const data = await response.json();
+
+					if (data && data.length > 0) {
+						const lat = parseFloat(data[0].lat);
+						const lng = parseFloat(data[0].lon);
+						
+						// Verificar se as coordenadas são válidas
+						if (!isNaN(lat) && !isNaN(lng) && lat >= -90 && lat <= 90 && lng >= -180 && lng <= 180) {
+							coordenadas = { lat, lng };
+							console.log('✅ Coordenadas obtidas com sucesso:', query, '→', lat, lng);
+							break;
+						}
+					}
+				} catch (error) {
+					console.warn('⚠️ Erro ao tentar query:', query, error);
+					continue;
+				}
+				
+				// Aguardar um pouco entre tentativas (respeitar rate limit do Nominatim)
+				await new Promise(resolve => setTimeout(resolve, 500));
+			}
+
+			if (coordenadas) {
+				// Preencher campos de coordenadas
+				const latInput = document.getElementById('lat');
+				const lngInput = document.getElementById('lng');
+				
+				if (latInput) latInput.value = coordenadas.lat;
+				if (lngInput) lngInput.value = coordenadas.lng;
+				
+				// Atualizar status de localização
+				if (locationStatus) {
+					locationStatus.textContent = `Localização obtida: ${coordenadas.lat.toFixed(5)}, ${coordenadas.lng.toFixed(5)}`;
+					locationStatus.style.color = '#10b981';
+				}
+				
+				showNotification('Coordenadas obtidas com sucesso!', 'success');
+			} else {
+				if (locationStatus) {
+					locationStatus.textContent = 'Coordenadas não encontradas. Clique no botão de localização para tentar novamente.';
+					locationStatus.style.color = '#fbbf24';
+				}
+				console.warn('⚠️ Nenhuma coordenada encontrada após todas as tentativas');
+			}
+		} catch (error) {
+			console.error('❌ Erro na geocodificação:', error);
+			if (locationStatus) {
+				locationStatus.textContent = 'Erro ao obter coordenadas. Tente novamente.';
+				locationStatus.style.color = '#ef4444';
+			}
+		} finally {
+			geocodingInProgress = false;
 		}
 	}
 
@@ -278,6 +423,7 @@ document.addEventListener('DOMContentLoaded', () => {
 			fullAddress += `, ${city} - ${state}`;
 
 			addressInput.value = fullAddress;
+			// Não chamar geocodificação aqui - apenas quando CEP for buscado ou botão clicado
 		}
 	}
 
@@ -362,64 +508,54 @@ document.addEventListener('DOMContentLoaded', () => {
 		optionalContent.style.display = isHidden ? 'none' : 'block';
 	}
 
-	// --- Geolocalização ---
-	function handleGeolocation() {
-		if (!navigator.geolocation) {
-			locationStatus.textContent = 'Geolocalização não suportada pelo seu navegador.';
-			showNotification('Seu navegador não suporta a API de Geolocalização.', 'warning');
+	// --- Geolocalização (obter coordenadas do endereço do CEP) ---
+	async function handleGeolocation() {
+		// Verificar se há CEP ou endereço preenchido
+		const cep = cepInput.value.replace(/\D/g, '');
+		const street = streetInput.value.trim();
+		const city = cityInput.value.trim();
+		const state = stateInput.value.trim();
+
+		if (!cep && !street && !city && !state) {
+			showNotification('Preencha o CEP ou o endereço primeiro para obter as coordenadas.', 'warning');
 			return;
 		}
 
-		locationStatus.textContent = 'Localizando...';
+		locationStatus.textContent = 'Obtendo coordenadas do endereço...';
+		locationStatus.style.color = '#fbbf24';
 		getLocationBtn.disabled = true;
 		getLocationBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i>';
 
-		navigator.geolocation.getCurrentPosition(async (position) => {
-			const lat = position.coords.latitude;
-			const lng = position.coords.longitude;
-
-			document.getElementById('lat').value = lat;
-			document.getElementById('lng').value = lng;
-			locationStatus.textContent = `Localização obtida: ${lat.toFixed(5)}, ${lng.toFixed(5)}`;
-			locationStatus.style.color = '#10b981';
-
-			// Simulação de endereço reverso
-			const mockAddress = `Localização Automática (${lat.toFixed(2)}, ${lng.toFixed(2)})`;
-			addressInput.value = mockAddress;
-
-			showNotification('Localização obtida com sucesso!', 'success');
-
-			getLocationBtn.disabled = false;
-			getLocationBtn.innerHTML = '<i class="fas fa-map-marker-alt"></i>';
-		}, (error) => {
-			locationStatus.textContent = 'Não foi possível obter sua localização. Preencha manualmente.';
-			locationStatus.style.color = '#fbbf24';
-
-			let errorMessage = 'Erro ao obter localização: ';
-			switch (error.code) {
-				case error.PERMISSION_DENIED:
-					errorMessage += 'Permissão negada.';
-					break;
-				case error.POSITION_UNAVAILABLE:
-					errorMessage += 'Localização indisponível.';
-					break;
-				case error.TIMEOUT:
-					errorMessage += 'Tempo esgotado.';
-					break;
-				default:
-					errorMessage += 'Erro desconhecido.';
-					break;
+		try {
+			// Usar a função de geocodificação que já existe
+			await geocodeAddressFromFields();
+			
+			// Verificar se as coordenadas foram obtidas
+			const latInput = document.getElementById('lat');
+			const lngInput = document.getElementById('lng');
+			
+			if (latInput && lngInput && latInput.value && lngInput.value) {
+				const lat = parseFloat(latInput.value);
+				const lng = parseFloat(lngInput.value);
+				
+				locationStatus.textContent = `Localização obtida: ${lat.toFixed(5)}, ${lng.toFixed(5)}`;
+				locationStatus.style.color = '#10b981';
+				
+				showNotification('Coordenadas do endereço obtidas com sucesso!', 'success');
+			} else {
+				locationStatus.textContent = 'Não foi possível obter as coordenadas. Verifique se o endereço está completo.';
+				locationStatus.style.color = '#fbbf24';
+				showNotification('Não foi possível obter as coordenadas. Verifique o endereço.', 'warning');
 			}
-
-			showNotification(errorMessage, 'error');
-
+		} catch (error) {
+			console.error('Erro ao obter coordenadas:', error);
+			locationStatus.textContent = 'Erro ao obter coordenadas. Tente novamente.';
+			locationStatus.style.color = '#ef4444';
+			showNotification('Erro ao obter coordenadas. Tente novamente.', 'error');
+		} finally {
 			getLocationBtn.disabled = false;
 			getLocationBtn.innerHTML = '<i class="fas fa-map-marker-alt"></i>';
-		}, {
-			enableHighAccuracy: true,
-			timeout: 10000,
-			maximumAge: 60000
-		});
+		}
 	}
 
 	// --- Validação em Tempo Real ---

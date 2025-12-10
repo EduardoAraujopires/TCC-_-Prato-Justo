@@ -218,9 +218,10 @@ function displayDoacaoDetails(doacao) {
 /**
  * ===== EXIBIR LOCALIZAÇÃO =====
  */
-function displayLocation(doacao) {
+async function displayLocation(doacao) {
     const locationAddress = document.getElementById('location-address');
     const locationCity = document.getElementById('location-city');
+    const mapContainer = document.getElementById('map-container');
     
     // Montar endereço completo
     let enderecoCompleto = '';
@@ -243,21 +244,261 @@ function displayLocation(doacao) {
     
     locationCity.textContent = cidadeCompleta || 'Cidade não informada';
     
-    // Se tiver coordenadas, exibir mapa (implementação futura)
+    // Preparar coordenadas para o mapa
+    let lat = null;
+    let lng = null;
+    
+    // Se tiver coordenadas diretas, usar elas
     if (doacao.latitude && doacao.longitude) {
-        const mapContainer = document.getElementById('map-container');
-        mapContainer.style.display = 'block';
-        // Aqui você pode integrar com Google Maps, Leaflet, etc.
-        mapContainer.innerHTML = `
-            <div style="width: 100%; height: 100%; background-color: #e5e7eb; display: flex; align-items: center; justify-content: center; color: #6b7280;">
-                <div style="text-align: center;">
-                    <i class="fas fa-map-marked-alt" style="font-size: 2rem; margin-bottom: 0.5rem;"></i>
-                    <p>Mapa: ${doacao.latitude.toFixed(6)}, ${doacao.longitude.toFixed(6)}</p>
-                    <p style="font-size: 0.9rem;">Integração com mapa em desenvolvimento</p>
-                </div>
-            </div>
-        `;
+        lat = parseFloat(doacao.latitude);
+        lng = parseFloat(doacao.longitude);
+        console.log('📍 Usando coordenadas salvas:', lat, lng);
+    } else {
+        // Se não tiver coordenadas, fazer geocodificação do endereço
+        // Priorizar CEP, depois endereço completo, depois cidade+estado
+        const cep = doacao.cep ? doacao.cep : null;
+        const enderecoParaGeocodificar = enderecoCompleto || doacao.endereco || '';
+        const cidadeEstado = cidadeCompleta || `${doacao.cidade || ''}, ${doacao.estado || ''}`;
+        
+        console.log('🔍 Tentando geocodificar:', { 
+            cep: cep ? cep.replace(/\D/g, '') : null, 
+            endereco: enderecoParaGeocodificar, 
+            cidadeEstado 
+        });
+        
+        if (cep || enderecoParaGeocodificar || cidadeEstado.trim()) {
+            try {
+                const coordenadas = await geocodeAddress(enderecoParaGeocodificar, cidadeEstado, cep);
+                if (coordenadas) {
+                    lat = coordenadas.lat;
+                    lng = coordenadas.lng;
+                    console.log('✅ Coordenadas obtidas via geocodificação:', lat, lng);
+                } else {
+                    console.warn('⚠️ Não foi possível obter coordenadas após todas as tentativas');
+                    // Tentar uma última vez com apenas cidade e estado
+                    if (doacao.cidade && doacao.estado) {
+                        const ultimaTentativa = await geocodeAddress('', `${doacao.cidade}, ${doacao.estado}`, null);
+                        if (ultimaTentativa) {
+                            lat = ultimaTentativa.lat;
+                            lng = ultimaTentativa.lng;
+                            console.log('✅ Coordenadas obtidas na última tentativa:', lat, lng);
+                        }
+                    }
+                }
+            } catch (error) {
+                console.error('❌ Erro ao geocodificar endereço:', error);
+            }
+        } else {
+            console.warn('⚠️ Sem informações suficientes para geocodificação');
+        }
     }
+    
+    // Se tiver coordenadas, exibir mapa
+    if (lat && lng) {
+        mapContainer.style.display = 'block';
+        initializeMap(mapContainer, lat, lng, enderecoCompleto || 'Localização da doação');
+    } else {
+        mapContainer.style.display = 'none';
+    }
+}
+
+/**
+ * ===== GEOCODIFICAÇÃO DE ENDEREÇO =====
+ * Usa a API Nominatim do OpenStreetMap para converter endereço em coordenadas
+ * Tenta múltiplas estratégias para encontrar as coordenadas
+ */
+async function geocodeAddress(endereco, cidadeEstado, cep) {
+    try {
+        // Preparar queries com múltiplas estratégias
+        const queries = [];
+        
+        // Estratégia 1: CEP formatado (00000-000) e sem formatação
+        if (cep) {
+            const cleanCep = cep.replace(/\D/g, '');
+            if (cleanCep.length === 8) {
+                queries.push(cleanCep);
+                queries.push(`${cleanCep.substring(0, 5)}-${cleanCep.substring(5)}`);
+            }
+        }
+        
+        // Estratégia 2: Endereço completo
+        if (endereco) {
+            queries.push(endereco + ', Brasil');
+            if (cidadeEstado) {
+                queries.push(endereco + ', ' + cidadeEstado + ', Brasil');
+            }
+        }
+        
+        // Estratégia 3: Cidade + Estado
+        if (cidadeEstado) {
+            queries.push(cidadeEstado + ', Brasil');
+        }
+        
+        if (queries.length === 0) {
+            console.warn('⚠️ Sem informações para geocodificação');
+            return null;
+        }
+        
+        console.log('🔍 Tentando geocodificar com', queries.length, 'estratégias diferentes');
+        
+        // Tentar cada query até encontrar coordenadas
+        for (const query of queries) {
+            try {
+                console.log('🔍 Tentando:', query);
+                
+                // Fazer requisição para Nominatim (OpenStreetMap)
+                const url = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query)}&limit=1&countrycodes=br&addressdetails=1`;
+                
+                const response = await fetch(url, {
+                    headers: {
+                        'User-Agent': 'PratoJusto/1.0'
+                    }
+                });
+                
+                if (!response.ok) {
+                    console.warn('⚠️ Resposta não OK:', response.status);
+                    continue;
+                }
+                
+                const data = await response.json();
+                
+                if (data && data.length > 0) {
+                    const lat = parseFloat(data[0].lat);
+                    const lng = parseFloat(data[0].lon);
+                    
+                    // Verificar se as coordenadas são válidas
+                    if (!isNaN(lat) && !isNaN(lng) && lat >= -90 && lat <= 90 && lng >= -180 && lng <= 180) {
+                        const coordenadas = { lat, lng };
+                        console.log('✅ Coordenadas obtidas:', query, '→', lat, lng);
+                        return coordenadas;
+                    }
+                }
+            } catch (error) {
+                console.warn('⚠️ Erro ao tentar query:', query, error);
+                continue;
+            }
+            
+            // Aguardar um pouco entre tentativas (respeitar rate limit do Nominatim)
+            await new Promise(resolve => setTimeout(resolve, 500));
+        }
+        
+        console.warn('⚠️ Nenhuma coordenada encontrada após todas as tentativas');
+        return null;
+    } catch (error) {
+        console.error('❌ Erro na geocodificação:', error);
+        return null;
+    }
+}
+
+/**
+ * ===== INICIALIZAR MAPA =====
+ * Cria um mapa estático/interativo usando Leaflet (OpenStreetMap)
+ */
+function initializeMap(container, lat, lng, endereco) {
+    // Limpar container antes de criar novo mapa
+    container.innerHTML = '';
+    
+    // Criar mapa Leaflet
+    const map = L.map(container, {
+        zoomControl: true,
+        scrollWheelZoom: false, // Desabilitar zoom com scroll para mapa estático
+        doubleClickZoom: false,
+        boxZoom: false,
+        keyboard: false,
+        dragging: false, // Mapa estático por padrão
+        touchZoom: false
+    }).setView([lat, lng], 15);
+    
+    // Adicionar tile layer do OpenStreetMap
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+        maxZoom: 19
+    }).addTo(map);
+    
+    // Adicionar marcador no endereço
+    const marker = L.marker([lat, lng], {
+        icon: L.icon({
+            iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-red.png',
+            shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/images/marker-shadow.png',
+            iconSize: [25, 41],
+            iconAnchor: [12, 41],
+            popupAnchor: [1, -34],
+            shadowSize: [41, 41]
+        })
+    }).addTo(map);
+    
+    // Adicionar popup com endereço
+    if (endereco) {
+        marker.bindPopup(`<strong>${endereco}</strong>`).openPopup();
+    }
+    
+    // Adicionar botão para tornar mapa interativo
+    const interactiveBtn = document.createElement('button');
+    interactiveBtn.innerHTML = '<i class="fas fa-hand-pointer"></i> Tornar Interativo';
+    interactiveBtn.className = 'map-interactive-btn';
+    interactiveBtn.style.cssText = `
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        z-index: 1000;
+        padding: 0.5rem 1rem;
+        background: linear-gradient(135deg, #dc2626, #2563eb);
+        color: white;
+        border: none;
+        border-radius: 8px;
+        font-size: 0.85rem;
+        font-weight: 600;
+        cursor: pointer;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+        transition: all 0.3s ease;
+    `;
+    
+    interactiveBtn.addEventListener('mouseenter', () => {
+        interactiveBtn.style.transform = 'scale(1.05)';
+        interactiveBtn.style.boxShadow = '0 4px 12px rgba(0,0,0,0.4)';
+    });
+    
+    interactiveBtn.addEventListener('mouseleave', () => {
+        interactiveBtn.style.transform = 'scale(1)';
+        interactiveBtn.style.boxShadow = '0 2px 8px rgba(0,0,0,0.3)';
+    });
+    
+    let isInteractive = false;
+    
+    interactiveBtn.addEventListener('click', () => {
+        if (!isInteractive) {
+            // Tornar mapa interativo
+            map.dragging.enable();
+            map.touchZoom.enable();
+            map.doubleClickZoom.enable();
+            map.scrollWheelZoom.enable();
+            map.boxZoom.enable();
+            map.keyboard.enable();
+            
+            // Mudar botão para "Tornar Estático"
+            interactiveBtn.innerHTML = '<i class="fas fa-lock"></i> Tornar Estático';
+            isInteractive = true;
+        } else {
+            // Tornar mapa estático novamente
+            map.dragging.disable();
+            map.touchZoom.disable();
+            map.doubleClickZoom.disable();
+            map.scrollWheelZoom.disable();
+            map.boxZoom.disable();
+            map.keyboard.disable();
+            
+            // Voltar botão original
+            interactiveBtn.innerHTML = '<i class="fas fa-hand-pointer"></i> Tornar Interativo';
+            isInteractive = false;
+        }
+    });
+    
+    container.appendChild(interactiveBtn);
+    
+    // Ajustar tamanho do mapa após carregar
+    setTimeout(() => {
+        map.invalidateSize();
+    }, 100);
 }
 
 /**

@@ -800,6 +800,12 @@ function showRequestsModal(donationId, requests) {
                         <i class="fas fa-times-circle"></i> Cancelar
                     </button>
                 `;
+            } else if (req.status === 'concluida') {
+                actionsHTML = `
+                    <button class="btn-evaluate" onclick="openEvaluationFromDonation(${req.id})">
+                        <i class="fas fa-star"></i> Avaliar
+                    </button>
+                `;
             }
 
             return `
@@ -1065,6 +1071,16 @@ function openChat(userId, requestId) {
         window.location.href = `chat.html?userId=${userId}&requestId=${requestId}`;
     } else {
         window.location.href = 'chat.html';
+    }
+}
+
+function openEvaluationFromDonation(requestId) {
+    if (typeof window.showEvaluationModal === 'function') {
+        window.showEvaluationModal(requestId);
+    } else if (typeof showEvaluationModal === 'function') {
+        showEvaluationModal(requestId);
+    } else {
+        showNotification('Sistema de avaliação indisponível. Recarregue a página.', 'error');
     }
 }
 

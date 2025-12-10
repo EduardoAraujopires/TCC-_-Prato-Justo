@@ -640,6 +640,22 @@ main.main-content {
         0 0 0 1px rgba(255, 255, 255, 0.1) !important;
 }
 
+/* Botão Avaliar */
+.btn-evaluate {
+    background: linear-gradient(135deg, #fbbf24 0%, #f97316 50%, #dc2626 100%) !important;
+    color: #0f172a !important;
+    font-weight: 800 !important;
+}
+
+.btn-evaluate:hover {
+    background: linear-gradient(135deg, #fde68a 0%, #fb923c 50%, #ef4444 100%) !important;
+    color: #111827 !important;
+    box-shadow:
+        0 4px 12px rgba(249, 115, 22, 0.35),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2),
+        0 0 0 1px rgba(255, 255, 255, 0.12) !important;
+}
+
 /* Botão Ver Detalhes */
 .btn-view {
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;

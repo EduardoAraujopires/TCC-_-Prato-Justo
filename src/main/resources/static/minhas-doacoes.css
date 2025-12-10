@@ -984,7 +984,8 @@ main.main-content {
 .requests-modal .btn-reject,
 .requests-modal .btn-chat,
 .requests-modal .btn-collect,
-.requests-modal .btn-cancel {
+.requests-modal .btn-cancel,
+.requests-modal .btn-evaluate {
     padding: 0.5rem 1rem !important;
     border: none !important;
     border-radius: 8px !important;
@@ -1019,6 +1020,18 @@ main.main-content {
 .requests-modal .btn-cancel:hover {
     background: linear-gradient(135deg, #c0392b, #a93226) !important;
     box-shadow: 0 4px 12px rgba(231, 76, 60, 0.4) !important;
+}
+
+.requests-modal .btn-evaluate {
+    background: linear-gradient(135deg, #fbbf24 0%, #f97316 50%, #dc2626 100%) !important;
+    color: #0f172a !important;
+    font-weight: 800 !important;
+}
+
+.requests-modal .btn-evaluate:hover {
+    background: linear-gradient(135deg, #fde68a 0%, #fb923c 50%, #ef4444 100%) !important;
+    color: #111827 !important;
+    box-shadow: 0 8px 24px rgba(249, 115, 22, 0.35) !important;
 }
 
 .requests-modal .btn-chat {

@@ -133,17 +133,15 @@ function createEvaluationModal(requestId, avaliadoId, solicitacao) {
     modal.className = 'evaluation-modal';
     modal.style.cssText = `
         position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
+        inset: 0;
         background: rgba(0, 0, 0, 0.7);
         display: flex;
         align-items: center;
         justify-content: center;
         z-index: 10002;
-        padding: 2rem;
+        padding: clamp(1rem, 2vw, 2rem);
         animation: fadeIn 0.3s ease;
+        overflow: auto;
     `;
 
     let selectedRating = 0;
@@ -169,12 +167,16 @@ function createEvaluationModal(requestId, avaliadoId, solicitacao) {
             background: linear-gradient(135deg, #1e293b 0%, #0f172a 50%, #991b1b 100%);
             border-radius: 24px;
             padding: 0;
-            max-width: 600px;
+            max-width: min(640px, 95vw);
             width: 100%;
+            max-height: calc(100vh - 2rem);
+            min-height: 420px;
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
             overflow: hidden;
             animation: slideUp 0.4s ease;
             border: 1px solid rgba(220, 38, 38, 0.3);
+            display: flex;
+            flex-direction: column;
         ">
             <!-- Header com gradiente do tema -->
             <div style="
@@ -228,7 +230,7 @@ function createEvaluationModal(requestId, avaliadoId, solicitacao) {
                         Como foi sua experiência com <strong>${avaliadoNome}</strong>?
                     </p>
                     <p style="
-                        margin: 0.5rem 0 0 0;
+                        margin: 0.15rem 0 0 0;
                         font-size: 0.85rem;
                         opacity: 0.85;
                         font-style: italic;
@@ -239,9 +241,16 @@ function createEvaluationModal(requestId, avaliadoId, solicitacao) {
             </div>
 
             <!-- Conteúdo -->
-            <div style="
+            <div class="scrollable-area" style="
                 background: white;
-                padding: 2rem;
+                padding: clamp(1.25rem, 2vw, 2rem);
+                overflow-y: auto;
+                flex: 1;
+                max-height: none;
+                min-height: 0;
+                display: flex;
+                flex-direction: column;
+                gap: 1.5rem;
             ">
                 <!-- Estrelas interativas -->
                 <div style="margin-bottom: 2rem;">
@@ -249,9 +258,10 @@ function createEvaluationModal(requestId, avaliadoId, solicitacao) {
                         display: block;
                         margin-bottom: 1rem;
                         color: #1e293b;
-                        font-weight: 600;
-                        font-size: 1.1rem;
+                        font-weight: 700;
+                        font-size: clamp(1rem, 3vw, 1.2rem);
                         text-align: center;
+                        letter-spacing: -0.01em;
                     ">
                         Avalie sua experiência
                     </label>
@@ -415,6 +425,35 @@ function createEvaluationModal(requestId, avaliadoId, solicitacao) {
             }
             .star-rating.active {
                 animation: starPulse 0.3s ease;
+            }
+            .evaluation-modal-content { width: 100%; }
+            .scrollable-area {
+                overflow-y: auto;
+                padding-right: 6px;
+                scrollbar-width: thin;
+                scrollbar-color: rgba(220, 38, 38, 0.45) rgba(0,0,0,0.05);
+            }
+            .scrollable-area::-webkit-scrollbar { width: 8px; }
+            .scrollable-area::-webkit-scrollbar-track {
+                background: rgba(0,0,0,0.06);
+                border-radius: 999px;
+            }
+            .scrollable-area::-webkit-scrollbar-thumb {
+                background: linear-gradient(135deg, #fbbf24, #dc2626);
+                border-radius: 999px;
+            }
+            @media (max-width: 640px) {
+                .evaluation-modal { padding: 1rem !important; }
+                .evaluation-modal-content { border-radius: 18px !important; }
+                .evaluation-modal-content h2 { font-size: 1.4rem !important; }
+                .evaluation-modal-content .rating-stars { font-size: 2.4rem !important; gap: 0.5rem !important; }
+                .evaluation-modal-content button { font-size: 0.95rem !important; }
+            }
+            @media (max-width: 420px) {
+                .evaluation-modal { align-items: flex-start !important; }
+                .evaluation-modal-content { margin-top: 1rem; }
+                .evaluation-modal-content .rating-stars { font-size: 2rem !important; }
+                .evaluation-modal-content textarea { min-height: 90px !important; }
             }
         `;
         document.head.appendChild(style);

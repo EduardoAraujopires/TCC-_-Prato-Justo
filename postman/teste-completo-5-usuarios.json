@@ -1,0 +1,1737 @@
+{
+	"info": {
+		"_postman_id": "teste-completo-5-usuarios-2024",
+		"name": "TCC Prato Justo - Teste Completo 5 Usuários",
+		"description": "Teste completo que cria 5 perfis e executa o fluxo completo: criar perfil, cadastrar doação, solicitar doação, enviar mensagem no chat, concluir solicitação e avaliar usuários. Todos os 5 usuários executam o fluxo completo.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "1. Configuração Inicial - Cadastrar e Login dos 5 Usuários",
+			"item": [
+				{
+					"name": "Cadastrar Usuário 1",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"pm.collectionVariables.set(\"email_u1\", \"1@1\");",
+									"pm.collectionVariables.set(\"id_u1\", jsonData.id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"username\": \"Usuario Um\",\n  \"email\": \"1@1\",\n  \"password\": \"1\",\n  \"perfil\": \"DOADOR\",\n  \"telefone\": \"11999999901\",\n  \"rua\": \"Rua Teste Um\",\n  \"numero\": \"100\",\n  \"cidade\": \"São Paulo\",\n  \"estado\": \"SP\",\n  \"cep\": \"01001-000\",\n  \"latitude\": -23.5505,\n  \"longitude\": -46.6333\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/auth/registro",
+							"host": ["{{base_url}}"],
+							"path": ["auth", "registro"]
+						}
+					}
+				},
+				{
+					"name": "Login Usuário 1",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"pm.collectionVariables.set(\"token_u1\", jsonData.token);",
+									"pm.collectionVariables.set(\"id_u1\", jsonData.id);",
+									"console.log(\"User 1 Logado - ID: \" + jsonData.id + \", Token: \" + jsonData.token);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\": \"1@1\",\n  \"password\": \"1\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/auth/login",
+							"host": ["{{base_url}}"],
+							"path": ["auth", "login"]
+						}
+					}
+				},
+				{
+					"name": "Cadastrar Usuário 2",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"pm.collectionVariables.set(\"email_u2\", \"2@2\");",
+									"pm.collectionVariables.set(\"id_u2\", jsonData.id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"username\": \"Usuario Dois\",\n  \"email\": \"2@2\",\n  \"password\": \"1\",\n  \"perfil\": \"BENEFICIARIO\",\n  \"telefone\": \"11999999902\",\n  \"rua\": \"Rua Teste Dois\",\n  \"numero\": \"200\",\n  \"cidade\": \"São Paulo\",\n  \"estado\": \"SP\",\n  \"cep\": \"01001-000\",\n  \"latitude\": -23.5505,\n  \"longitude\": -46.6333\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/auth/registro",
+							"host": ["{{base_url}}"],
+							"path": ["auth", "registro"]
+						}
+					}
+				},
+				{
+					"name": "Login Usuário 2",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"pm.collectionVariables.set(\"token_u2\", jsonData.token);",
+									"pm.collectionVariables.set(\"id_u2\", jsonData.id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\": \"2@2\",\n  \"password\": \"1\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/auth/login",
+							"host": ["{{base_url}}"],
+							"path": ["auth", "login"]
+						}
+					}
+				},
+				{
+					"name": "Cadastrar Usuário 3",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"pm.collectionVariables.set(\"email_u3\", \"3@3\");",
+									"pm.collectionVariables.set(\"id_u3\", jsonData.id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"username\": \"Usuario Tres\",\n  \"email\": \"3@3\",\n  \"password\": \"1\",\n  \"perfil\": \"DOADOR\",\n  \"telefone\": \"11999999903\",\n  \"rua\": \"Rua Teste Tres\",\n  \"numero\": \"300\",\n  \"cidade\": \"São Paulo\",\n  \"estado\": \"SP\",\n  \"cep\": \"01001-000\",\n  \"latitude\": -23.5505,\n  \"longitude\": -46.6333\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/auth/registro",
+							"host": ["{{base_url}}"],
+							"path": ["auth", "registro"]
+						}
+					}
+				},
+				{
+					"name": "Login Usuário 3",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"pm.collectionVariables.set(\"token_u3\", jsonData.token);",
+									"pm.collectionVariables.set(\"id_u3\", jsonData.id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\": \"3@3\",\n  \"password\": \"1\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/auth/login",
+							"host": ["{{base_url}}"],
+							"path": ["auth", "login"]
+						}
+					}
+				},
+				{
+					"name": "Cadastrar Usuário 4",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"pm.collectionVariables.set(\"email_u4\", \"4@4\");",
+									"pm.collectionVariables.set(\"id_u4\", jsonData.id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"username\": \"Usuario Quatro\",\n  \"email\": \"4@4\",\n  \"password\": \"1\",\n  \"perfil\": \"BENEFICIARIO\",\n  \"telefone\": \"11999999904\",\n  \"rua\": \"Rua Teste Quatro\",\n  \"numero\": \"400\",\n  \"cidade\": \"São Paulo\",\n  \"estado\": \"SP\",\n  \"cep\": \"01001-000\",\n  \"latitude\": -23.5505,\n  \"longitude\": -46.6333\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/auth/registro",
+							"host": ["{{base_url}}"],
+							"path": ["auth", "registro"]
+						}
+					}
+				},
+				{
+					"name": "Login Usuário 4",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"pm.collectionVariables.set(\"token_u4\", jsonData.token);",
+									"pm.collectionVariables.set(\"id_u4\", jsonData.id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\": \"4@4\",\n  \"password\": \"1\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/auth/login",
+							"host": ["{{base_url}}"],
+							"path": ["auth", "login"]
+						}
+					}
+				},
+				{
+					"name": "Cadastrar Usuário 5",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"pm.collectionVariables.set(\"email_u5\", \"5@5\");",
+									"pm.collectionVariables.set(\"id_u5\", jsonData.id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"username\": \"Usuario Cinco\",\n  \"email\": \"5@5\",\n  \"password\": \"1\",\n  \"perfil\": \"DOADOR\",\n  \"telefone\": \"11999999905\",\n  \"rua\": \"Rua Teste Cinco\",\n  \"numero\": \"500\",\n  \"cidade\": \"São Paulo\",\n  \"estado\": \"SP\",\n  \"cep\": \"01001-000\",\n  \"latitude\": -23.5505,\n  \"longitude\": -46.6333\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/auth/registro",
+							"host": ["{{base_url}}"],
+							"path": ["auth", "registro"]
+						}
+					}
+				},
+				{
+					"name": "Login Usuário 5",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"pm.collectionVariables.set(\"token_u5\", jsonData.token);",
+									"pm.collectionVariables.set(\"id_u5\", jsonData.id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\": \"5@5\",\n  \"password\": \"1\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/auth/login",
+							"host": ["{{base_url}}"],
+							"path": ["auth", "login"]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "2. Fluxo Completo - Usuário 1",
+			"item": [
+				{
+					"name": "U1 - Criar Doação",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"var moment = require('moment');",
+									"pm.environment.set(\"dataValidade\", moment().add(10, 'days').format('YYYY-MM-DD'));",
+									"pm.environment.set(\"dataColeta\", moment().add(1, 'days').format('YYYY-MM-DD'));"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"pm.collectionVariables.set(\"id_doacao_u1\", jsonData.id);",
+									"console.log(\"U1 - Doação criada ID: \" + jsonData.id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token_u1}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"titulo\": \"Cesta Básica Completa - U1\",\n    \"descricao\": \"Cesta básica completa com arroz, feijão, macarrão, óleo, açúcar, café e outros itens essenciais. Todos os produtos estão dentro do prazo de validade.\",\n    \"tipoAlimento\": \"Não Perecível\",\n    \"quantidade\": 5.0,\n    \"unidade\": \"caixas\",\n    \"cidade\": \"São Paulo\",\n    \"endereco\": \"Rua Teste Um, 100\",\n    \"rua\": \"Rua Teste Um\",\n    \"numero\": \"100\",\n    \"cep\": \"01001-000\",\n    \"estado\": \"SP\",\n    \"complemento\": \"Apto 101\",\n    \"dataValidade\": \"{{dataValidade}}\",\n    \"dataColeta\": \"{{dataColeta}}\",\n    \"latitude\": -23.5505,\n    \"longitude\": -46.6333,\n    \"imagem\": \"https://images.unsplash.com/photo-1556910103-1c02745aae4d?w=800\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/doacoes",
+							"host": ["{{base_url}}"],
+							"path": ["doacoes"]
+						}
+					}
+				},
+				{
+					"name": "U1 - Upload Imagem da Doação",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"if (jsonData.imageUrl) {",
+									"    console.log(\"U1 - Imagem enviada: \" + jsonData.imageUrl);",
+									"} else {",
+									"    console.log(\"U1 - Upload de imagem (opcional - pode ser configurado manualmente)\");",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token_u1}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "image",
+									"type": "file",
+									"src": [],
+									"description": "Selecione uma imagem (ex: img/frutas.jpg). Se não tiver arquivo, este passo pode ser ignorado pois a imagem já foi adicionada no JSON."
+								},
+								{
+									"key": "doacaoId",
+									"value": "{{id_doacao_u1}}",
+									"type": "text",
+									"description": "ID da doação criada"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/doacoes/upload-image",
+							"host": ["{{base_url}}"],
+							"path": ["doacoes", "upload-image"]
+						},
+						"description": "Upload de imagem para a doação. Se não tiver arquivo local, pode pular este passo pois a imagem já foi definida no JSON da doação."
+					}
+				},
+				{
+					"name": "U2 - Solicitar Doação de U1",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"pm.collectionVariables.set(\"id_solicitacao_u1_u2\", jsonData.id);",
+									"console.log(\"U2 solicitou doação de U1 - Solicitação ID: \" + jsonData.id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token_u2}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/doacoes/{{id_doacao_u1}}/solicitar",
+							"host": ["{{base_url}}"],
+							"path": ["doacoes", "{{id_doacao_u1}}", "solicitar"]
+						}
+					}
+				},
+				{
+					"name": "U2 - Enviar Mensagem no Chat para U1",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token_u2}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"destinatarioId\": {{id_u1}},\n    \"conteudo\": \"Olá U1, tenho interesse na sua doação!\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/chat/messages",
+							"host": ["{{base_url}}"],
+							"path": ["api", "chat", "messages"]
+						}
+					}
+				},
+				{
+					"name": "U1 - Aceitar Solicitação de U2",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"// Capturar IDs do doador e solicitante da solicitação",
+									"if (jsonData.doacao && jsonData.doacao.doador) {",
+									"    pm.collectionVariables.set(\"id_doador_solicitacao_u1_u2\", jsonData.doacao.doador.id);",
+									"}",
+									"if (jsonData.solicitante) {",
+									"    pm.collectionVariables.set(\"id_solicitante_solicitacao_u1_u2\", jsonData.solicitante.id);",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token_u1}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/doacoes/solicitacoes/{{id_solicitacao_u1_u2}}/aceitar",
+							"host": ["{{base_url}}"],
+							"path": ["doacoes", "solicitacoes", "{{id_solicitacao_u1_u2}}", "aceitar"]
+						}
+					}
+				},
+				{
+					"name": "U1 - Marcar Coletada (Concluir)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token_u1}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/doacoes/solicitacoes/{{id_solicitacao_u1_u2}}/marcar-coletada",
+							"host": ["{{base_url}}"],
+							"path": ["doacoes", "solicitacoes", "{{id_solicitacao_u1_u2}}", "marcar-coletada"]
+						}
+					}
+				},
+				{
+					"name": "U2 - Avaliar U1 (Doador)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token_u2}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"solicitacaoId\": {{id_solicitacao_u1_u2}},\n    \"avaliadoId\": {{id_doador_solicitacao_u1_u2}},\n    \"nota\": 5,\n    \"comentario\": \"Ótima doação do U1, muito rápido e organizado!\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/avaliacoes-solicitacao",
+							"host": ["{{base_url}}"],
+							"path": ["avaliacoes-solicitacao"]
+						}
+					}
+				},
+				{
+					"name": "U1 - Avaliar U2 (Solicitante)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token_u1}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"solicitacaoId\": {{id_solicitacao_u1_u2}},\n    \"avaliadoId\": {{id_solicitante_solicitacao_u1_u2}},\n    \"nota\": 5,\n    \"comentario\": \"U2 foi pontual e educado!\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/avaliacoes-solicitacao",
+							"host": ["{{base_url}}"],
+							"path": ["avaliacoes-solicitacao"]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "3. Fluxo Completo - Usuário 2",
+			"item": [
+				{
+					"name": "U2 - Criar Doação",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"pm.collectionVariables.set(\"id_doacao_u2\", jsonData.id);",
+									"console.log(\"U2 - Doação criada ID: \" + jsonData.id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token_u2}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"titulo\": \"Legumes Frescos - U2\",\n    \"descricao\": \"Legumes frescos colhidos hoje: cenoura, beterraba, batata, cebola e alho. Produtos orgânicos e de excelente qualidade.\",\n    \"tipoAlimento\": \"Perecível\",\n    \"quantidade\": 2.0,\n    \"unidade\": \"kg\",\n    \"cidade\": \"São Paulo\",\n    \"endereco\": \"Rua Teste Dois, 200\",\n    \"rua\": \"Rua Teste Dois\",\n    \"numero\": \"200\",\n    \"cep\": \"01002-000\",\n    \"estado\": \"SP\",\n    \"complemento\": \"Casa\",\n    \"dataValidade\": \"{{dataValidade}}\",\n    \"dataColeta\": \"{{dataColeta}}\",\n    \"latitude\": -23.5505,\n    \"longitude\": -46.6333,\n    \"imagem\": \"https://images.unsplash.com/photo-1518977822534-7049a61ee0c2?w=800\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/doacoes",
+							"host": ["{{base_url}}"],
+							"path": ["doacoes"]
+						}
+					}
+				},
+				{
+					"name": "U2 - Upload Imagem da Doação",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"if (jsonData.imageUrl) {",
+									"    console.log(\"U2 - Imagem enviada: \" + jsonData.imageUrl);",
+									"} else {",
+									"    console.log(\"U2 - Upload de imagem (opcional)\");",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token_u2}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "image",
+									"type": "file",
+									"src": [],
+									"description": "Selecione uma imagem"
+								},
+								{
+									"key": "doacaoId",
+									"value": "{{id_doacao_u2}}",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/doacoes/upload-image",
+							"host": ["{{base_url}}"],
+							"path": ["doacoes", "upload-image"]
+						}
+					}
+				},
+				{
+					"name": "U3 - Solicitar Doação de U2",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"pm.collectionVariables.set(\"id_solicitacao_u2_u3\", jsonData.id);",
+									"console.log(\"U3 solicitou doação de U2 - Solicitação ID: \" + jsonData.id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token_u3}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/doacoes/{{id_doacao_u2}}/solicitar",
+							"host": ["{{base_url}}"],
+							"path": ["doacoes", "{{id_doacao_u2}}", "solicitar"]
+						}
+					}
+				},
+				{
+					"name": "U3 - Enviar Mensagem no Chat para U2",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token_u3}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"destinatarioId\": {{id_u2}},\n    \"conteudo\": \"Olá U2, posso buscar hoje?\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/chat/messages",
+							"host": ["{{base_url}}"],
+							"path": ["api", "chat", "messages"]
+						}
+					}
+				},
+				{
+					"name": "U2 - Aceitar Solicitação de U3",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"if (jsonData.doacao && jsonData.doacao.doador) {",
+									"    pm.collectionVariables.set(\"id_doador_solicitacao_u2_u3\", jsonData.doacao.doador.id);",
+									"}",
+									"if (jsonData.solicitante) {",
+									"    pm.collectionVariables.set(\"id_solicitante_solicitacao_u2_u3\", jsonData.solicitante.id);",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token_u2}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/doacoes/solicitacoes/{{id_solicitacao_u2_u3}}/aceitar",
+							"host": ["{{base_url}}"],
+							"path": ["doacoes", "solicitacoes", "{{id_solicitacao_u2_u3}}", "aceitar"]
+						}
+					}
+				},
+				{
+					"name": "U2 - Marcar Coletada (Concluir)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token_u2}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/doacoes/solicitacoes/{{id_solicitacao_u2_u3}}/marcar-coletada",
+							"host": ["{{base_url}}"],
+							"path": ["doacoes", "solicitacoes", "{{id_solicitacao_u2_u3}}", "marcar-coletada"]
+						}
+					}
+				},
+				{
+					"name": "U3 - Avaliar U2 (Doador)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token_u3}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"solicitacaoId\": {{id_solicitacao_u2_u3}},\n    \"avaliadoId\": {{id_doador_solicitacao_u2_u3}},\n    \"nota\": 4,\n    \"comentario\": \"U2 foi muito atencioso!\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/avaliacoes-solicitacao",
+							"host": ["{{base_url}}"],
+							"path": ["avaliacoes-solicitacao"]
+						}
+					}
+				},
+				{
+					"name": "U2 - Avaliar U3 (Solicitante)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token_u2}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"solicitacaoId\": {{id_solicitacao_u2_u3}},\n    \"avaliadoId\": {{id_solicitante_solicitacao_u2_u3}},\n    \"nota\": 5,\n    \"comentario\": \"U3 foi pontual na coleta!\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/avaliacoes-solicitacao",
+							"host": ["{{base_url}}"],
+							"path": ["avaliacoes-solicitacao"]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "4. Fluxo Completo - Usuário 3",
+			"item": [
+				{
+					"name": "U3 - Criar Doação",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"pm.collectionVariables.set(\"id_doacao_u3\", jsonData.id);",
+									"console.log(\"U3 - Doação criada ID: \" + jsonData.id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token_u3}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"titulo\": \"Frutas Variadas - U3\",\n    \"descricao\": \"Variedade de frutas frescas: banana, maçã, laranja, mamão e abacaxi. Frutas maduras e prontas para consumo.\",\n    \"tipoAlimento\": \"Perecível\",\n    \"quantidade\": 3.0,\n    \"unidade\": \"kg\",\n    \"cidade\": \"São Paulo\",\n    \"endereco\": \"Rua Teste Tres, 300\",\n    \"rua\": \"Rua Teste Tres\",\n    \"numero\": \"300\",\n    \"cep\": \"01003-000\",\n    \"estado\": \"SP\",\n    \"complemento\": \"Fundos\",\n    \"dataValidade\": \"{{dataValidade}}\",\n    \"dataColeta\": \"{{dataColeta}}\",\n    \"latitude\": -23.5505,\n    \"longitude\": -46.6333,\n    \"imagem\": \"https://images.unsplash.com/photo-1610832958506-aa56368176cf?w=800\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/doacoes",
+							"host": ["{{base_url}}"],
+							"path": ["doacoes"]
+						}
+					}
+				},
+				{
+					"name": "U3 - Upload Imagem da Doação",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"if (jsonData.imageUrl) {",
+									"    console.log(\"U3 - Imagem enviada: \" + jsonData.imageUrl);",
+									"} else {",
+									"    console.log(\"U3 - Upload de imagem (opcional)\");",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token_u3}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "image",
+									"type": "file",
+									"src": [],
+									"description": "Selecione uma imagem"
+								},
+								{
+									"key": "doacaoId",
+									"value": "{{id_doacao_u3}}",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/doacoes/upload-image",
+							"host": ["{{base_url}}"],
+							"path": ["doacoes", "upload-image"]
+						}
+					}
+				},
+				{
+					"name": "U4 - Solicitar Doação de U3",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"pm.collectionVariables.set(\"id_solicitacao_u3_u4\", jsonData.id);",
+									"console.log(\"U4 solicitou doação de U3 - Solicitação ID: \" + jsonData.id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token_u4}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/doacoes/{{id_doacao_u3}}/solicitar",
+							"host": ["{{base_url}}"],
+							"path": ["doacoes", "{{id_doacao_u3}}", "solicitar"]
+						}
+					}
+				},
+				{
+					"name": "U4 - Enviar Mensagem no Chat para U3",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token_u4}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"destinatarioId\": {{id_u3}},\n    \"conteudo\": \"Olá U3, gostaria de pegar essa doação!\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/chat/messages",
+							"host": ["{{base_url}}"],
+							"path": ["api", "chat", "messages"]
+						}
+					}
+				},
+				{
+					"name": "U3 - Aceitar Solicitação de U4",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"if (jsonData.doacao && jsonData.doacao.doador) {",
+									"    pm.collectionVariables.set(\"id_doador_solicitacao_u3_u4\", jsonData.doacao.doador.id);",
+									"}",
+									"if (jsonData.solicitante) {",
+									"    pm.collectionVariables.set(\"id_solicitante_solicitacao_u3_u4\", jsonData.solicitante.id);",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token_u3}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/doacoes/solicitacoes/{{id_solicitacao_u3_u4}}/aceitar",
+							"host": ["{{base_url}}"],
+							"path": ["doacoes", "solicitacoes", "{{id_solicitacao_u3_u4}}", "aceitar"]
+						}
+					}
+				},
+				{
+					"name": "U3 - Marcar Coletada (Concluir)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token_u3}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/doacoes/solicitacoes/{{id_solicitacao_u3_u4}}/marcar-coletada",
+							"host": ["{{base_url}}"],
+							"path": ["doacoes", "solicitacoes", "{{id_solicitacao_u3_u4}}", "marcar-coletada"]
+						}
+					}
+				},
+				{
+					"name": "U4 - Avaliar U3 (Doador)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token_u4}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"solicitacaoId\": {{id_solicitacao_u3_u4}},\n    \"avaliadoId\": {{id_doador_solicitacao_u3_u4}},\n    \"nota\": 5,\n    \"comentario\": \"U3 foi excelente, muito organizado!\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/avaliacoes-solicitacao",
+							"host": ["{{base_url}}"],
+							"path": ["avaliacoes-solicitacao"]
+						}
+					}
+				},
+				{
+					"name": "U3 - Avaliar U4 (Solicitante)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token_u3}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"solicitacaoId\": {{id_solicitacao_u3_u4}},\n    \"avaliadoId\": {{id_solicitante_solicitacao_u3_u4}},\n    \"nota\": 4,\n    \"comentario\": \"U4 foi muito educado!\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/avaliacoes-solicitacao",
+							"host": ["{{base_url}}"],
+							"path": ["avaliacoes-solicitacao"]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "5. Fluxo Completo - Usuário 4",
+			"item": [
+				{
+					"name": "U4 - Criar Doação",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"pm.collectionVariables.set(\"id_doacao_u4\", jsonData.id);",
+									"console.log(\"U4 - Doação criada ID: \" + jsonData.id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token_u4}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"titulo\": \"Verduras Orgânicas - U4\",\n    \"descricao\": \"Verduras orgânicas frescas: alface, rúcula, couve, espinafre e agrião. Cultivadas sem agrotóxicos.\",\n    \"tipoAlimento\": \"Perecível\",\n    \"quantidade\": 2.5,\n    \"unidade\": \"kg\",\n    \"cidade\": \"São Paulo\",\n    \"endereco\": \"Rua Teste Quatro, 400\",\n    \"rua\": \"Rua Teste Quatro\",\n    \"numero\": \"400\",\n    \"cep\": \"01004-000\",\n    \"estado\": \"SP\",\n    \"complemento\": \"Loja 1\",\n    \"dataValidade\": \"{{dataValidade}}\",\n    \"dataColeta\": \"{{dataColeta}}\",\n    \"latitude\": -23.5505,\n    \"longitude\": -46.6333,\n    \"imagem\": \"https://images.unsplash.com/photo-1593113598332-cd288d649433?w=800\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/doacoes",
+							"host": ["{{base_url}}"],
+							"path": ["doacoes"]
+						}
+					}
+				},
+				{
+					"name": "U4 - Upload Imagem da Doação",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"if (jsonData.imageUrl) {",
+									"    console.log(\"U4 - Imagem enviada: \" + jsonData.imageUrl);",
+									"} else {",
+									"    console.log(\"U4 - Upload de imagem (opcional)\");",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token_u4}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "image",
+									"type": "file",
+									"src": [],
+									"description": "Selecione uma imagem"
+								},
+								{
+									"key": "doacaoId",
+									"value": "{{id_doacao_u4}}",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/doacoes/upload-image",
+							"host": ["{{base_url}}"],
+							"path": ["doacoes", "upload-image"]
+						}
+					}
+				},
+				{
+					"name": "U5 - Solicitar Doação de U4",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"pm.collectionVariables.set(\"id_solicitacao_u4_u5\", jsonData.id);",
+									"console.log(\"U5 solicitou doação de U4 - Solicitação ID: \" + jsonData.id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token_u5}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/doacoes/{{id_doacao_u4}}/solicitar",
+							"host": ["{{base_url}}"],
+							"path": ["doacoes", "{{id_doacao_u4}}", "solicitar"]
+						}
+					}
+				},
+				{
+					"name": "U5 - Enviar Mensagem no Chat para U4",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token_u5}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"destinatarioId\": {{id_u4}},\n    \"conteudo\": \"Olá U4, quando posso buscar?\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/chat/messages",
+							"host": ["{{base_url}}"],
+							"path": ["api", "chat", "messages"]
+						}
+					}
+				},
+				{
+					"name": "U4 - Aceitar Solicitação de U5",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"if (jsonData.doacao && jsonData.doacao.doador) {",
+									"    pm.collectionVariables.set(\"id_doador_solicitacao_u4_u5\", jsonData.doacao.doador.id);",
+									"}",
+									"if (jsonData.solicitante) {",
+									"    pm.collectionVariables.set(\"id_solicitante_solicitacao_u4_u5\", jsonData.solicitante.id);",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token_u4}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/doacoes/solicitacoes/{{id_solicitacao_u4_u5}}/aceitar",
+							"host": ["{{base_url}}"],
+							"path": ["doacoes", "solicitacoes", "{{id_solicitacao_u4_u5}}", "aceitar"]
+						}
+					}
+				},
+				{
+					"name": "U4 - Marcar Coletada (Concluir)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token_u4}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/doacoes/solicitacoes/{{id_solicitacao_u4_u5}}/marcar-coletada",
+							"host": ["{{base_url}}"],
+							"path": ["doacoes", "solicitacoes", "{{id_solicitacao_u4_u5}}", "marcar-coletada"]
+						}
+					}
+				},
+				{
+					"name": "U5 - Avaliar U4 (Doador)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token_u5}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"solicitacaoId\": {{id_solicitacao_u4_u5}},\n    \"avaliadoId\": {{id_doador_solicitacao_u4_u5}},\n    \"nota\": 5,\n    \"comentario\": \"U4 foi muito prestativo!\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/avaliacoes-solicitacao",
+							"host": ["{{base_url}}"],
+							"path": ["avaliacoes-solicitacao"]
+						}
+					}
+				},
+				{
+					"name": "U4 - Avaliar U5 (Solicitante)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token_u4}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"solicitacaoId\": {{id_solicitacao_u4_u5}},\n    \"avaliadoId\": {{id_solicitante_solicitacao_u4_u5}},\n    \"nota\": 5,\n    \"comentario\": \"U5 foi muito pontual!\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/avaliacoes-solicitacao",
+							"host": ["{{base_url}}"],
+							"path": ["avaliacoes-solicitacao"]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "6. Fluxo Completo - Usuário 5",
+			"item": [
+				{
+					"name": "U5 - Criar Doação",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"pm.collectionVariables.set(\"id_doacao_u5\", jsonData.id);",
+									"console.log(\"U5 - Doação criada ID: \" + jsonData.id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token_u5}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"titulo\": \"Alimentos Diversos - U5\",\n    \"descricao\": \"Kit com diversos alimentos não perecíveis: leite em pó, farinha, sal, temperos, conservas e enlatados. Todos com validade estendida.\",\n    \"tipoAlimento\": \"Não Perecível\",\n    \"quantidade\": 4.0,\n    \"unidade\": \"caixas\",\n    \"cidade\": \"São Paulo\",\n    \"endereco\": \"Rua Teste Cinco, 500\",\n    \"rua\": \"Rua Teste Cinco\",\n    \"numero\": \"500\",\n    \"cep\": \"01005-000\",\n    \"estado\": \"SP\",\n    \"complemento\": \"Galpão\",\n    \"dataValidade\": \"{{dataValidade}}\",\n    \"dataColeta\": \"{{dataColeta}}\",\n    \"latitude\": -23.5505,\n    \"longitude\": -46.6333,\n    \"imagem\": \"https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?w=800\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/doacoes",
+							"host": ["{{base_url}}"],
+							"path": ["doacoes"]
+						}
+					}
+				},
+				{
+					"name": "U5 - Upload Imagem da Doação",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"if (jsonData.imageUrl) {",
+									"    console.log(\"U5 - Imagem enviada: \" + jsonData.imageUrl);",
+									"} else {",
+									"    console.log(\"U5 - Upload de imagem (opcional)\");",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token_u5}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "image",
+									"type": "file",
+									"src": [],
+									"description": "Selecione uma imagem"
+								},
+								{
+									"key": "doacaoId",
+									"value": "{{id_doacao_u5}}",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/doacoes/upload-image",
+							"host": ["{{base_url}}"],
+							"path": ["doacoes", "upload-image"]
+						}
+					}
+				},
+				{
+					"name": "U1 - Solicitar Doação de U5",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"pm.collectionVariables.set(\"id_solicitacao_u5_u1\", jsonData.id);",
+									"console.log(\"U1 solicitou doação de U5 - Solicitação ID: \" + jsonData.id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token_u1}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/doacoes/{{id_doacao_u5}}/solicitar",
+							"host": ["{{base_url}}"],
+							"path": ["doacoes", "{{id_doacao_u5}}", "solicitar"]
+						}
+					}
+				},
+				{
+					"name": "U1 - Enviar Mensagem no Chat para U5",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token_u1}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"destinatarioId\": {{id_u5}},\n    \"conteudo\": \"Olá U5, obrigado pela doação!\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/chat/messages",
+							"host": ["{{base_url}}"],
+							"path": ["api", "chat", "messages"]
+						}
+					}
+				},
+				{
+					"name": "U5 - Aceitar Solicitação de U1",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"if (jsonData.doacao && jsonData.doacao.doador) {",
+									"    pm.collectionVariables.set(\"id_doador_solicitacao_u5_u1\", jsonData.doacao.doador.id);",
+									"}",
+									"if (jsonData.solicitante) {",
+									"    pm.collectionVariables.set(\"id_solicitante_solicitacao_u5_u1\", jsonData.solicitante.id);",
+									"}"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token_u5}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/doacoes/solicitacoes/{{id_solicitacao_u5_u1}}/aceitar",
+							"host": ["{{base_url}}"],
+							"path": ["doacoes", "solicitacoes", "{{id_solicitacao_u5_u1}}", "aceitar"]
+						}
+					}
+				},
+				{
+					"name": "U5 - Marcar Coletada (Concluir)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token_u5}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/doacoes/solicitacoes/{{id_solicitacao_u5_u1}}/marcar-coletada",
+							"host": ["{{base_url}}"],
+							"path": ["doacoes", "solicitacoes", "{{id_solicitacao_u5_u1}}", "marcar-coletada"]
+						}
+					}
+				},
+				{
+					"name": "U1 - Avaliar U5 (Doador)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token_u1}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"solicitacaoId\": {{id_solicitacao_u5_u1}},\n    \"avaliadoId\": {{id_doador_solicitacao_u5_u1}},\n    \"nota\": 5,\n    \"comentario\": \"U5 foi excelente, muito generoso!\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/avaliacoes-solicitacao",
+							"host": ["{{base_url}}"],
+							"path": ["avaliacoes-solicitacao"]
+						}
+					}
+				},
+				{
+					"name": "U5 - Avaliar U1 (Solicitante)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token_u5}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"solicitacaoId\": {{id_solicitacao_u5_u1}},\n    \"avaliadoId\": {{id_solicitante_solicitacao_u5_u1}},\n    \"nota\": 5,\n    \"comentario\": \"U1 foi muito educado e pontual!\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/avaliacoes-solicitacao",
+							"host": ["{{base_url}}"],
+							"path": ["avaliacoes-solicitacao"]
+						}
+					}
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://localhost:8080"
+		},
+		{
+			"key": "token_u1",
+			"value": ""
+		},
+		{
+			"key": "id_u1",
+			"value": ""
+		},
+		{
+			"key": "email_u1",
+			"value": ""
+		},
+		{
+			"key": "token_u2",
+			"value": ""
+		},
+		{
+			"key": "id_u2",
+			"value": ""
+		},
+		{
+			"key": "email_u2",
+			"value": ""
+		},
+		{
+			"key": "token_u3",
+			"value": ""
+		},
+		{
+			"key": "id_u3",
+			"value": ""
+		},
+		{
+			"key": "email_u3",
+			"value": ""
+		},
+		{
+			"key": "token_u4",
+			"value": ""
+		},
+		{
+			"key": "id_u4",
+			"value": ""
+		},
+		{
+			"key": "email_u4",
+			"value": ""
+		},
+		{
+			"key": "token_u5",
+			"value": ""
+		},
+		{
+			"key": "id_u5",
+			"value": ""
+		},
+		{
+			"key": "email_u5",
+			"value": ""
+		}
+	]
+}
+

@@ -634,6 +634,9 @@ class ProfileManager {
             ).join('');
 
             const avaliadorNome = avaliacao.avaliador?.nome || avaliacao.avaliadorNome || 'Usuário';
+            const avaliadorId = avaliacao.avaliador?.id;
+            const avatarUrl = avaliacao.avaliador?.avatarUrl || avaliacao.avaliador?.fotoUsuario || avaliacao.avaliador?.fotoPerfil || null;
+            const avatarInitials = (avaliadorNome || 'U').substring(0, 2).toUpperCase();
             const dataFormatada = avaliacao.criadoEm 
                 ? new Date(avaliacao.criadoEm).toLocaleDateString('pt-BR', {
                     day: '2-digit',
@@ -643,31 +646,54 @@ class ProfileManager {
                 : 'Data não informada';
 
             return `
-                <div class="rating-item" style="padding: 1rem; border-bottom: 1px solid #e5e7eb; margin-bottom: 0.5rem; transition: background 0.2s;" 
-                     onmouseover="this.style.background='#f9fafb'" 
-                     onmouseout="this.style.background='transparent'">
-                    <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 0.5rem;">
-                        <div style="flex: 1;">
-                            <div style="font-weight: 600; color: #1e293b; margin-bottom: 0.25rem;">
-                                ${avaliadorNome}
+                <div class="rating-item" style="
+                    padding: 1rem 1.1rem;
+                    margin-bottom: 0.6rem;
+                    border-radius: 12px;
+                    background: linear-gradient(145deg, rgba(255,255,255,0.03), rgba(255,255,255,0.06));
+                    border: 1px solid rgba(255,255,255,0.07);
+                    box-shadow: 0 12px 30px rgba(0,0,0,0.18);
+                    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+                    overflow: hidden;
+                    min-width: 0;
+                " 
+                     onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 14px 34px rgba(0,0,0,0.22)'; this.style.borderColor='rgba(255,255,255,0.12)'" 
+                     onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow='0 12px 30px rgba(0,0,0,0.18)'; this.style.borderColor='rgba(255,255,255,0.07)'">
+                    <div style="display: flex; justify-content: space-between; align-items: center; gap: 0.85rem; width: 100%; min-width: 0;">
+                        <div style="display: flex; align-items: center; gap: 0.75rem; min-width: 0; flex: 1;">
+                            <div style="
+                                width: 44px;
+                                height: 44px;
+                                border-radius: 50%;
+                                background: linear-gradient(135deg, #667eea, #764ba2);
+                                color: white;
+                                font-weight: 700;
+                                display: flex;
+                                align-items: center;
+                                justify-content: center;
+                                overflow: hidden;
+                                cursor: default;
+                                flex-shrink: 0;
+                                box-shadow: 0 3px 10px rgba(0,0,0,0.16);
+                            ">
+                                ${avatarUrl 
+                                    ? `<img src="${avatarUrl}" alt="Avatar" style="width: 100%; height: 100%; object-fit: cover;">`
+                                    : `<span style="font-size: 0.95rem;">${avatarInitials}</span>`}
                             </div>
-                            <div style="font-size: 0.85rem; color: #64748b; display: flex; align-items: center; gap: 0.25rem;">
-                                <i class="fas fa-calendar" style="font-size: 0.75rem;"></i>
-                                ${dataFormatada}
+                            <div style="display: flex; flex-direction: column; gap: 0.12rem; min-width: 0; flex: 1;">
+                                <span style="font-weight: 700; color: #e2e8f0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                                    ${avaliadorNome}
+                                </span>
+                                <span style="font-size: 0.8rem; color: #cbd5e1; display: flex; align-items: center; gap: 0.35rem;">
+                                    <i class="fas fa-calendar" style="font-size: 0.75rem;"></i>
+                                    ${dataFormatada}
+                                </span>
                             </div>
                         </div>
-                        <div style="font-size: 1.2rem; display: flex; align-items: center; gap: 0.5rem;">
+                        <div style="font-size: 1rem; display: flex; align-items: center; gap: 0.2rem; flex-shrink: 0; color: #fbbf24; white-space: nowrap;">
                             ${starsHTML}
-                            <span style="font-size: 0.9rem; color: #64748b; font-weight: 600;">
-                                ${avaliacao.nota}/5
-                            </span>
                         </div>
                     </div>
-                    ${avaliacao.comentario ? `
-                        <p style="margin: 0; color: #475569; font-size: 0.9rem; line-height: 1.5; font-style: italic; padding-top: 0.5rem; border-top: 1px solid #f3f4f6;">
-                            "${avaliacao.comentario}"
-                        </p>
-                    ` : ''}
                 </div>
             `;
         }).join('');
@@ -1357,6 +1383,9 @@ class ProfileManager {
                 ).join('');
 
                 const avaliadorNome = avaliacao.avaliador?.nome || 'Usuário';
+                const avaliadorId = avaliacao.avaliador?.id;
+                const avatarUrl = avaliacao.avaliador?.avatarUrl || avaliacao.avaliador?.fotoUsuario || avaliacao.avaliador?.fotoPerfil || null;
+                const avatarInitials = (avaliadorNome || 'U').substring(0, 2).toUpperCase();
                 const dataFormatada = avaliacao.criadoEm 
                     ? new Date(avaliacao.criadoEm).toLocaleDateString('pt-BR', {
                         day: '2-digit',
@@ -1374,21 +1403,39 @@ class ProfileManager {
                         transition: transform 0.2s, box-shadow 0.2s;
                     " onmouseover="this.style.transform='translateX(4px)'; this.style.boxShadow='0 4px 12px rgba(0,0,0,0.1)'" 
                        onmouseout="this.style.transform='translateX(0)'; this.style.boxShadow='none'">
-                        <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 0.75rem;">
-                            <div style="flex: 1;">
-                                <div style="font-weight: 600; color: #1e293b; margin-bottom: 0.25rem; font-size: 1.1rem;">
-                                    ${avaliadorNome}
+                        <div style="display: flex; justify-content: space-between; align-items: flex-start; gap: 0.75rem; flex-wrap: wrap;">
+                            <div style="display: flex; align-items: center; gap: 0.75rem; min-width: 0;">
+                                <div style="
+                                    width: 48px;
+                                    height: 48px;
+                                    border-radius: 50%;
+                                    background: linear-gradient(135deg, #667eea, #764ba2);
+                                    color: white;
+                                    font-weight: 700;
+                                    display: flex;
+                                    align-items: center;
+                                    justify-content: center;
+                                    overflow: hidden;
+                                    cursor: default;
+                                    flex-shrink: 0;
+                                    box-shadow: 0 3px 10px rgba(0,0,0,0.12);
+                                ">
+                                    ${avatarUrl 
+                                        ? `<img src="${avatarUrl}" alt="Avatar" style="width: 100%; height: 100%; object-fit: cover;">`
+                                        : `<span style="font-size: 1rem;">${avatarInitials}</span>`}
                                 </div>
-                                <div style="font-size: 0.9rem; color: #64748b; display: flex; align-items: center; gap: 0.5rem;">
-                                    <i class="fas fa-calendar"></i>
-                                    ${dataFormatada}
+                                <div style="display: flex; flex-direction: column; gap: 0.15rem; min-width: 0;">
+                                    <div style="font-weight: 600; color: #1e293b; margin-bottom: 0; font-size: 1.05rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
+                                        ${avaliadorNome}
+                                    </div>
+                                    <div style="font-size: 0.9rem; color: #64748b; display: flex; align-items: center; gap: 0.5rem;">
+                                        <i class="fas fa-calendar"></i>
+                                        ${dataFormatada}
+                                    </div>
                                 </div>
                             </div>
-                            <div style="font-size: 1.5rem; display: flex; align-items: center;">
+                            <div style="font-size: 1.5rem; display: flex; align-items: center; color: #fbbf24; gap: 0.35rem;">
                                 ${starsHTML}
-                                <span style="margin-left: 0.5rem; font-size: 1rem; color: #64748b; font-weight: 600;">
-                                    ${avaliacao.nota}/5
-                                </span>
                             </div>
                         </div>
                         ${avaliacao.comentario ? `

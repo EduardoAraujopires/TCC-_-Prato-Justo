@@ -1,0 +1,448 @@
+{
+	"info": {
+		"_postman_id": "popular-doacoes-2024",
+		"name": "Popular Doações - 5 Usuários",
+		"description": "Collection para popular doações dos 5 usuários (1@1 a 5@5). Apenas cria as doações, sem concluir o fluxo completo.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "1. Login dos 5 Usuários",
+			"item": [
+				{
+					"name": "Login Usuário 1",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"pm.collectionVariables.set(\"token_u1\", jsonData.token);",
+									"pm.collectionVariables.set(\"id_u1\", jsonData.id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\": \"1@1\",\n  \"password\": \"1\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/auth/login",
+							"host": ["{{base_url}}"],
+							"path": ["auth", "login"]
+						}
+					}
+				},
+				{
+					"name": "Login Usuário 2",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"pm.collectionVariables.set(\"token_u2\", jsonData.token);",
+									"pm.collectionVariables.set(\"id_u2\", jsonData.id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\": \"2@2\",\n  \"password\": \"1\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/auth/login",
+							"host": ["{{base_url}}"],
+							"path": ["auth", "login"]
+						}
+					}
+				},
+				{
+					"name": "Login Usuário 3",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"pm.collectionVariables.set(\"token_u3\", jsonData.token);",
+									"pm.collectionVariables.set(\"id_u3\", jsonData.id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\": \"3@3\",\n  \"password\": \"1\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/auth/login",
+							"host": ["{{base_url}}"],
+							"path": ["auth", "login"]
+						}
+					}
+				},
+				{
+					"name": "Login Usuário 4",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"pm.collectionVariables.set(\"token_u4\", jsonData.token);",
+									"pm.collectionVariables.set(\"id_u4\", jsonData.id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\": \"4@4\",\n  \"password\": \"1\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/auth/login",
+							"host": ["{{base_url}}"],
+							"path": ["auth", "login"]
+						}
+					}
+				},
+				{
+					"name": "Login Usuário 5",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"pm.collectionVariables.set(\"token_u5\", jsonData.token);",
+									"pm.collectionVariables.set(\"id_u5\", jsonData.id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"email\": \"5@5\",\n  \"password\": \"1\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/auth/login",
+							"host": ["{{base_url}}"],
+							"path": ["auth", "login"]
+						}
+					}
+				}
+			]
+		},
+		{
+			"name": "2. Criar Doações",
+			"item": [
+				{
+					"name": "U1 - Criar Doação",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"var moment = require('moment');",
+									"pm.environment.set(\"dataValidade\", moment().add(10, 'days').format('YYYY-MM-DD'));",
+									"pm.environment.set(\"dataColeta\", moment().add(1, 'days').format('YYYY-MM-DD'));"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"pm.collectionVariables.set(\"id_doacao_u1\", jsonData.id);",
+									"console.log(\"U1 - Doação criada ID: \" + jsonData.id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token_u1}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"titulo\": \"Pães Frescos\",\n    \"descricao\": \"Pães franceses frescos, assados hoje. Perfeitos para consumo imediato.\",\n    \"tipoAlimento\": \"Perecível\",\n    \"quantidade\": 10.0,\n    \"unidade\": \"unidades\",\n    \"cidade\": \"São Paulo\",\n    \"endereco\": \"Rua Teste Um, 100\",\n    \"rua\": \"Rua Teste Um\",\n    \"numero\": \"100\",\n    \"cep\": \"01001-000\",\n    \"estado\": \"SP\",\n    \"complemento\": \"Apto 101\",\n    \"dataValidade\": \"{{dataValidade}}\",\n    \"dataColeta\": \"{{dataColeta}}\",\n    \"latitude\": -23.5505,\n    \"longitude\": -46.6333,\n    \"imagem\": \"https://images.unsplash.com/photo-1509440159596-0249088772ff?w=800\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/doacoes",
+							"host": ["{{base_url}}"],
+							"path": ["doacoes"]
+						}
+					}
+				},
+				{
+					"name": "U2 - Criar Doação",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"pm.collectionVariables.set(\"id_doacao_u2\", jsonData.id);",
+									"console.log(\"U2 - Doação criada ID: \" + jsonData.id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token_u2}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"titulo\": \"Maçãs\",\n    \"descricao\": \"Maçãs vermelhas frescas e suculentas. Colhidas recentemente.\",\n    \"tipoAlimento\": \"Perecível\",\n    \"quantidade\": 2.0,\n    \"unidade\": \"kg\",\n    \"cidade\": \"São Paulo\",\n    \"endereco\": \"Rua Teste Dois, 200\",\n    \"rua\": \"Rua Teste Dois\",\n    \"numero\": \"200\",\n    \"cep\": \"01002-000\",\n    \"estado\": \"SP\",\n    \"complemento\": \"Casa\",\n    \"dataValidade\": \"{{dataValidade}}\",\n    \"dataColeta\": \"{{dataColeta}}\",\n    \"latitude\": -23.5505,\n    \"longitude\": -46.6333,\n    \"imagem\": \"https://images.unsplash.com/photo-1560806887-1e4cd0b6cbd6?w=800\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/doacoes",
+							"host": ["{{base_url}}"],
+							"path": ["doacoes"]
+						}
+					}
+				},
+				{
+					"name": "U3 - Criar Doação",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"pm.collectionVariables.set(\"id_doacao_u3\", jsonData.id);",
+									"console.log(\"U3 - Doação criada ID: \" + jsonData.id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token_u3}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"titulo\": \"Leite\",\n    \"descricao\": \"Leite integral fresco, embalado e dentro do prazo de validade.\",\n    \"tipoAlimento\": \"Perecível\",\n    \"quantidade\": 5.0,\n    \"unidade\": \"caixas\",\n    \"cidade\": \"São Paulo\",\n    \"endereco\": \"Rua Teste Tres, 300\",\n    \"rua\": \"Rua Teste Tres\",\n    \"numero\": \"300\",\n    \"cep\": \"01003-000\",\n    \"estado\": \"SP\",\n    \"complemento\": \"Fundos\",\n    \"dataValidade\": \"{{dataValidade}}\",\n    \"dataColeta\": \"{{dataColeta}}\",\n    \"latitude\": -23.5505,\n    \"longitude\": -46.6333,\n    \"imagem\": \"https://images.unsplash.com/photo-1563636619-e9143da7973b?w=800\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/doacoes",
+							"host": ["{{base_url}}"],
+							"path": ["doacoes"]
+						}
+					}
+				},
+				{
+					"name": "U4 - Criar Doação",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"pm.collectionVariables.set(\"id_doacao_u4\", jsonData.id);",
+									"console.log(\"U4 - Doação criada ID: \" + jsonData.id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token_u4}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"titulo\": \"Arroz\",\n    \"descricao\": \"Arroz tipo 1, embalado e dentro do prazo de validade.\",\n    \"tipoAlimento\": \"Não Perecível\",\n    \"quantidade\": 5.0,\n    \"unidade\": \"kg\",\n    \"cidade\": \"São Paulo\",\n    \"endereco\": \"Rua Teste Quatro, 400\",\n    \"rua\": \"Rua Teste Quatro\",\n    \"numero\": \"400\",\n    \"cep\": \"01004-000\",\n    \"estado\": \"SP\",\n    \"complemento\": \"Loja 1\",\n    \"dataValidade\": \"{{dataValidade}}\",\n    \"dataColeta\": \"{{dataColeta}}\",\n    \"latitude\": -23.5505,\n    \"longitude\": -46.6333,\n    \"imagem\": \"https://images.unsplash.com/photo-1586201375761-83865001e31c?w=800\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/doacoes",
+							"host": ["{{base_url}}"],
+							"path": ["doacoes"]
+						}
+					}
+				},
+				{
+					"name": "U5 - Criar Doação",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var jsonData = pm.response.json();",
+									"pm.collectionVariables.set(\"id_doacao_u5\", jsonData.id);",
+									"console.log(\"U5 - Doação criada ID: \" + jsonData.id);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Bearer {{token_u5}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"titulo\": \"Bananas\",\n    \"descricao\": \"Bananas maduras e frescas, prontas para consumo.\",\n    \"tipoAlimento\": \"Perecível\",\n    \"quantidade\": 3.0,\n    \"unidade\": \"kg\",\n    \"cidade\": \"São Paulo\",\n    \"endereco\": \"Rua Teste Cinco, 500\",\n    \"rua\": \"Rua Teste Cinco\",\n    \"numero\": \"500\",\n    \"cep\": \"01005-000\",\n    \"estado\": \"SP\",\n    \"complemento\": \"Galpão\",\n    \"dataValidade\": \"{{dataValidade}}\",\n    \"dataColeta\": \"{{dataColeta}}\",\n    \"latitude\": -23.5505,\n    \"longitude\": -46.6333,\n    \"imagem\": \"https://images.unsplash.com/photo-1571771894821-ce9b6c11b08e?w=800\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/doacoes",
+							"host": ["{{base_url}}"],
+							"path": ["doacoes"]
+						}
+					}
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://localhost:8080"
+		},
+		{
+			"key": "token_u1",
+			"value": ""
+		},
+		{
+			"key": "id_u1",
+			"value": ""
+		},
+		{
+			"key": "token_u2",
+			"value": ""
+		},
+		{
+			"key": "id_u2",
+			"value": ""
+		},
+		{
+			"key": "token_u3",
+			"value": ""
+		},
+		{
+			"key": "id_u3",
+			"value": ""
+		},
+		{
+			"key": "token_u4",
+			"value": ""
+		},
+		{
+			"key": "id_u4",
+			"value": ""
+		},
+		{
+			"key": "token_u5",
+			"value": ""
+		},
+		{
+			"key": "id_u5",
+			"value": ""
+		}
+	]
+}
+
