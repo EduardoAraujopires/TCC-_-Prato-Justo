@@ -60,6 +60,37 @@ document.addEventListener('DOMContentLoaded', () => {
 		setupEventListeners();
 		updateProgress(1);
 		startFoodAnimation();
+		setupErrorIcons();
+	}
+
+	// --- Configurar ícones de erro nos labels ---
+	function setupErrorIcons() {
+		// Encontrar todos os labels que contêm asterisco
+		const labels = document.querySelectorAll('.form-label');
+		labels.forEach(label => {
+			const labelText = label.textContent || label.innerText;
+			// Se o label contém asterisco, adicionar um span para o indicador obrigatório
+			if (labelText.includes('*')) {
+				// Verificar se já tem o span required-indicator
+				if (!label.querySelector('.required-indicator')) {
+					// Substituir o asterisco por um span
+					const text = label.innerHTML;
+					label.innerHTML = text.replace(/\s*\*\s*/, ' <span class="required-indicator">*</span>');
+				}
+				
+				// Adicionar ícone de erro se ainda não existir (sempre visível)
+				if (!label.querySelector('.error-icon')) {
+					const fieldId = label.getAttribute('for');
+					if (fieldId) {
+						const icon = document.createElement('i');
+						icon.className = 'fas fa-exclamation-triangle error-icon';
+						icon.id = `error-icon-${fieldId}`;
+						icon.style.display = 'inline-block'; // Sempre visível
+						label.appendChild(icon);
+					}
+				}
+			}
+		});
 	}
 
 	// --- Animação de Alimentos ---
@@ -101,6 +132,19 @@ document.addEventListener('DOMContentLoaded', () => {
 		// Atualização de endereço
 		[streetInput, numberInput, cityInput, stateInput, complementInput].forEach(input => {
 			input.addEventListener('input', generateFullAddress);
+		});
+
+		// Geocodificação apenas quando o número for preenchido e perder o foco
+		numberInput.addEventListener('blur', () => {
+			const street = streetInput.value.trim();
+			const number = numberInput.value.trim();
+			const city = cityInput.value.trim();
+			const state = stateInput.value.trim();
+			
+			// Só fazer geocodificação se tiver rua, número, cidade e estado
+			if (street && number && city && state) {
+				geocodeAddressFromFields();
+			}
 		});
 
 		// Imagem
@@ -266,6 +310,7 @@ document.addEventListener('DOMContentLoaded', () => {
 		const number = numberInput.value.trim();
 		const city = cityInput.value.trim();
 		const state = stateInput.value.trim();
+		const complement = complementInput.value.trim();
 		const cep = cepInput.value.replace(/\D/g, '');
 
 		// Se não tiver informações suficientes, não fazer geocodificação
@@ -282,27 +327,46 @@ document.addEventListener('DOMContentLoaded', () => {
 				locationStatus.style.color = '#fbbf24';
 			}
 
-			// Tentar múltiplas estratégias de geocodificação
+			// Tentar múltiplas estratégias de geocodificação, PRIORIZANDO ENDEREÇO COMPLETO
 			const queries = [];
 			
-			// Estratégia 1: CEP formatado (00000-000)
-			if (cep && cep.length === 8) {
-				queries.push(cep);
-				queries.push(`${cep.substring(0, 5)}-${cep.substring(5)}`);
-			}
-			
-			// Estratégia 2: Endereço completo com número
+			// ESTRATÉGIA 1 (PRIORIDADE MÁXIMA): Endereço completo com número, rua, cidade, estado
+			// Esta é a mais precisa, então tentamos primeiro
 			if (street && number && city && state) {
+				// Variação 1: Rua, Número, Cidade, Estado, Brasil
 				queries.push(`${street}, ${number}, ${city}, ${state}, Brasil`);
+				// Variação 2: Rua Número, Cidade, Estado, Brasil (sem vírgula entre rua e número)
 				queries.push(`${street} ${number}, ${city}, ${state}, Brasil`);
+				// Variação 3: Com CEP no final para maior precisão
+				if (cep && cep.length === 8) {
+					queries.push(`${street}, ${number}, ${city}, ${state}, ${cep.substring(0, 5)}-${cep.substring(5)}, Brasil`);
+					queries.push(`${street} ${number}, ${city}, ${state}, ${cep.substring(0, 5)}-${cep.substring(5)}, Brasil`);
+				}
+				// Variação 4: Com complemento se disponível
+				if (complement) {
+					queries.push(`${street}, ${number}, ${complement}, ${city}, ${state}, Brasil`);
+				}
 			}
 			
-			// Estratégia 3: Endereço sem número
-			if (street && city && state) {
+			// ESTRATÉGIA 2: Endereço com rua mas sem número (menos preciso, mas melhor que só CEP)
+			if (street && city && state && !number) {
 				queries.push(`${street}, ${city}, ${state}, Brasil`);
+				// Com CEP se disponível
+				if (cep && cep.length === 8) {
+					queries.push(`${street}, ${city}, ${state}, ${cep.substring(0, 5)}-${cep.substring(5)}, Brasil`);
+				}
 			}
 			
-			// Estratégia 4: Cidade + Estado
+			// ESTRATÉGIA 3: CEP formatado (menos preciso, centro do bairro)
+			// Usamos apenas se não tivermos rua
+			if ((!street || !number) && cep && cep.length === 8) {
+				// CEP com formatação
+				queries.push(`${cep.substring(0, 5)}-${cep.substring(5)}, ${city}, ${state}, Brasil`);
+				// CEP sem formatação
+				queries.push(`${cep}, ${city}, ${state}, Brasil`);
+			}
+			
+			// ESTRATÉGIA 4: Apenas cidade e estado (último recurso, muito impreciso)
 			if (city && state) {
 				queries.push(`${city}, ${state}, Brasil`);
 			}
@@ -315,21 +379,31 @@ document.addEventListener('DOMContentLoaded', () => {
 				return;
 			}
 
+			console.log(`🔍 Tentando geocodificar com ${queries.length} estratégias, priorizando endereço completo...`);
+
+			// Verificar se a API key do Google Maps está configurada
+			const apiKey = window.GOOGLE_MAPS_API_KEY || '';
+			if (!apiKey || apiKey === 'YOUR_GOOGLE_MAPS_API_KEY_HERE') {
+				console.error('❌ Google Maps API Key não configurada. Configure em api-config.js');
+				if (locationStatus) {
+					locationStatus.textContent = 'API do Google Maps não configurada. Configure a chave em api-config.js';
+					locationStatus.style.color = '#ef4444';
+				}
+				return;
+			}
+
 			// Tentar cada query até encontrar coordenadas
 			let coordenadas = null;
+			let queryUsada = null;
 			
 			for (const query of queries) {
 				console.log('🔍 Tentando geocodificar:', query);
 				
 				try {
-					// Fazer requisição para Nominatim (OpenStreetMap)
-					const url = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query)}&limit=1&countrycodes=br&addressdetails=1`;
+					// Fazer requisição para Google Maps Geocoding API
+					const url = `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(query)}&key=${apiKey}&region=br&language=pt-BR`;
 					
-					const response = await fetch(url, {
-						headers: {
-							'User-Agent': 'PratoJusto/1.0'
-						}
-					});
+					const response = await fetch(url);
 
 					if (!response.ok) {
 						console.warn('⚠️ Resposta não OK:', response.status);
@@ -338,24 +412,71 @@ document.addEventListener('DOMContentLoaded', () => {
 
 					const data = await response.json();
 
-					if (data && data.length > 0) {
-						const lat = parseFloat(data[0].lat);
-						const lng = parseFloat(data[0].lon);
+					// Verificar status da resposta
+					if (data.status === 'OK' && data.results && data.results.length > 0) {
+						const result = data.results[0];
+						const location = result.geometry.location;
+						const lat = parseFloat(location.lat);
+						const lng = parseFloat(location.lng);
 						
 						// Verificar se as coordenadas são válidas
 						if (!isNaN(lat) && !isNaN(lng) && lat >= -90 && lat <= 90 && lng >= -180 && lng <= 180) {
 							coordenadas = { lat, lng };
+							queryUsada = query;
+							
+							// Verificar a precisão do resultado baseado no location_type
+							const locationType = result.geometry.location_type || '';
+							const types = result.types || [];
+							
 							console.log('✅ Coordenadas obtidas com sucesso:', query, '→', lat, lng);
+							console.log(`   Tipo de localização: ${locationType}, Tipos: ${types.join(', ')}`);
+							
+							// Se encontramos um resultado muito preciso (ROOFTOP, RANGE_INTERPOLATED), 
+							// consideramos mais preciso e podemos parar
+							if (locationType === 'ROOFTOP' || locationType === 'RANGE_INTERPOLATED') {
+								console.log('✅ Resultado muito preciso encontrado, usando estas coordenadas');
+								break;
+							}
+							
+							// Se for GEOMETRIC_CENTER ou APPROXIMATE, continuamos tentando outras queries
+							// mas guardamos como fallback
+							if (locationType === 'GEOMETRIC_CENTER' && queries.indexOf(query) < queries.length - 1) {
+								console.log('⚠️ Resultado aproximado, continuando busca por resultado mais preciso...');
+								continue;
+							}
+							
+							// Se chegou aqui, temos um resultado razoável
+							console.log('✅ Resultado encontrado');
 							break;
 						}
+					} else if (data.status === 'ZERO_RESULTS') {
+						console.log('⚠️ Nenhum resultado encontrado para:', query);
+						continue;
+					} else if (data.status === 'OVER_QUERY_LIMIT') {
+						console.error('❌ Limite de requisições excedido na API do Google Maps');
+						if (locationStatus) {
+							locationStatus.textContent = 'Limite de requisições excedido. Tente novamente mais tarde.';
+							locationStatus.style.color = '#ef4444';
+						}
+						break;
+					} else if (data.status === 'REQUEST_DENIED') {
+						console.error('❌ Requisição negada. Verifique a API key do Google Maps.');
+						if (locationStatus) {
+							locationStatus.textContent = 'Erro na configuração da API. Verifique a chave do Google Maps.';
+							locationStatus.style.color = '#ef4444';
+						}
+						break;
+					} else {
+						console.warn('⚠️ Status da API:', data.status, data.error_message || '');
+						continue;
 					}
 				} catch (error) {
 					console.warn('⚠️ Erro ao tentar query:', query, error);
 					continue;
 				}
 				
-				// Aguardar um pouco entre tentativas (respeitar rate limit do Nominatim)
-				await new Promise(resolve => setTimeout(resolve, 500));
+				// Aguardar um pouco entre tentativas (respeitar rate limit do Google Maps)
+				await new Promise(resolve => setTimeout(resolve, 200));
 			}
 
 			if (coordenadas) {
@@ -368,14 +489,16 @@ document.addEventListener('DOMContentLoaded', () => {
 				
 				// Atualizar status de localização
 				if (locationStatus) {
-					locationStatus.textContent = `Localização obtida: ${coordenadas.lat.toFixed(5)}, ${coordenadas.lng.toFixed(5)}`;
+					const precisao = queryUsada && queryUsada.includes(number) ? 'alta' : 
+									queryUsada && queryUsada.includes(street) ? 'média' : 'baixa';
+					locationStatus.textContent = `Localização obtida (precisão ${precisao}): ${coordenadas.lat.toFixed(5)}, ${coordenadas.lng.toFixed(5)}`;
 					locationStatus.style.color = '#10b981';
 				}
 				
 				showNotification('Coordenadas obtidas com sucesso!', 'success');
 			} else {
 				if (locationStatus) {
-					locationStatus.textContent = 'Coordenadas não encontradas. Clique no botão de localização para tentar novamente.';
+					locationStatus.textContent = 'Coordenadas não encontradas. Verifique se o endereço está correto e tente novamente.';
 					locationStatus.style.color = '#fbbf24';
 				}
 				console.warn('⚠️ Nenhuma coordenada encontrada após todas as tentativas');
@@ -423,7 +546,7 @@ document.addEventListener('DOMContentLoaded', () => {
 			fullAddress += `, ${city} - ${state}`;
 
 			addressInput.value = fullAddress;
-			// Não chamar geocodificação aqui - apenas quando CEP for buscado ou botão clicado
+			// Não fazer geocodificação automática aqui - apenas quando o número perder o foco
 		}
 	}
 
@@ -652,6 +775,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
 		errorElement.textContent = message;
 		parent.classList.add('has-error');
+		
+		// O ícone já está sempre visível, apenas muda de cor quando há erro
+		// A classe 'has-error' no parent já faz isso via CSS
 	}
 
 	function clearFieldError(fieldName) {
@@ -665,6 +791,9 @@ document.addEventListener('DOMContentLoaded', () => {
 		if (parent) {
 			parent.classList.remove('has-error');
 		}
+		
+		// O ícone permanece visível, apenas volta à cor padrão
+		// A remoção da classe 'has-error' já faz isso via CSS
 	}
 
 	// --- Validação Completa do Formulário ---

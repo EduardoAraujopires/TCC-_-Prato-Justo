@@ -456,6 +456,45 @@ body {
 	width: 16px;
 }
 
+.form-label .required-indicator {
+	color: #fbbf24;
+	font-weight: 700;
+	margin-left: 0.25rem;
+	transition: opacity 0.3s ease;
+	display: none; /* Sempre oculto, pois o ícone de erro substitui */
+}
+
+.form-label .error-icon {
+	color: #fbbf24; /* Cor padrão (amarelo) quando não há erro */
+	font-size: 1rem;
+	margin-left: 0.5rem;
+	display: inline-block; /* Sempre visível */
+	vertical-align: middle;
+	transition: all 0.3s ease;
+}
+
+.form-group.has-error .form-label .required-indicator {
+	display: none;
+}
+
+.form-group.has-error .form-label .error-icon {
+	color: #ef4444; /* Vermelho quando há erro */
+	animation: pulse-error 1.5s ease-in-out infinite;
+	filter: drop-shadow(0 2px 4px rgba(239, 68, 68, 0.4));
+	font-size: 1.1rem;
+}
+
+@keyframes pulse-error {
+	0%, 100% {
+		opacity: 1;
+		transform: scale(1);
+	}
+	50% {
+		opacity: 0.8;
+		transform: scale(1.1);
+	}
+}
+
 /* Inputs Premium - TEXTO PRETO */
 .premium-input,
 .premium-select,
@@ -865,20 +904,14 @@ body {
 	gap: 0.5rem;
 }
 
-.error-message {
-	color: #fbbf24;
+.error-text {
+	color: rgba(255, 255, 255, 0.8);
 	font-size: 0.875rem;
-	font-weight: 600;
+	font-weight: 400;
 	margin-top: 0.5rem;
 	min-height: 1.25rem;
-	display: flex;
-	align-items: center;
-	gap: 0.5rem;
-}
-
-.error-message::before {
-	content: '⚠';
-	font-size: 0.75rem;
+	display: block;
+	font-style: italic;
 }
 
 .location-status-text {
@@ -1211,17 +1244,13 @@ body {
      color: #ffffff !important; /* GARANTE QUE OS LINKS FICARÃO BRANCOS */
  }
 
- .error-message {
-     color: #ff6b6b; /* VERMELHO MAIS VISÍVEL SOBRE FUNDO ESCURO */
-     font-size: 13px;
-     margin-top: 5px;
-     margin-left: 28px;
-     display: none;
-     font-weight: 500;
-     background: rgba(0, 0, 0, 0.3);
-     padding: 3px 8px;
-     border-radius: 4px;
-     display: inline-block;
+ .error-text {
+     color: rgba(255, 255, 255, 0.8);
+     font-size: 0.875rem;
+     margin-top: 0.5rem;
+     display: block;
+     font-weight: 400;
+     font-style: italic;
  }
 
  /* Para indicar erro no checkbox */

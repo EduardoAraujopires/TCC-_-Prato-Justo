@@ -11,6 +11,7 @@
 	<link rel="stylesheet" href="cadastro_alimento.css">
 	<link rel="stylesheet" href="notification.css">
 	<link rel="stylesheet" href="./Sobre.css">
+	<link rel="stylesheet" href="termos-modal.css">
 	<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="" />
 </head>
 
@@ -152,7 +153,8 @@
 
 					<div class="form-group">
 						<label for="foodName" class="form-label">
-							<i class="fas fa-tag"></i> Nome do Alimento *
+							<i class="fas fa-tag"></i> Nome do Alimento <span class="required-indicator">*</span>
+							<i class="fas fa-exclamation-triangle error-icon" id="error-icon-foodName"></i>
 						</label>
 						<input type="text" id="foodName" name="foodName" class="form-input premium-input"
 							   placeholder="Ex: Arroz, Pães do dia, Cesta de Frutas" list="food-suggestions" required>
@@ -163,12 +165,13 @@
 							<option value="Enlatados">
 						</datalist>
 						<p class="help-text"><i class="fas fa-info-circle"></i> Título visível para quem busca.</p>
-						<p class="error-message" id="error-foodName"></p>
+						<p class="error-text" id="error-foodName"></p>
 					</div>
 
 					<div class="form-group">
 						<label for="foodType" class="form-label">
-							<i class="fas fa-list"></i> Tipo / Categoria *
+							<i class="fas fa-list"></i> Tipo / Categoria <span class="required-indicator">*</span>
+							<i class="fas fa-exclamation-triangle error-icon" id="error-icon-foodType"></i>
 						</label>
 						<select id="foodType" name="foodType" class="form-select premium-select" required>
 							<option value="">Selecione a categoria</option>
@@ -179,38 +182,41 @@
 							<option value="LATICINIOS">Laticínios e Derivados</option>
 							<option value="BEBIDAS">Bebidas (Não alcoólicas)</option>
 						</select>
-						<p class="error-message" id="error-foodType"></p>
+						<p class="error-text" id="error-foodType"></p>
 					</div>
 
 					<div class="form-group">
 						<label for="description" class="form-label">
-							<i class="fas fa-align-left"></i> Descrição Detalhada *
+							<i class="fas fa-align-left"></i> Descrição Detalhada <span class="required-indicator">*</span>
+							<i class="fas fa-exclamation-triangle error-icon" id="error-icon-description"></i>
 						</label>
 						<textarea id="description" name="description" class="form-textarea premium-textarea"
 								  rows="3"
 								  placeholder="Ex: Fresco, embalagem fechada, validade até o final da semana."></textarea>
-						<p class="error-message" id="error-description"></p>
+						<p class="error-text" id="error-description"></p>
 					</div>
 
 					<div class="form-row">
 						<div class="form-group half-width">
 							<label for="quantity" class="form-label">
-								<i class="fas fa-balance-scale"></i> Quantidade *
+								<i class="fas fa-balance-scale"></i> Quantidade <span class="required-indicator">*</span>
+								<i class="fas fa-exclamation-triangle error-icon" id="error-icon-quantity"></i>
 							</label>
 							<input type="number" id="quantity" name="quantity" class="form-input premium-input"
 								   min="0.1" step="0.1" placeholder="Ex: 5" required>
-							<p class="error-message" id="error-quantity"></p>
+							<p class="error-text" id="error-quantity"></p>
 						</div>
 						<div class="form-group half-width">
 							<label for="unit" class="form-label">
-								<i class="fas fa-ruler"></i> Unidade *
+								<i class="fas fa-ruler"></i> Unidade <span class="required-indicator">*</span>
+								<i class="fas fa-exclamation-triangle error-icon" id="error-icon-unit"></i>
 							</label>
 							<select id="unit" name="unit" class="form-select premium-select" required>
 								<option value="KG">Quilogramas (KG)</option>
 								<option value="UN">Unidades (UN)</option>
 								<option value="L">Litros (L)</option>
 							</select>
-							<p class="error-message" id="error-unit"></p>
+							<p class="error-text" id="error-unit"></p>
 						</div>
 					</div>
 				</div>
@@ -226,7 +232,8 @@
 
 					<div class="form-group">
 						<label for="conservation" class="form-label">
-							<i class="fas fa-snowflake"></i> Condições de Conservação *
+							<i class="fas fa-snowflake"></i> Condições de Conservação <span class="required-indicator">*</span>
+							<i class="fas fa-exclamation-triangle error-icon" id="error-icon-conservation"></i>
 						</label>
 						<select id="conservation" name="conservation" class="form-select premium-select" required>
 							<option value="">Selecione</option>
@@ -234,29 +241,31 @@
 							<option value="REFRIGERADO">Refrigerado (Geladeira)</option>
 							<option value="CONGELADO">Congelado (Freezer)</option>
 						</select>
-						<p class="error-message" id="error-conservation"></p>
+						<p class="error-text" id="error-conservation"></p>
 					</div>
 
 					<div class="form-group">
 						<label for="expiryDate" class="form-label">
-							<i class="fas fa-calendar-alt"></i> Data de Validade *
+							<i class="fas fa-calendar-alt"></i> Data de Validade <span class="required-indicator">*</span>
+							<i class="fas fa-exclamation-triangle error-icon" id="error-icon-expiryDate"></i>
 						</label>
 						<input type="date" id="expiryDate" name="expiryDate" class="form-input premium-input"
 							   required>
 						<p class="help-text"><i class="fas fa-clock"></i> Data final para consumo seguro (deve ser
 							posterior a hoje).</p>
-						<p class="error-message" id="error-expiryDate"></p>
+						<p class="error-text" id="error-expiryDate"></p>
 					</div>
 
 					<div class="form-group">
 						<label for="collectionDate" class="form-label">
-							<i class="fas fa-clock"></i> Data de Coleta *
+							<i class="fas fa-clock"></i> Data de Coleta <span class="required-indicator">*</span>
+							<i class="fas fa-exclamation-triangle error-icon" id="error-icon-collectionDate"></i>
 						</label>
 						<input type="date" id="collectionDate" name="collectionDate"
 							   class="form-input premium-input" required>
 						<p class="help-text"><i class="fas fa-calendar"></i> Dia que o alimento estará pronto para
 							retirada.</p>
-						<p class="error-message" id="error-collectionDate"></p>
+						<p class="error-text" id="error-collectionDate"></p>
 					</div>
 
 					<!-- Seção de Endereço -->
@@ -267,7 +276,8 @@
 
 						<div class="form-group">
 							<label for="cep" class="form-label">
-								<i class="fas fa-search-location"></i> CEP *
+								<i class="fas fa-search-location"></i> CEP <span class="required-indicator">*</span>
+								<i class="fas fa-exclamation-triangle error-icon" id="error-icon-cep"></i>
 							</label>
 							<div class="cep-input-group">
 								<input type="text" id="cep" name="cep" class="form-input premium-input"
@@ -277,36 +287,44 @@
 									<i class="fas fa-search"></i> Buscar
 								</button>
 							</div>
-							<p class="error-message" id="error-cep"></p>
+							<p class="error-text" id="error-cep"></p>
 						</div>
 
 						<div class="form-row">
 							<div class="form-group half-width">
-								<label for="street" class="form-label">Rua *</label>
+								<label for="street" class="form-label">Rua <span class="required-indicator">*</span>
+									<i class="fas fa-exclamation-triangle error-icon" id="error-icon-street"></i>
+								</label>
 								<input type="text" id="street" name="street" class="form-input premium-input"
 									   placeholder="Nome da rua" required>
-								<p class="error-message" id="error-street"></p>
+								<p class="error-text" id="error-street"></p>
 							</div>
 							<div class="form-group half-width">
-								<label for="number" class="form-label">Número *</label>
+								<label for="number" class="form-label">Número <span class="required-indicator">*</span>
+									<i class="fas fa-exclamation-triangle error-icon" id="error-icon-number"></i>
+								</label>
 								<input type="text" id="number" name="number" class="form-input premium-input"
 									   placeholder="123" required>
-								<p class="error-message" id="error-number"></p>
+								<p class="error-text" id="error-number"></p>
 							</div>
 						</div>
 
 						<div class="form-row">
 							<div class="form-group half-width">
-								<label for="city" class="form-label">Cidade *</label>
+								<label for="city" class="form-label">Cidade <span class="required-indicator">*</span>
+									<i class="fas fa-exclamation-triangle error-icon" id="error-icon-city"></i>
+								</label>
 								<input type="text" id="city" name="city" class="form-input premium-input"
 									   placeholder="Nome da cidade" required>
-								<p class="error-message" id="error-city"></p>
+								<p class="error-text" id="error-city"></p>
 							</div>
 							<div class="form-group half-width">
-								<label for="state" class="form-label">Estado *</label>
+								<label for="state" class="form-label">Estado <span class="required-indicator">*</span>
+									<i class="fas fa-exclamation-triangle error-icon" id="error-icon-state"></i>
+								</label>
 								<input type="text" id="state" name="state" class="form-input premium-input"
 									   placeholder="UF" maxlength="2" required>
-								<p class="error-message" id="error-state"></p>
+								<p class="error-text" id="error-state"></p>
 							</div>
 						</div>
 
@@ -331,7 +349,7 @@
 							<p class="location-status-text" id="locationStatus">Localização não detectada.</p>
 							<input type="hidden" id="lat" name="lat">
 							<input type="hidden" id="lng" name="lng">
-							<p class="error-message" id="error-address"></p>
+							<p class="error-text" id="error-address"></p>
 						</div>
 					</div>
 				</div>
@@ -362,7 +380,7 @@
 							<img id="photoPreview" src="#" alt="Pré-visualização da foto">
 						</div>
 						<p class="help-text"><i class="fas fa-camera"></i> Ajuda a validar o estado do produto.</p>
-						<p class="error-message" id="error-foodPhoto"></p>
+						<p class="error-text" id="error-foodPhoto"></p>
 					</div>
 
 					<div class="optional-details">
@@ -423,11 +441,11 @@
 							<span class="checkbox-custom"></span>
 							<span class="checkbox-text">
                     Li e aceito as <strong class="white-text">Boas Práticas de Segurança Alimentar</strong> e a
-                    <a href="lei-14016.html" target="_blank" class="terms-link white-link">Lei nº 14.016/2020</a> *
+                    <a href="#" class="lei-link terms-link white-link" style="cursor: pointer;">Lei nº 14.016/2020</a> *
                 </span>
 						</label>
 					</div>
-					<p class="error-message" id="error-terms"></p>
+					<p class="error-text" id="error-terms"></p>
 
 					<!-- Checkbox 2 - Mesmo estilo -->
 					<div class="checkbox-item">
@@ -436,12 +454,12 @@
 							<span class="checkbox-custom"></span>
 							<span class="checkbox-text">
                     Li e concordo com os
-                    <a href="termos-de-uso.html" target="_blank" class="terms-link white-link">Termos de Uso</a>
-                    e <a href="politica-privacidade.html" target="_blank" class="terms-link white-link">Política de Privacidade</a> *
+                    <a href="#" class="termos-link terms-link white-link" style="cursor: pointer;">Termos de Uso</a>
+                    e <a href="#" class="politica-link terms-link white-link" style="cursor: pointer;">Política de Privacidade</a> *
                 </span>
 						</label>
 					</div>
-					<p class="error-message" id="error-privacyTerms"></p>
+					<p class="error-text" id="error-privacyTerms"></p>
 				</div>
 
 				<button type="submit" class="btn-submit premium-submit-btn" id="btnSubmit">
@@ -456,12 +474,16 @@
 	</div>
 </main>
 
+<script src="api-config.js"></script>
 <script src="notification.js"></script>
 <script src="realtime-manager.js"></script>
 <script src="auth.js"></script>
 <script src="headerUser.js"></script>
 <script src="navbar-manager.js"></script>
 <script src="notification-badge-manager.js"></script>
+<script src="termos-modal.js"></script>
+<script src="lei-modal.js"></script>
+<script src="politica-modal.js"></script>
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
 <script src="cadastro_alimento.js"></script>
 </body>

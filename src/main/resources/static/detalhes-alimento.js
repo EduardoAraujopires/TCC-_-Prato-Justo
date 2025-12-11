@@ -223,7 +223,7 @@ async function displayLocation(doacao) {
     const locationCity = document.getElementById('location-city');
     const mapContainer = document.getElementById('map-container');
     
-    // Montar endereço completo
+    // Montar endereço completo para exibição
     let enderecoCompleto = '';
     if (doacao.rua) {
         enderecoCompleto = doacao.rua;
@@ -255,18 +255,39 @@ async function displayLocation(doacao) {
         console.log('📍 Usando coordenadas salvas:', lat, lng);
     } else {
         // Se não tiver coordenadas, fazer geocodificação do endereço
-        // Priorizar CEP, depois endereço completo, depois cidade+estado
-        const cep = doacao.cep ? doacao.cep : null;
-        const enderecoParaGeocodificar = enderecoCompleto || doacao.endereco || '';
-        const cidadeEstado = cidadeCompleta || `${doacao.cidade || ''}, ${doacao.estado || ''}`;
+        // Construir endereço otimizado para geocodificação (priorizando rua + número)
+        let enderecoParaGeocodificar = '';
+        if (doacao.rua && doacao.numero) {
+            // Formato ideal: Rua, Número
+            enderecoParaGeocodificar = `${doacao.rua}, ${doacao.numero}`;
+            if (doacao.complemento) {
+                enderecoParaGeocodificar += `, ${doacao.complemento}`;
+            }
+        } else if (doacao.rua) {
+            // Apenas rua (sem número)
+            enderecoParaGeocodificar = doacao.rua;
+        } else if (doacao.endereco) {
+            // Usar endereço completo se disponível
+            enderecoParaGeocodificar = doacao.endereco;
+        }
+        
+        // Construir cidade e estado no formato ideal
+        let cidadeEstado = '';
+        if (doacao.cidade && doacao.estado) {
+            cidadeEstado = `${doacao.cidade}, ${doacao.estado}`;
+        } else if (doacao.cidade) {
+            cidadeEstado = doacao.cidade;
+        }
+        
+        const cep = doacao.cep ? doacao.cep.replace(/\D/g, '') : null;
         
         console.log('🔍 Tentando geocodificar:', { 
-            cep: cep ? cep.replace(/\D/g, '') : null, 
+            cep: cep, 
             endereco: enderecoParaGeocodificar, 
             cidadeEstado 
         });
         
-        if (cep || enderecoParaGeocodificar || cidadeEstado.trim()) {
+        if (enderecoParaGeocodificar || cidadeEstado || cep) {
             try {
                 const coordenadas = await geocodeAddress(enderecoParaGeocodificar, cidadeEstado, cep);
                 if (coordenadas) {
@@ -305,33 +326,54 @@ async function displayLocation(doacao) {
 /**
  * ===== GEOCODIFICAÇÃO DE ENDEREÇO =====
  * Usa a API Nominatim do OpenStreetMap para converter endereço em coordenadas
- * Tenta múltiplas estratégias para encontrar as coordenadas
+ * Tenta múltiplas estratégias para encontrar as coordenadas, PRIORIZANDO ENDEREÇO COMPLETO
  */
 async function geocodeAddress(endereco, cidadeEstado, cep) {
     try {
-        // Preparar queries com múltiplas estratégias
+        // Preparar queries com múltiplas estratégias, PRIORIZANDO ENDEREÇO COMPLETO
         const queries = [];
         
-        // Estratégia 1: CEP formatado (00000-000) e sem formatação
-        if (cep) {
+        // ESTRATÉGIA 1 (PRIORIDADE MÁXIMA): Endereço completo com rua e número
+        // Esta é a mais precisa, então tentamos primeiro
+        if (endereco && cidadeEstado) {
+            // Variação 1: Endereço completo com cidade e estado
+            queries.push(`${endereco}, ${cidadeEstado}, Brasil`);
+            // Variação 2: Endereço completo sem vírgula extra
+            queries.push(`${endereco} ${cidadeEstado}, Brasil`);
+            // Variação 3: Com CEP no final para maior precisão
+            if (cep) {
+                const cleanCep = cep.replace(/\D/g, '');
+                if (cleanCep.length === 8) {
+                    queries.push(`${endereco}, ${cidadeEstado}, ${cleanCep.substring(0, 5)}-${cleanCep.substring(5)}, Brasil`);
+                }
+            }
+        }
+        
+        // ESTRATÉGIA 2: Endereço sem cidade/estado (menos preciso)
+        if (endereco && !cidadeEstado) {
+            queries.push(`${endereco}, Brasil`);
+        }
+        
+        // ESTRATÉGIA 3: CEP formatado (menos preciso, centro do bairro)
+        // Usamos apenas se não tivermos endereço completo
+        if ((!endereco || !endereco.includes(',')) && cep) {
             const cleanCep = cep.replace(/\D/g, '');
             if (cleanCep.length === 8) {
-                queries.push(cleanCep);
-                queries.push(`${cleanCep.substring(0, 5)}-${cleanCep.substring(5)}`);
+                if (cidadeEstado) {
+                    // CEP com formatação e cidade/estado
+                    queries.push(`${cleanCep.substring(0, 5)}-${cleanCep.substring(5)}, ${cidadeEstado}, Brasil`);
+                    queries.push(`${cleanCep}, ${cidadeEstado}, Brasil`);
+                } else {
+                    // Apenas CEP
+                    queries.push(`${cleanCep.substring(0, 5)}-${cleanCep.substring(5)}`);
+                    queries.push(cleanCep);
+                }
             }
         }
         
-        // Estratégia 2: Endereço completo
-        if (endereco) {
-            queries.push(endereco + ', Brasil');
-            if (cidadeEstado) {
-                queries.push(endereco + ', ' + cidadeEstado + ', Brasil');
-            }
-        }
-        
-        // Estratégia 3: Cidade + Estado
-        if (cidadeEstado) {
-            queries.push(cidadeEstado + ', Brasil');
+        // ESTRATÉGIA 4: Apenas cidade e estado (último recurso, muito impreciso)
+        if (cidadeEstado && !endereco) {
+            queries.push(`${cidadeEstado}, Brasil`);
         }
         
         if (queries.length === 0) {
@@ -339,21 +381,24 @@ async function geocodeAddress(endereco, cidadeEstado, cep) {
             return null;
         }
         
-        console.log('🔍 Tentando geocodificar com', queries.length, 'estratégias diferentes');
+        console.log(`🔍 Tentando geocodificar com ${queries.length} estratégias, priorizando endereço completo...`);
+        
+        // Verificar se a API key do Google Maps está configurada
+        const apiKey = window.GOOGLE_MAPS_API_KEY || '';
+        if (!apiKey || apiKey === 'YOUR_GOOGLE_MAPS_API_KEY_HERE') {
+            console.error('❌ Google Maps API Key não configurada. Configure em api-config.js');
+            return null;
+        }
         
         // Tentar cada query até encontrar coordenadas
         for (const query of queries) {
             try {
                 console.log('🔍 Tentando:', query);
                 
-                // Fazer requisição para Nominatim (OpenStreetMap)
-                const url = `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query)}&limit=1&countrycodes=br&addressdetails=1`;
+                // Fazer requisição para Google Maps Geocoding API
+                const url = `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(query)}&key=${apiKey}&region=br&language=pt-BR`;
                 
-                const response = await fetch(url, {
-                    headers: {
-                        'User-Agent': 'PratoJusto/1.0'
-                    }
-                });
+                const response = await fetch(url);
                 
                 if (!response.ok) {
                     console.warn('⚠️ Resposta não OK:', response.status);
@@ -362,24 +407,62 @@ async function geocodeAddress(endereco, cidadeEstado, cep) {
                 
                 const data = await response.json();
                 
-                if (data && data.length > 0) {
-                    const lat = parseFloat(data[0].lat);
-                    const lng = parseFloat(data[0].lon);
+                // Verificar status da resposta
+                if (data.status === 'OK' && data.results && data.results.length > 0) {
+                    const result = data.results[0];
+                    const location = result.geometry.location;
+                    const lat = parseFloat(location.lat);
+                    const lng = parseFloat(location.lng);
                     
                     // Verificar se as coordenadas são válidas
                     if (!isNaN(lat) && !isNaN(lng) && lat >= -90 && lat <= 90 && lng >= -180 && lng <= 180) {
                         const coordenadas = { lat, lng };
+                        
+                        // Verificar a precisão do resultado baseado no location_type
+                        const locationType = result.geometry.location_type || '';
+                        const types = result.types || [];
+                        
                         console.log('✅ Coordenadas obtidas:', query, '→', lat, lng);
+                        console.log(`   Tipo de localização: ${locationType}, Tipos: ${types.join(', ')}`);
+                        
+                        // Se encontramos um resultado muito preciso (ROOFTOP, RANGE_INTERPOLATED), 
+                        // consideramos mais preciso e podemos retornar
+                        if (locationType === 'ROOFTOP' || locationType === 'RANGE_INTERPOLATED') {
+                            console.log('✅ Resultado muito preciso encontrado');
+                            return coordenadas;
+                        }
+                        
+                        // Se for GEOMETRIC_CENTER ou APPROXIMATE, continuamos tentando outras queries
+                        // mas guardamos como fallback
+                        if (locationType === 'GEOMETRIC_CENTER' && queries.indexOf(query) < queries.length - 1) {
+                            console.log('⚠️ Resultado aproximado, continuando busca por resultado mais preciso...');
+                            continue;
+                        }
+                        
+                        // Se chegou aqui, temos um resultado razoável
+                        console.log('✅ Resultado encontrado');
                         return coordenadas;
                     }
+                } else if (data.status === 'ZERO_RESULTS') {
+                    console.log('⚠️ Nenhum resultado encontrado para:', query);
+                    continue;
+                } else if (data.status === 'OVER_QUERY_LIMIT') {
+                    console.error('❌ Limite de requisições excedido na API do Google Maps');
+                    return null;
+                } else if (data.status === 'REQUEST_DENIED') {
+                    console.error('❌ Requisição negada. Verifique a API key do Google Maps.');
+                    return null;
+                } else {
+                    console.warn('⚠️ Status da API:', data.status, data.error_message || '');
+                    continue;
                 }
             } catch (error) {
                 console.warn('⚠️ Erro ao tentar query:', query, error);
                 continue;
             }
             
-            // Aguardar um pouco entre tentativas (respeitar rate limit do Nominatim)
-            await new Promise(resolve => setTimeout(resolve, 500));
+            // Aguardar um pouco entre tentativas (respeitar rate limit do Google Maps)
+            await new Promise(resolve => setTimeout(resolve, 200));
         }
         
         console.warn('⚠️ Nenhuma coordenada encontrada após todas as tentativas');
@@ -392,51 +475,81 @@ async function geocodeAddress(endereco, cidadeEstado, cep) {
 
 /**
  * ===== INICIALIZAR MAPA =====
- * Cria um mapa estático/interativo usando Leaflet (OpenStreetMap)
+ * Cria um mapa usando Google Maps
  */
 function initializeMap(container, lat, lng, endereco) {
     // Limpar container antes de criar novo mapa
     container.innerHTML = '';
     
-    // Criar mapa Leaflet
-    const map = L.map(container, {
-        zoomControl: true,
-        scrollWheelZoom: false, // Desabilitar zoom com scroll para mapa estático
-        doubleClickZoom: false,
-        boxZoom: false,
-        keyboard: false,
-        dragging: false, // Mapa estático por padrão
-        touchZoom: false
-    }).setView([lat, lng], 15);
-    
-    // Adicionar tile layer do OpenStreetMap
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-        maxZoom: 19
-    }).addTo(map);
-    
-    // Adicionar marcador no endereço
-    const marker = L.marker([lat, lng], {
-        icon: L.icon({
-            iconUrl: 'https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-red.png',
-            shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/images/marker-shadow.png',
-            iconSize: [25, 41],
-            iconAnchor: [12, 41],
-            popupAnchor: [1, -34],
-            shadowSize: [41, 41]
-        })
-    }).addTo(map);
-    
-    // Adicionar popup com endereço
-    if (endereco) {
-        marker.bindPopup(`<strong>${endereco}</strong>`).openPopup();
+    // Verificar se o Google Maps está carregado
+    if (typeof google === 'undefined' || !google.maps) {
+        console.error('❌ Google Maps API não carregada');
+        container.innerHTML = '<p style="color: white; padding: 2rem; text-align: center;">Carregando mapa...</p>';
+        // Aguardar um pouco e tentar novamente
+        setTimeout(() => {
+            if (typeof google !== 'undefined' && google.maps) {
+                initializeMap(container, lat, lng, endereco);
+            } else {
+                container.innerHTML = '<p style="color: white; padding: 2rem; text-align: center;">Erro ao carregar o mapa. Verifique a conexão.</p>';
+            }
+        }, 1000);
+        return;
     }
     
-    // Adicionar botão para tornar mapa interativo
-    const interactiveBtn = document.createElement('button');
-    interactiveBtn.innerHTML = '<i class="fas fa-hand-pointer"></i> Tornar Interativo';
-    interactiveBtn.className = 'map-interactive-btn';
-    interactiveBtn.style.cssText = `
+    // Criar mapa Google Maps
+    const mapOptions = {
+        center: { lat: lat, lng: lng },
+        zoom: 15,
+        mapTypeId: google.maps.MapTypeId.ROADMAP,
+        disableDefaultUI: false,
+        zoomControl: true,
+        mapTypeControl: false,
+        scaleControl: true,
+        streetViewControl: false,
+        rotateControl: false,
+        fullscreenControl: true,
+        styles: [
+            {
+                featureType: 'poi',
+                elementType: 'labels',
+                stylers: [{ visibility: 'off' }]
+            }
+        ]
+    };
+    
+    const map = new google.maps.Map(container, mapOptions);
+    
+    // Adicionar marcador no endereço
+    const marker = new google.maps.Marker({
+        position: { lat: lat, lng: lng },
+        map: map,
+        title: endereco || 'Localização da doação',
+        animation: google.maps.Animation.DROP,
+        icon: {
+            url: 'http://maps.google.com/mapfiles/ms/icons/red-dot.png',
+            scaledSize: new google.maps.Size(40, 40)
+        }
+    });
+    
+    // Adicionar info window com endereço
+    if (endereco) {
+        const infoWindow = new google.maps.InfoWindow({
+            content: `<div style="padding: 0.5rem;"><strong>${endereco}</strong></div>`
+        });
+        
+        marker.addListener('click', () => {
+            infoWindow.open(map, marker);
+        });
+        
+        // Abrir info window automaticamente
+        infoWindow.open(map, marker);
+    }
+    
+    // Adicionar botão para abrir no Google Maps
+    const openInMapsBtn = document.createElement('button');
+    openInMapsBtn.innerHTML = '<i class="fas fa-external-link-alt"></i> Abrir no Google Maps';
+    openInMapsBtn.className = 'map-interactive-btn';
+    openInMapsBtn.style.cssText = `
         position: absolute;
         top: 10px;
         right: 10px;
@@ -451,54 +564,25 @@ function initializeMap(container, lat, lng, endereco) {
         cursor: pointer;
         box-shadow: 0 2px 8px rgba(0,0,0,0.3);
         transition: all 0.3s ease;
+        font-family: inherit;
     `;
     
-    interactiveBtn.addEventListener('mouseenter', () => {
-        interactiveBtn.style.transform = 'scale(1.05)';
-        interactiveBtn.style.boxShadow = '0 4px 12px rgba(0,0,0,0.4)';
+    openInMapsBtn.addEventListener('click', () => {
+        const url = `https://www.google.com/maps/search/?api=1&query=${lat},${lng}`;
+        window.open(url, '_blank');
     });
     
-    interactiveBtn.addEventListener('mouseleave', () => {
-        interactiveBtn.style.transform = 'scale(1)';
-        interactiveBtn.style.boxShadow = '0 2px 8px rgba(0,0,0,0.3)';
+    openInMapsBtn.addEventListener('mouseenter', () => {
+        openInMapsBtn.style.transform = 'scale(1.05)';
+        openInMapsBtn.style.boxShadow = '0 4px 12px rgba(220, 38, 38, 0.4)';
     });
     
-    let isInteractive = false;
-    
-    interactiveBtn.addEventListener('click', () => {
-        if (!isInteractive) {
-            // Tornar mapa interativo
-            map.dragging.enable();
-            map.touchZoom.enable();
-            map.doubleClickZoom.enable();
-            map.scrollWheelZoom.enable();
-            map.boxZoom.enable();
-            map.keyboard.enable();
-            
-            // Mudar botão para "Tornar Estático"
-            interactiveBtn.innerHTML = '<i class="fas fa-lock"></i> Tornar Estático';
-            isInteractive = true;
-        } else {
-            // Tornar mapa estático novamente
-            map.dragging.disable();
-            map.touchZoom.disable();
-            map.doubleClickZoom.disable();
-            map.scrollWheelZoom.disable();
-            map.boxZoom.disable();
-            map.keyboard.disable();
-            
-            // Voltar botão original
-            interactiveBtn.innerHTML = '<i class="fas fa-hand-pointer"></i> Tornar Interativo';
-            isInteractive = false;
-        }
+    openInMapsBtn.addEventListener('mouseleave', () => {
+        openInMapsBtn.style.transform = 'scale(1)';
+        openInMapsBtn.style.boxShadow = '0 2px 8px rgba(0,0,0,0.3)';
     });
     
-    container.appendChild(interactiveBtn);
-    
-    // Ajustar tamanho do mapa após carregar
-    setTimeout(() => {
-        map.invalidateSize();
-    }, 100);
+    container.appendChild(openInMapsBtn);
 }
 
 /**

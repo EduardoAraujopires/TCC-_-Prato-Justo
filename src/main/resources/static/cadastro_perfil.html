@@ -7,6 +7,8 @@
     <title>Escolher perfil | Prato Justo</title>
     <link rel="stylesheet" href="./cadastro_perfil.css">
     <link rel="stylesheet" href="./header-styles.css">
+    <link rel="stylesheet" href="termos-modal.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
 <main class="page">
@@ -37,6 +39,29 @@
             </button>
         </div>
 
+        <div style="margin-top: 30px; padding-top: 20px; border-top: 1px solid #e0e0e0;">
+            <div style="margin-bottom: 15px;">
+                <label style="display: flex; align-items: flex-start; gap: 10px; cursor: pointer; font-size: 0.9rem; color: #333;">
+                    <input type="checkbox" id="lei-termos" name="lei-termos" required style="margin-top: 3px;">
+                    <span>
+                        Li e aceito as <strong>Boas Práticas de Segurança Alimentar</strong> e a 
+                        <a href="#" class="lei-link" style="color: #3498DB; text-decoration: underline; font-weight: 600; cursor: pointer;">Lei nº 14.016/2020</a> *
+                    </span>
+                </label>
+            </div>
+            
+            <div style="margin-bottom: 15px;">
+                <label style="display: flex; align-items: flex-start; gap: 10px; cursor: pointer; font-size: 0.9rem; color: #333;">
+                    <input type="checkbox" id="privacidade-termos" name="privacidade-termos" required style="margin-top: 3px;">
+                    <span>
+                        Li e concordo com os 
+                        <a href="#" class="termos-link" style="color: #3498DB; text-decoration: underline; font-weight: 600; cursor: pointer;">Termos de Uso</a> 
+                        e <a href="#" class="politica-link" style="color: #3498DB; text-decoration: underline; font-weight: 600; cursor: pointer;">Política de Privacidade</a> *
+                    </span>
+                </label>
+            </div>
+        </div>
+
         <p class="hint">Já possui conta? <a href="./login.html" class="link">Entrar</a></p>
     </section>
 
@@ -45,6 +70,9 @@
     </footer>
 </main>
 
+<script src="termos-modal.js"></script>
+<script src="lei-modal.js"></script>
+<script src="politica-modal.js"></script>
 <script src="./cadastro_perfil.js" defer></script>
 </body>
 </html>

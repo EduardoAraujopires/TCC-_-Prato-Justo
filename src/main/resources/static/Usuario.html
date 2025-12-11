@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="Usuario.css">
     <link rel="stylesheet" href="notification.css">
     <link rel="stylesheet" href="./header-styles.css">
+    <link rel="stylesheet" href="termos-modal.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
@@ -142,13 +143,12 @@
                 <input id="termos" name="termos" type="checkbox" required>
                 <label for="termos">
                     Concordo com os
-                    <a href="./termos-de-uso.html"
-                       target="_blank"
-                       style="color: #3498DB; text-decoration: underline; font-weight: 600;"
-                       title="Abrir Política de Privacidade em nova aba">
+                    <a href="#" 
+                       class="termos-link"
+                       style="color: #3498DB; text-decoration: underline; font-weight: 600; cursor: pointer;"
+                       title="Ler termos de uso">
                         termos de uso
                     </a>
-                    <i class="fas fa-external-link-alt" style="font-size: 0.8em; margin-left: 2px; color: #3498DB;"></i>
                 </label>
             </div>
             <p class="error" id="erro-termos" role="alert" aria-live="polite"></p>
@@ -167,6 +167,7 @@
 </main>
 
 <script src="notification.js"></script>
+<script src="termos-modal.js"></script>
 <script src="Usuario.js" defer></script>
 </body>
 </html>

@@ -1,0 +1,256 @@
+/* Modal de Termos de Uso */
+.termos-modal-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.6);
+    z-index: 10000;
+    backdrop-filter: blur(4px);
+    animation: fadeIn 0.3s ease-out;
+    overflow-y: auto;
+}
+
+.termos-modal-overlay.active {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.termos-modal-card {
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.2);
+    max-width: 900px;
+    width: 100%;
+    max-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    animation: slideUp 0.3s ease-out;
+    position: relative;
+    margin: auto;
+}
+
+.termos-modal-header {
+    background: linear-gradient(135deg, #E74C3C, #3498DB);
+    color: white;
+    padding: 25px 30px;
+    border-radius: 16px 16px 0 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+.termos-modal-header h2 {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.8rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.termos-modal-header h2 i {
+    font-size: 1.5rem;
+}
+
+.termos-modal-close {
+    background: rgba(255, 255, 255, 0.2);
+    border: none;
+    color: white;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.3rem;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+}
+
+.termos-modal-close:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: rotate(90deg);
+}
+
+.termos-modal-body {
+    padding: 30px;
+    overflow-y: auto;
+    flex: 1;
+    color: #2C3E50;
+    line-height: 1.7;
+}
+
+.termos-modal-body::-webkit-scrollbar {
+    width: 8px;
+}
+
+.termos-modal-body::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+
+.termos-modal-body::-webkit-scrollbar-thumb {
+    background: #3498DB;
+    border-radius: 4px;
+}
+
+.termos-modal-body::-webkit-scrollbar-thumb:hover {
+    background: #2980B9;
+}
+
+.termos-section {
+    margin-bottom: 30px;
+    padding: 20px;
+    background: #F9FAFB;
+    border-radius: 12px;
+    border-left: 4px solid #E74C3C;
+}
+
+.termos-section h3 {
+    color: #2C3E50;
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.3rem;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.termos-section h3 i {
+    color: #3498DB;
+    font-size: 1.2rem;
+}
+
+.termos-section p {
+    color: #566573;
+    margin-bottom: 12px;
+    font-size: 1rem;
+}
+
+.termos-section ul {
+    list-style: none;
+    padding-left: 0;
+    margin-top: 15px;
+}
+
+.termos-section ul li {
+    padding: 12px 0 12px 35px;
+    position: relative;
+    color: #566573;
+    margin-bottom: 8px;
+}
+
+.termos-section ul li:before {
+    content: "✓";
+    position: absolute;
+    left: 0;
+    top: 12px;
+    width: 24px;
+    height: 24px;
+    background: linear-gradient(135deg, #E74C3C, #3498DB);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.termos-modal-footer {
+    padding: 20px 30px;
+    border-top: 1px solid #D5D8DC;
+    display: flex;
+    justify-content: flex-end;
+    background: #F9FAFB;
+    border-radius: 0 0 16px 16px;
+}
+
+.termos-modal-btn {
+    background: linear-gradient(135deg, #E74C3C, #3498DB);
+    color: white;
+    border: none;
+    padding: 12px 30px;
+    border-radius: 8px;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 1rem;
+}
+
+.termos-modal-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(52, 152, 219, 0.3);
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(50px);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .termos-modal-card {
+        max-height: 95vh;
+        margin: 10px;
+    }
+
+    .termos-modal-header {
+        padding: 20px;
+    }
+
+    .termos-modal-header h2 {
+        font-size: 1.4rem;
+    }
+
+    .termos-modal-body {
+        padding: 20px;
+    }
+
+    .termos-section {
+        padding: 15px;
+    }
+
+    .termos-modal-footer {
+        padding: 15px 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    .termos-modal-header h2 {
+        font-size: 1.2rem;
+    }
+
+    .termos-modal-close {
+        width: 35px;
+        height: 35px;
+        font-size: 1.1rem;
+    }
+}
+
+

@@ -37,6 +37,11 @@
     // Variável global para compatibilidade com código existente
     window.API_BASE_URL = window.getApiBaseUrl();
     
+    // Configuração da API Key do Google Maps
+    // Para obter uma chave: https://console.cloud.google.com/google/maps-apis
+    // IMPORTANTE: Configure restrições de API no Google Cloud Console para segurança
+    window.GOOGLE_MAPS_API_KEY = 'AIzaSyDZAn9lL-mIiz0bB9pT8QtIqGQT6GRyARc';
+    
     // Log para debug (pode ser removido em produção)
     console.log('API Base URL configurada:', window.API_BASE_URL);
     console.log('Protocolo da página:', window.location.protocol);
