@@ -1,10 +1,5 @@
 Prato Justo - Plataforma de Doação e Troca de Alimentos
 <div align="center">
-https://img.shields.io/badge/PRATO%2520JUSTO-%2520-%2520?style=for-the-badge&color=4169E1&labelColor=DC143C
-https://img.shields.io/badge/STATUS-CONCLU%C3%8DDO-success?style=for-the-badge
-https://img.shields.io/badge/JAVA-21-007396?style=for-the-badge&logo=openjdk&logoColor=white
-https://img.shields.io/badge/SPRING%2520BOOT-3.5.5-6DB33F?style=for-the-badge&logo=springboot&logoColor=white
-https://img.shields.io/badge/MYSQL-8.0-4479A1?style=for-the-badge&logo=mysql&logoColor=white
 
 Conectando doadores e receptores para combater o desperdício de alimentos
 
@@ -146,18 +141,6 @@ text
 │  └──────────────────────────────────────────┘  │
 └─────────────────────────────────────────────────┘
 🔄 Fluxo de Doação
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 ⚙️ Tecnologias
@@ -578,39 +561,6 @@ Prato_Justo/
 └── CHANGELOG.md                                   # Histórico de mudanças
 📊 Diagramas
 🏗️ Diagrama de Classes (Simplificado)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 🔄 Diagrama de Sequência - Processo de Doação
 🧪 API Endpoints
