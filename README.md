@@ -85,7 +85,7 @@ Docker	Opcional	Docker
 🐳 Opção 1: Usando Docker (Recomendado)
 bash
 # 1. Clone o projeto
-git clone https://github.com/seu-usuario/prato-justo.git
+git clone https://github.com/EduardoAraujopires/TCC-_-Prato-Justo/
 
 # 2. Entre na pasta do projeto
 cd prato-justo
@@ -98,7 +98,7 @@ docker-compose up -d
 💻 Opção 2: Instalação Manual
 bash
 # 1. Clone o repositório
-git clone https://github.com/seu-usuario/prato-justo.git
+git clone https://github.com/EduardoAraujopires/TCC-_-Prato-Justo/
 cd prato-justo
 
 # 2. Crie o banco de dados no MySQL
@@ -261,7 +261,7 @@ git push origin minha-nova-funcionalidade
 📋 Para Recrutadores
 bash
 # Avalie o projeto técnico
-git clone https://github.com/seu-usuario/prato-justo.git
+git clone https://github.com/EduardoAraujopires/TCC-_-Prato-Justo/
 cd prato-justo
 mvn test  # Veja os testes rodando
 mvn spring-boot:run  # Rode o projeto
@@ -387,11 +387,6 @@ Apresentação para banca examinadora
 🌟 "Alimento não se joga fora, se compartilha."
 Lema do Prato Justo
 
-🔗 Acesse o Projeto Agora
-https://img.shields.io/badge/Ver_no_GitHub-181717?style=for-the-badge&logo=github&logoColor=white
-https://img.shields.io/badge/Baixar_Projeto-008000?style=for-the-badge&logo=download&logoColor=white
-https://img.shields.io/badge/D%C3%AA_uma_Estrela-FFD700?style=for-the-badge&logo=star&logoColor=black
-
 Desenvolvido com 💚 pela turma de Informática da ETEC de Itaquaquecetuba
 
 🏫 ETEC de Itaquaquecetuba • 📅 2025 • 🇧🇷 São Paulo, Brasil
@@ -421,13 +416,6 @@ Próximas Versões
 1.2.0: Novas funcionalidades de relatório
 
 2.0.0: Aplicativo mobile
-
-<div align="center">
-📊 Estatísticas do Repositório
-https://img.shields.io/github/stars/seu-usuario/prato-justo?style=social
-https://img.shields.io/github/forks/seu-usuario/prato-justo?style=social
-https://img.shields.io/github/issues/seu-usuario/prato-justo
-https://img.shields.io/github/last-commit/seu-usuario/prato-justo
 
 Obrigado por visitar nosso projeto!
 Juntos, podemos combater o desperdício e a fome no Brasil. 🍽️❤️
