@@ -242,18 +242,21 @@ Assunto: [Prato Justo] - Sua mensagem
 bash
 # 1. Faça um fork do projeto
 # 2. Clone seu fork
-git clone https://github.com/seu-usuario/prato-justo.git
-
+git clone https://github.com/EduardoAraujopires/TCC-_-Prato-Justo/
+<p>
 # 3. Crie uma branch
 git checkout -b minha-nova-funcionalidade
-
+</p>
+<p>
 # 4. Faça suas alterações
 # 5. Commit
 git commit -m "Adiciona: nova funcionalidade incrível"
-
+</p>
+<p>
 # 6. Push
 git push origin minha-nova-funcionalidade
-
+</p>
+<p>
 # 7. Abra um Pull Request
 📋 Para Recrutadores
 bash
@@ -270,7 +273,7 @@ Testes - Aumentar cobertura de testes
 Documentação - Melhorar a documentação
 
 Novas Funcionalidades - Sugira ideias!
-
+</p>
 📄 Licença
 <div align="center">
 📜 MIT License
