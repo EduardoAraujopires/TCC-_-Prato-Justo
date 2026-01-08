@@ -15,7 +15,7 @@ Plataforma que conecta quem tem comida sobrando com quem precisa
 🌟 Conectando Solidariedade, Combatendo o Desperdício
 </div>
 O Prato Justo é muito mais que um sistema web - é uma solução tecnológica desenvolvida como Trabalho de Conclusão de Curso (TCC) do curso Técnico em Informática da ETEC de Itaquaquecetuba, com um propósito social claro: acabar com a desconexão entre desperdício e fome no Brasil.
-
+<p> </p>
 📊 O Problema que Resolvemos
 ❌ Problema	✅ Nossa Solução
 27 milhões de toneladas de alimentos desperdiçados por ano	Conexão direta entre doadores e quem precisa
@@ -24,8 +24,8 @@ Falta de comunicação entre quem quer doar e quem precisa	Chat em tempo real e 
 Desconfiança no processo de doação	Sistema de avaliação que gera confiança
 🎯 Missão do Projeto
 "Transformar o que seria desperdício em recurso valioso, promovendo solidariedade e contribuindo para um sistema alimentar local mais justo, sustentável e humano."
-
-✨ Funcionalidades
+ </p>
+<p>✨ Funcionalidades
 👤 Para Todos os Usuários
 Recurso	Descrição	Ícone
 Cadastro Inteligente	Perfil personalizado para pessoa, estabelecimento ou ONG	👥
@@ -43,21 +43,10 @@ Busca por Localização	Encontra doações próximas à sua casa	📍
 Sistema de Solicitação	Pede alimentos de forma organizada	🙋‍♂️
 Notificações	Avisos quando há novas doações próximas	🔔
 Avaliação de Doadores	Classifica sua experiência	⭐
+</p>
+<p>
 💬 Sistema de Comunicação
-text
-┌─────────────────────────────────────────────┐
-│  Fluxo Completo de uma Doação               │
-├─────────────────────────────────────────────┤
-│ 1️⃣ Doador publica alimento                 │
-│ 2️⃣ Sistema mostra para receptores próximos │
-│ 3️⃣ Receptor solicita o item                │
-│ 4️⃣ Doador aceita a solicitação             │
-│ 5️⃣ Chat é aberto entre ambos               │
-│ 6️⃣ Combinam detalhes da entrega            │
-│ 7️⃣ Entrega realizada                       │
-│ 8️⃣ Ambos se avaliam                        │
-│ 9️⃣ ✅ Doação concluída com sucesso!        │
-└─────────────────────────────────────────────┘
+
 🛠️ Tecnologias
 🔧 Backend (Java + Spring Boot)
 yaml
@@ -80,6 +69,8 @@ Testes: JUnit 5, Mockito
 Controle de Versão: Git
 API Testing: Postman
 🏗️ Arquitetura do Sistema
+</p>
+
 text
 
 🚀 Começar Agora
