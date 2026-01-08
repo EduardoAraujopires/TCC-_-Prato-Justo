@@ -1,11 +1,5 @@
 🍽️ Prato Justo
-<div align="center">
-https://img.shields.io/badge/Java-21-ED8B00?style=for-the-badge&logo=openjdk&logoColor=white
-https://img.shields.io/badge/Spring%2520Boot-3.5.5-6DB33F?style=for-the-badge&logo=springboot&logoColor=white
-https://img.shields.io/badge/MySQL-8.0-4479A1?style=for-the-badge&logo=mysql&logoColor=white
-https://img.shields.io/badge/Docker-20.10-2496ED?style=for-the-badge&logo=docker&logoColor=white
-https://img.shields.io/badge/License-MIT-yellow?style=for-the-badge
-https://img.shields.io/badge/Status-Conclu%C3%ADdo-brightgreen?style=for-the-badge
+
 
 Plataforma que conecta quem tem comida sobrando com quem precisa
 
@@ -87,26 +81,7 @@ Controle de Versão: Git
 API Testing: Postman
 🏗️ Arquitetura do Sistema
 text
-┌─────────────────────────────────────────────────┐
-│           Arquitetura do Prato Justo            │
-├─────────────────────────────────────────────────┤
-│  ┌────────────┐  ┌────────────┐  ┌────────────┐│
-│  │  Frontend  │  │   API      │  │   Banco    ││
-│  │  (Figma)   │◄─┤   REST     │◄─┤  MySQL     ││
-│  └────────────┘  │  Spring    │  │            ││
-│                  │   Boot     │  └────────────┘│
-│                  └────────────┘                │
-│                         │                      │
-│                  ┌────────────┐                │
-│                  │ WebSocket  │                │
-│                  │   Chat     │                │
-│                  └────────────┘                │
-│                         │                      │
-│                  ┌────────────┐                │
-│                  │ Spring     │                │
-│                  │ Security   │                │
-│                  └────────────┘                │
-└─────────────────────────────────────────────────┘
+
 🚀 Começar Agora
 📋 Pré-requisitos
 Antes de começar, você precisa ter instalado:
@@ -213,37 +188,7 @@ Cobertura de Testes	95%+	✅ Excelente
 Tempo de Resposta	< 200ms	✅ Ótimo
 Bugs Críticos	0	✅ Perfeito
 Código Duplicado	< 1%	✅ Excelente
-📁 Estrutura do Projeto
-text
-prato-justo/
-├── 📂 src/main/java/com/tcc/
-│   ├── 📂 controller/          # Controla as telas
-│   │   ├── AuthController.java
-│   │   ├── ItemController.java
-│   │   └── SolicitacaoController.java
-│   ├── 📂 service/             # Regras de negócio
-│   │   ├── AuthService.java
-│   │   ├── ItemService.java
-│   │   └── GeolocationService.java
-│   ├── 📂 repository/          # Banco de dados
-│   │   ├── UsuarioRepository.java
-│   │   └── ItemRepository.java
-│   ├── 📂 model/              # Estruturas de dados
-│   │   ├── Usuario.java
-│   │   ├── Item.java
-│   │   └── Solicitacao.java
-│   ├── 📂 dto/                # Dados que trafegam
-│   │   ├── LoginDTO.java
-│   │   └── ItemDTO.java
-│   └── 📂 security/           # Segurança
-│       └── JwtUtil.java
-├── 📂 src/test/               # Testes automáticos
-├── 📂 docker/                 # Configurações Docker
-├── 📂 docs/                   # Documentação
-├── 📜 docker-compose.yml
-├── 📜 Dockerfile
-├── 📜 pom.xml
-└── 📜 README.md
+
 👥 Equipe
 <div align="center">
 👨‍💻 Desenvolvedores do Projeto
