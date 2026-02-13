@@ -1,6 +1,5 @@
 🍽️ Prato Justo
 
-
 Plataforma que conecta quem tem comida sobrando com quem precisa
 
 ✨ Funcionalidades •
